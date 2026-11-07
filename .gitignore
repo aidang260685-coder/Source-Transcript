@@ -11,7 +11,10 @@ __pycache__/
 *.so
 .pytest_cache/
 
-# Credentials & secrets
+# AI Models & checkpoints
+models/
+*.bin
+
 .env
 .env.*
 *.secret
