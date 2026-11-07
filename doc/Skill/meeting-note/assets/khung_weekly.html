@@ -1,0 +1,181 @@
+<!--
+  KHUNG MẪU LOẠI B — "ĐÁNH GIÁ THEO BỘ PHẬN + MAP THEO THÔNG BÁO HỌP"
+  ---------------------------------------------------------------------
+  Dùng khi: họp định kỳ hàng tuần/tháng sau go-live, đặc biệt khi có sẵn
+  một "Thông báo cuộc họp" (agenda) chia mục rõ ràng, ví dụ:
+      I. Đánh giá của từng team sau X tuần triển khai
+      II. Nội dung cần giải quyết trong tuần này: 1. ... 2. ... 3. ...
+
+  QUY TẮC MAP AGENDA — QUAN TRỌNG NHẤT CỦA KHUNG NÀY:
+  Nếu người dùng cung cấp thông báo họp có đánh số mục sẵn, Section II
+  của biên bản PHẢI giữ ĐÚNG số thứ tự và PHẢI có đủ tất cả các mục đó
+  — không tự gộp, không tự đổi thứ tự, không bỏ sót mục nào, kể cả mục
+  chỉ có 1 dòng trong agenda. Lý do: người đọc biên bản (thường là BOD,
+  các trưởng bộ phận) sẽ dò theo thông báo họp gốc; lệch số thứ tự gây
+  khó theo dõi và mất uy tín biên bản.
+
+  Cách dùng file này: copy toàn bộ cấu trúc bên dưới, giữ nguyên class
+  CSS, thay nội dung trong [DẤU NGOẶC VUÔNG]. KHÔNG copy comment này vào
+  file output. Dán nguyên <style> từ assets/style.css vào <head>.
+-->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[Tiêu đề biên bản]</title>
+<style>
+/* === DÁN NGUYÊN VĂN NỘI DUNG assets/style.css VÀO ĐÂY === */
+</style>
+</head>
+<body>
+
+<div class="company-header">
+  <span class="company-name">Công ty TNHH Kiên Thành Tín</span>
+  <span class="company-address">66 An Dương Vương, P. An Lạc, Q. Bình Tân, TP. Hồ Chí Minh</span>
+</div>
+
+<div class="header">
+  <div class="header-logo">
+    <img src="https://assets.ktt.mthan.net/2026/06/cropped-Asset-6logo-avatar.png"
+         alt="Kiên Thành Tín"
+         onerror="this.style.display='none'">
+    <h1 style="margin:0">BIÊN BẢN CUỘC HỌP</h1>
+  </div>
+  <h2>[Tên chủ đề — ví dụ: Weekly Meeting (03) — Đánh Giá 2 Tuần Triển Khai]</h2>
+</div>
+
+<div class="meta-info">
+  <strong>Thời gian:</strong> [DD/MM/YYYY — HH:MM đến HH:MM]<br>
+  <strong>Địa điểm:</strong> [Nếu có]<br>
+  <strong>Tham chiếu:</strong> Tiếp nối Biên bản [tên cuộc họp trước] ngày [DD/MM/YYYY]<br>
+  <strong>Loại cuộc họp:</strong> Họp định kỳ hàng tuần — Đánh giá vận hành<br>
+  <strong>Thành phần tham dự:</strong><br>
+  • <strong>[Tag bộ phận, ví dụ WH (Kho)]:</strong> [Anh/Chị Tên] — [Vai trò]<br>
+  • <strong>[Tag bộ phận]:</strong> [Anh/Chị Tên] — [Vai trò]<br>
+  <!-- QUAN TRỌNG: Danh xưng (Anh/Chị) và tag bộ phận viết ở đây (ví dụ
+       "WH (Kho)", "ACC (Kế toán)") là NGUỒN SỰ THẬT cho mọi tham chiếu
+       tên người trong toàn bộ file. Mọi nơi khác nhắc tên người đều phải
+       dùng đúng danh xưng và tag này, ví dụ "Anh Tân (Kho)", "Anh Khiêm (KT)".
+       Nếu một người được nhắc ở nhiều bộ phận khác nhau hoặc chưa rõ
+       danh xưng giới tính trong nội dung gốc, hỏi lại người dùng — đừng đoán. -->
+</div>
+
+<div class="section-title">I. ĐÁNH GIÁ TỪNG BỘ PHẬN [SAU X TUẦN TRIỂN KHAI]</div>
+<div class="tips-box">
+  <strong>📊 Đánh giá chung — IT/[Người điều phối]:</strong>
+  [Nhận định tổng quan: xu hướng cải thiện/xấu đi so với tuần trước, ghi
+  nhận tích cực, vấn đề còn tồn đọng. Nếu có thông tin về việc trễ
+  deadline/không báo cáo của tuần trước, LIỆT KÊ NGAY TẠI ĐÂY dưới dạng
+  danh sách con — đây đúng là vị trí ngữ nghĩa của loại nhận định này,
+  không tạo section riêng cho nó.]
+</div>
+
+<!-- 1 subsection cho mỗi bộ phận có mặt trong cuộc họp. Tên bộ phận ở
+     đây phải khớp 100% với cách người dùng gọi (nếu người dùng sửa tên
+     bộ phận, ví dụ "Phân phối" → "Mua hàng", phải đổi ở ĐÂY và TẤT CẢ
+     nơi khác nhắc đến bộ phận đó trong file). -->
+<div class="subsection-title">🔹 Team [Tên bộ phận 1]</div>
+<ul>
+  <li><strong>[Tên vấn đề ngắn]:</strong> [Mô tả hiện trạng do team tự báo cáo]</li>
+</ul>
+
+<div class="subsection-title">🔹 Team [Tên bộ phận 2]</div>
+<ul>
+  <li><strong>[Tên vấn đề ngắn]:</strong> [Mô tả]</li>
+</ul>
+
+<div class="section-title">II. NỘI DUNG CẦN GIẢI QUYẾT [DỨT ĐIỂM] TRONG TUẦN</div>
+<!-- BẮT BUỘC: số thứ tự subsection ở đây = số thứ tự trong "Thông báo
+     cuộc họp" gốc nếu có. Copy đúng tên mục, không diễn giải lại làm
+     mất số. -->
+<div class="subsection-title">1. [Tên mục — giữ đúng như thông báo họp]</div>
+<div class="open-issue">
+  <strong>🔴 Hiện trạng:</strong> [Mô tả vấn đề + ai chưa hành động/chưa báo cáo nếu có]
+</div>
+<p><strong>Phương án xử lý đã chốt:</strong></p>
+<ul>
+  <li>[Hành động cụ thể, ai làm]</li>
+</ul>
+<ul>
+  <li><strong>Phân công:</strong> [Tên (Tag bộ phận)] phụ trách [việc gì].</li>
+  <li><strong>Deadline: [DD/MM/YYYY].</strong></li>
+</ul>
+<!-- Nếu một mục KHÔNG thuộc phạm vi dự án/IT giải quyết được (cần leo
+     thang lên BOD hoặc họp liên phòng ban khác), dùng .highlight với
+     ⚠️ Kết luận, không dùng .open-issue — vì .open-issue ngụ ý "vẫn còn
+     đang được team này xử lý", còn .highlight ngụ ý "đã có kết luận về
+     việc ai sẽ xử lý tiếp, không phải lỗi mở của tuần này". -->
+
+<div class="subsection-title">2. [Mục tiếp theo theo đúng số agenda]</div>
+...
+
+<div class="section-title">III. QUYẾT ĐỊNH &amp; KẾ HOẠCH HÀNH ĐỘNG</div>
+<div class="highlight">
+  <strong>⚠️ [Nguyên tắc vận hành cần tái khẳng định, nếu có lặp lỗi từ tuần trước]</strong>
+</div>
+<table>
+  <thead>
+    <tr>
+      <th style="width:18%">Người thực hiện</th>
+      <th style="width:34%">Công việc</th>
+      <th style="width:13%">Deadline</th>
+      <th style="width:35%">Ghi chú</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>[Tên (Tag bộ phận)]</strong></td>
+      <td>[Công việc]</td>
+      <td>[DD/MM/YYYY]</td>
+      <td>[Ghi chú]</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="section-title">IV. LỘ TRÌNH CÁC MỐC QUAN TRỌNG TIẾP THEO</div>
+<div class="tips-box">
+  <strong>📅 Các mốc ưu tiên — Tuần [DD–DD/MM/YYYY]:</strong><br><br>
+  📌 <strong>[DD/MM/YYYY]:</strong> [Mốc 1]<br>
+</div>
+
+<div class="section-title">V. RỦI RO CẦN KIỂM SOÁT</div>
+<div class="open-issue">
+  <strong>🔴 [Tên rủi ro]:</strong> [Mô tả + hậu quả cụ thể nếu không xử lý]
+</div>
+
+<div class="section-title">VI. YÊU CẦU BÁO CÁO &amp; LIÊN LẠC</div>
+<div class="tips-box">
+  <strong>📊 Yêu cầu báo cáo tuần này:</strong><br>
+  • <strong>[DD/MM]:</strong> [Tên (Tag)] gửi [báo cáo gì] lên nhóm.<br>
+  • <strong>Liên tục:</strong> Gửi thông tin lên nhóm ngay khi phát sinh vấn đề, không để dồn đến buổi họp.<br>
+</div>
+
+<div class="section-title">VII. KẾT LUẬN</div>
+<div class="action-box">
+  <strong>✅ Điểm chốt của cuộc họp:</strong><br><br>
+  ✔ [Điểm chốt 1, có thứ tự ưu tiên nếu nhiều việc]<br>
+</div>
+
+<div class="footer">
+  <p>Biên bản được lập ngày [DD/MM/YYYY]</p>
+  <p style="margin-top:5px;font-size:10pt;">
+    <strong>Thư ký / Người ghi chép &amp; tổng hợp:</strong> [Anh/Chị Tên (Tag)] — <strong>Chủ trì &amp; Phê duyệt:</strong> [Tên người duyệt]
+  </p>
+  <span class="screen-page-label">Số trang sẽ tự động hiển thị khi in PDF (Trang X / Y)</span>
+</div>
+
+<button class="download-btn" onclick="downloadHTML()">⬇️ TẢI FILE HTML</button>
+<script>
+function downloadHTML() {
+  const blob = new Blob([document.documentElement.outerHTML],
+    {type:'text/html;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = '[ten_file_khong_dau_khong_dau_cach].html';
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a);
+}
+</script>
+</body>
+</html>

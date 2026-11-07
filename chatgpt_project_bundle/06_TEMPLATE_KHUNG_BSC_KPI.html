@@ -1,0 +1,244 @@
+<!--
+  KHUNG MẪU LOẠI C — "BÁO CÁO QUÝ / ĐÁNH GIÁ BSC & KPI THEO TỪNG BỘ PHẬN + ĐÁNH GIÁ CỦA BOD"
+  -----------------------------------------------------------------------------------------
+  Dùng khi: Họp báo cáo Quý (Quarterly Review), họp tổng kết BSC (Balanced Scorecard) & KPI
+  (Key Performance Indicators) toàn công ty hoặc theo khối, trong đó:
+  - Mỗi bộ phận/kênh báo cáo riêng kết quả BSC & KPI của bộ phận mình (Tài chính, Khách hàng,
+    Quy trình nội bộ, Học hỏi & Phát triển; hoặc các chỉ số KPI đạt/chưa đạt và kế hoạch quý tới).
+  - Sau mỗi phần báo cáo của bộ phận có phần Thảo luận / Phản biện liên bộ phận và đặc biệt là
+    PHẦN ĐÁNH GIÁ, NHẬN XÉT & CHỈ ĐẠO TRỰC TIẾP CỦA BOD (Ban Giám đốc) ngay dưới bộ phận đó,
+    kèm phần Tổng kết & Định hướng chiến lược chung của BOD ở cuối buổi.
+
+  QUY TẮC QUAN TRỌNG NHẤT CỦA KHUNG NÀY:
+  1. Tách riêng từng bộ phận/kênh báo cáo thành các mục lớn rõ ràng (Section II.1, II.2, II.3...).
+     Không gộp chung các bộ phận lại làm mất ranh giới trách nhiệm BSC & KPI của từng phòng ban.
+  2. Cấu trúc chuẩn bên trong MỖI bộ phận bắt buộc gồm 3 lớp:
+     (a) Báo cáo kết quả BSC & KPI của bộ phận (Bảng chỉ số Đạt / Chưa đạt, hiện trạng, dự án, kế hoạch Quý tới).
+     (b) Thảo luận & Phản biện liên bộ phận (nếu có câu hỏi/góp ý từ các phòng ban khác).
+     (c) Đánh giá & Chỉ đạo của BOD sau báo cáo (sử dụng khối .bod-eval hoặc .highlight để làm nổi bật
+         nhận xét, chất vấn, định hướng và yêu cầu điều chỉnh của BOD dành riêng cho bộ phận đó).
+  3. Giữ nguyên 100% số liệu, tỷ lệ %, tiền tệ, tên mã hàng/thương hiệu, và danh xưng Anh/Chị + (Tag).
+     Tuyệt đối không tự bịa số liệu cho đủ 4 khía cạnh BSC nếu bộ phận đó không báo cáo đủ (nếu thiếu,
+     ghi nhận đúng thực tế như phản ánh trong cuộc họp).
+
+  Cách dùng file này: copy toàn bộ cấu trúc bên dưới, giữ nguyên class CSS, thay nội dung trong
+  [DẤU NGOẶC VUÔNG]. KHÔNG copy comment này vào file output. Dán nguyên <style> từ assets/style.css vào <head>.
+-->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[Tiêu đề biên bản — ví dụ: Biên Bản Họp Báo Cáo Quý 3 &amp; Kế Hoạch Quý 4 (BSC &amp; KPI)]</title>
+<style>
+/* === DÁN NGUYÊN VĂN NỘI DUNG assets/style.css VÀO ĐÂY === */
+</style>
+</head>
+<body>
+
+<div class="company-header">
+  <span class="company-name">Công ty TNHH Kiên Thành Tín</span>
+  <span class="company-address">66 An Dương Vương, P. An Lạc, Q. Bình Tân, TP. Hồ Chí Minh</span>
+</div>
+
+<div class="header">
+  <div class="header-logo">
+    <img src="https://assets.ktt.mthan.net/2026/06/cropped-Asset-6logo-avatar.png"
+         alt="Kiên Thành Tín"
+         onerror="this.style.display='none'">
+    <h1 style="margin:0">BIÊN BẢN CUỘC HỌP</h1>
+  </div>
+  <h2>[Tên chủ đề — ví dụ: Báo Cáo Kết Quả BSC &amp; KPI Quý 3/2026 Và Kế Hoạch Trọng Tâm Quý 4/2026]</h2>
+</div>
+
+<div class="meta-info">
+  <strong>Thời gian:</strong> [DD/MM/YYYY — HH:MM đến HH:MM (hoặc ghi rõ Buổi 1 / Buổi 2 nếu họp nhiều phiên)]<br>
+  <strong>Địa điểm / Hình thức:</strong> [Phòng họp Công ty Kiên Thành Tín / Trực tiếp]<br>
+  <strong>Loại cuộc họp:</strong> Họp Báo cáo Quý — Đánh giá BSC &amp; KPI các bộ phận<br>
+  <strong>Chủ trì &amp; Đánh giá:</strong> [Chị Thanh (BOD) — Ban Giám đốc]<br>
+  <strong>Thành phần tham dự &amp; Báo cáo:</strong><br>
+  • <strong>BOD (Ban Giám đốc):</strong> [Chị Thanh (BOD) — Chủ trì]<br>
+  • <strong>[Tag bộ phận 1, ví dụ KT (Kế toán)]:</strong> [Anh/Chị Tên (Tag) — Vai trò]<br>
+  • <strong>[Tag bộ phận 2, ví dụ PP (Mua hàng)]:</strong> [Anh/Chị Tên (Tag) — Vai trò]<br>
+  • <strong>[Tag bộ phận 3, ví dụ Kho]:</strong> [Anh/Chị Tên (Tag) — Vai trò]<br>
+  • <strong>[Tag bộ phận 4, ví dụ QC]:</strong> [Anh/Chị Tên (Tag) — Vai trò]<br>
+  • <strong>[Tag bộ phận 5, ví dụ HR (Nhân sự)]:</strong> [Anh/Chị Tên (Tag) — Vai trò]<br>
+  • <strong>[Tag bộ phận 6, ví dụ IT]:</strong> [Anh/Chị Tên (Tag) — Vai trò]<br>
+  • <strong>[Tag bộ phận 7, ví dụ MKT (Marketing)]:</strong> [Anh/Chị Tên (Tag) — Vai trò]<br>
+  • <strong>[Tag bộ phận 8, ví dụ DA (Data)]:</strong> [Anh/Chị Tên (Tag) — Vai trò]<br>
+  • <strong>[Tag bộ phận 9, ví dụ Sale (Kinh doanh - Đại lý / Nhà máy / Online &amp; E-com / Michelin)]:</strong> [Anh/Chị Tên (Tag) — Vai trò]<br>
+  <!-- QUAN TRỌNG: Danh xưng (Anh/Chị) và tag bộ phận định nghĩa ở đây là NGUỒN SỰ THẬT
+       duy nhất cho toàn bộ biên bản. Mọi nơi nhắc tên người phải ghi đúng "Anh/Chị Tên (Tag)". -->
+</div>
+
+<div class="section-title">I. TỔNG QUAN KẾT QUẢ BSC &amp; KPI TOÀN CÔNG TY TRONG QUÝ</div>
+<div class="tips-box">
+  <strong>📊 Tóm tắt kết quả thực hiện BSC &amp; KPI Quý [X/YYYY]:</strong><br>
+  • <strong>Mục tiêu cuộc họp:</strong> Rà soát kết quả thực hiện Thẻ điểm cân bằng (BSC) &amp; Chỉ số hiệu suất cốt lõi (KPI) Quý [X] của từng bộ phận; mổ xẻ nguyên nhân các chỉ số chưa đạt (Fail), giải quyết vướng mắc liên phòng ban và chốt kế hoạch hành động trọng tâm Quý [X+1].<br>
+  • <strong>Nhận định chung về hệ thống BSC &amp; KPI:</strong> [Tóm tắt nhanh bức tranh chung: những mảng đạt tích cực (như tự động hoá, kiểm soát ngân sách/tồn kho theo giá trị, tăng trưởng kênh mới...) và các điểm nghẽn trọng yếu (như doanh số, tồn kho theo SKU, kiến trúc hệ thống liên phòng ban...)].
+</div>
+
+<!-- Bảng tóm tắt nhanh trạng thái BSC & KPI các bộ phận (Tùy chọn nhưng rất khuyến khích khi có từ 3 bộ phận trở lên) -->
+<table>
+  <thead>
+    <tr>
+      <th style="width:18%">Bộ phận / Kênh</th>
+      <th style="width:18%">Người báo cáo</th>
+      <th style="width:32%">Chỉ số BSC &amp; KPI Đạt (Pass / Điểm sáng)</th>
+      <th style="width:32%">Chỉ số Chưa đạt (Fail) / Thách thức chính</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>[Tên bộ phận 1]</strong></td>
+      <td>[Anh/Chị Tên (Tag)]</td>
+      <td><span class="badge-pass">ĐẠT</span> [Liệt kê ngắn các KPI đạt]</td>
+      <td><span class="badge-fail">CHƯA ĐẠT</span> [Liệt kê ngắn các KPI chưa đạt]</td>
+    </tr>
+    <tr>
+      <td><strong>[Tên bộ phận 2]</strong></td>
+      <td>[Anh/Chị Tên (Tag)]</td>
+      <td><span class="badge-pass">ĐẠT</span> [Liệt kê ngắn]</td>
+      <td><span class="badge-warn">CẦN CẢI THIỆN</span> [Liệt kê ngắn]</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="section-title">II. BÁO CÁO CHI TIẾT BSC &amp; KPI TỪNG BỘ PHẬN VÀ ĐÁNH GIÁ CỦA BOD</div>
+<!-- =========================================================================
+     LẶP LẠI KHỐI DƯỚI ĐÂY CHO TỪNG BỘ PHẬN / KÊNH BÁO CÁO TRONG CUỘC HỌP.
+     Mỗi bộ phận gồm 3 phần rõ rệt:
+       1) Kết quả BSC & KPI + Kế hoạch Quý tới do bộ phận trình bày
+       2) Thảo luận & Phản biện liên bộ phận (nếu có)
+       3) Đánh giá, Nhận xét & Chỉ đạo của BOD ngay sau báo cáo của bộ phận
+     ========================================================================= -->
+
+<div class="subsection-title">1. Bộ phận [Tên bộ phận 1, ví dụ: Kế toán (KT)] — Báo cáo: [Anh/Chị Tên (Tag)]</div>
+
+<p><strong>a) Kết quả thực hiện BSC &amp; KPI Quý [X] và Kế hoạch Quý [X+1]:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th style="width:22%">Khía cạnh BSC / Chỉ tiêu KPI</th>
+      <th style="width:14%">Trạng thái</th>
+      <th style="width:36%">Kết quả thực tế &amp; Nguyên nhân</th>
+      <th style="width:28%">Kế hoạch / Giải pháp Quý tới</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>[Tên KPI 1 — thuộc khía cạnh Tài chính / Khách hàng / Quy trình / Học hỏi]</strong></td>
+      <td><span class="badge-pass">ĐẠT</span></td>
+      <td>[Số liệu thực tế: đạt bao nhiêu %, bao nhiêu tỷ đồng, so với kế hoạch/cùng kỳ]</td>
+      <td>[Kế hoạch duy trì hoặc tối ưu trong quý tới]</td>
+    </tr>
+    <tr>
+      <td><strong>[Tên KPI 2]</strong></td>
+      <td><span class="badge-fail">CHƯA ĐẠT</span></td>
+      <td>[Số liệu thực tế + Nguyên nhân gốc rễ vì sao chưa đạt]</td>
+      <td>[Đề xuất điều chỉnh hoặc giải pháp khắc phục]</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Nếu bộ phận báo cáo thêm các dự án trọng tâm hoặc vướng mắc vận hành ngoài bảng KPI -->
+<ul>
+  <li><strong>Dự án / Hoạt động trọng tâm:</strong> [Mô tả tiến độ dự án của bộ phận, số liệu chi tiết nếu có].</li>
+  <li><strong>Đề xuất phối hợp liên phòng ban:</strong> [Yêu cầu hỗ trợ từ các bộ phận khác].</li>
+</ul>
+
+<p><strong>b) Thảo luận &amp; Phản biện liên bộ phận:</strong></p>
+<ul>
+  <li><strong>[Anh/Chị Tên (Tag bộ phận hỏi)]:</strong> [Nội dung câu hỏi, phản biện hoặc góp ý thực tế].</li>
+  <li><strong>[Anh/Chị Tên (Tag bộ phận báo cáo)]:</strong> [Nội dung giải trình, làm rõ nguyên nhân và thống nhất cách xử lý].</li>
+</ul>
+
+<div class="bod-eval">
+  <strong>🎯 Đánh giá &amp; Chỉ đạo của BOD ([Chị Thanh (BOD)]) sau báo cáo của [Tên bộ phận 1]:</strong>
+  <ul>
+    <li><strong>Nhận xét &amp; Đánh giá BSC/KPI:</strong> [Ghi nhận điểm đạt, hoặc chất vấn/chỉ rõ điểm chưa hợp lý trong cách đo lường KPI, nguyên nhân gốc rễ bị thiếu sót].</li>
+    <li><strong>Định hướng &amp; Chỉ đạo giải pháp:</strong> [Quyết định chiến lược của BOD đối với bộ phận: yêu cầu thiết kế lại quy trình, thay đổi cách tiếp cận, hoặc giao mục tiêu cụ thể trong Quý tới].</li>
+    <li><strong>Yêu cầu hành động ngay (Next Action):</strong> [Ai phải ngồi lại với ai, hoàn thành trước mốc thời gian nào].</li>
+  </ul>
+</div>
+
+<!-- ── Bộ phận tiếp theo ── -->
+<div class="subsection-title">2. Bộ phận [Tên bộ phận 2, ví dụ: Mua hàng &amp; Kế hoạch (PP)] — Báo cáo: [Anh/Chị Tên (Tag)]</div>
+...
+
+<div class="section-title">III. ĐÁNH GIÁ TỔNG THỂ &amp; ĐỊNH HƯỚNG CHIẾN LƯỢC CỦA BOD CHO QUÝ TỚI</div>
+<div class="highlight">
+  <strong>⚠️ Tổng kết &amp; Chỉ đạo xuyên suốt của BOD ([Chị Thanh (BOD)]) đối với toàn hệ thống:</strong>
+  <ul>
+    <li><strong>Về tính nhất quán trong báo cáo BSC &amp; KPI:</strong> Tất cả các phòng ban (đặc biệt là khối Kinh doanh) phải cập nhật và báo cáo đầy đủ cả 4 khía cạnh của Thẻ điểm cân bằng BSC (<em>Tài chính, Khách hàng, Quy trình nội bộ, Học hỏi &amp; Phát triển</em>), mục tiêu đặt ra phải tuân thủ chuẩn <strong>SMART</strong> (cụ thể, đo lường được, có thời hạn).</li>
+    <li><strong>Về giải quyết các vấn đề liên bộ phận:</strong> Không dừng lại ở việc nêu hiện trạng trong buổi họp Quý; mọi thách thức liên phòng ban phải được các bên ngồi lại trong vòng [X ngày / 1–2 tuần] để chốt giải pháp cụ thể (Next Action) và thời hạn hoàn thành (Deadline) nhằm rà soát kết quả (Done / Chưa Done) vào kỳ đánh giá tiếp theo.</li>
+    <li><strong>Về định hướng chiến lược trọng tâm Quý tới:</strong> [Liệt kê các dự án/chiến lược cấp công ty do BOD chốt, ví dụ: Dự án Thiết kế cấu trúc hệ thống vận hành &amp; Hợp nhất sổ, Quản trị dòng tiền, Tập trung nhóm khách hàng trọng tâm Pareto 80/20, Định hướng thương hiệu chủ lực...].</li>
+  </ul>
+</div>
+
+<div class="section-title">IV. BẢNG PHÂN CÔNG HÀNH ĐỘNG TRỌNG TÂM QUÝ TỚI (ACTION ITEMS)</div>
+<table>
+  <thead>
+    <tr>
+      <th style="width:18%">Người phụ trách</th>
+      <th style="width:35%">Công việc / Giải pháp cụ thể</th>
+      <th style="width:14%">Deadline</th>
+      <th style="width:33%">Bộ phận phối hợp / Đầu ra (Deliverable)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>[Anh/Chị Tên (Tag)]</strong></td>
+      <td>[Bắt đầu bằng động từ hành động: Rà soát, Thiết lập, Xây dựng, Chuẩn hoá...]</td>
+      <td>[DD/MM/YYYY hoặc Tuần X/Tháng Y]</td>
+      <td>[Phối hợp với ai, kết quả đầu ra cần nghiệm thu là gì]</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="section-title">V. RỦI RO TRỌNG YẾU &amp; VẤN ĐỀ CẦN KIỂM SOÁT LIÊN BỘ PHẬN</div>
+<div class="open-issue">
+  <strong>🔴 1. [Tên rủi ro 1 — ví dụ: Rủi ro dòng tiền &amp; công nợ nhà cung cấp / khách hàng]:</strong> [Mô tả hiện trạng + Hậu quả cụ thể đối với mục tiêu BSC/KPI quý tới nếu không xử lý dứt điểm].
+</div>
+<div class="open-issue">
+  <strong>🔴 2. [Tên rủi ro 2 — ví dụ: Rủi ro sai lệch dữ liệu Master Data &amp; tồn kho SKU]:</strong> [Mô tả hiện trạng + Hậu quả cụ thể].
+</div>
+
+<div class="section-title">VI. CƠ CHẾ THEO DÕI, BÁO CÁO ĐỊNH KỲ &amp; LỘ TRÌNH REVIEW</div>
+<div class="tips-box">
+  <strong>📅 Lịch trình phối hợp &amp; Rà soát tiến độ thực thi BSC/KPI:</strong><br><br>
+  📌 <strong>[Mốc thời gian 1 — ví dụ: Hàng tuần / Thứ Hai hàng tuần]:</strong> [Cơ chế họp rà soát liên bộ phận, ví dụ Sale &amp; PP rà soát định mức mã hàng tăng trưởng nóng; MKT &amp; Sale rà soát tiến độ Promotion Quý 4].<br>
+  📌 <strong>[Mốc thời gian 2 — ví dụ: Trong vòng 7–10 ngày sau họp Quý]:</strong> Các bộ phận liên quan ngồi lại chốt kế hoạch hành động chi tiết cho từng thách thức và báo cáo lại với BOD.<br>
+  📌 <strong>[Mốc thời gian 3 — ví dụ: Cuối Quý 4 / Cuối năm]:</strong> Rà soát (Review) toàn bộ danh sách giải pháp đã cam kết xem hạng mục nào đã hoàn thành (Done) và chưa hoàn thành (Not Done).
+</div>
+
+<div class="section-title">VII. KẾT LUẬN</div>
+<div class="action-box">
+  <strong>✅ Các điểm chốt cốt lõi của kỳ họp Báo cáo Quý (BSC &amp; KPI):</strong><br><br>
+  ✔ <strong>1. [Điểm chốt 1]:</strong> [Tóm tắt quyết định quan trọng nhất].<br>
+  ✔ <strong>2. [Điểm chốt 2]:</strong> [Tóm tắt quyết định quan trọng thứ hai].<br>
+  ✔ <strong>3. [Điểm chốt 3]:</strong> [Tóm tắt quyết định quan trọng thứ ba].
+</div>
+
+<div class="footer">
+  <p>Biên bản được lập ngày [DD/MM/YYYY]</p>
+  <p style="margin-top:5px;font-size:10pt;">
+    <strong>Thư ký / Người ghi chép &amp; tổng hợp:</strong> [Anh/Chị Tên (Tag)] — <strong>Chủ trì &amp; Phê duyệt:</strong> [Chị Thanh (BOD) / Tên người duyệt]
+  </p>
+  <span class="screen-page-label">Số trang sẽ tự động hiển thị khi in PDF (Trang X / Y)</span>
+</div>
+
+<button class="download-btn" onclick="downloadHTML()">⬇️ TẢI FILE HTML</button>
+<script>
+function downloadHTML() {
+  const blob = new Blob([document.documentElement.outerHTML],
+    {type:'text/html;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = '[Bien_Ban_Bao_Cao_Quy_BSC_KPI_DD-MM-YYYY].html';
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+# GLOSSARY - THUẬT NGỮ, TÊN RIÊNG & CHUẨN HOÁ DANH XƯNG TIẾNG VIỆT (KIÊN THÀNH TÍN - KTT)
+# Có 2 kiểu dòng:
+#   1) "sai => đúng"  : tự thay sau khi phiên âm (không phân biệt hoa/thường, ưu tiên cụm dài trước)
+#   2) "thuật ngữ"    : gợi ý cho model nhận đúng ngay từ đầu (giữ các từ quan trọng nhất ở trên cùng)
+
+# ---- Tên công ty / Hệ thống / Công cụ Kỹ thuật ----
+Kiên Thành Tín
+KTT
+MISA AMIS
+AMIS Kế toán
+AMIS CRM
+AMIS Quy trình
+App Kho
+CRM
+ERP
+BOD
+KPI
+OKR
+SLA
+UAT
+ISO
+go-live
+master data
+SQL Server
+Power BI
+Windows Server 2016
+File Server
+Microsoft Office
+n8n
+VPS
+Kami
+QR Code
+lot/lô
+LDP
+
+# ---- Thương hiệu & Mã hàng (Vòng bi / Dây curoa / Phụ tùng) ----
+NACHI
+Koyo
+KYO
+WIN
+ASAHI
+PIX
+Cana
+Roleco
+Michelin
+Yamatron
+Yamaran
+Takatron
+Takaran
+NTN
+SKF
+NSK
+Mitsuboshi
+NTN 6308CM
+N260 326 K9
+B107
+B66
+B54
+A38
+A36
+
+# ---- Danh sách Nhân sự & Bộ phận Chuẩn (KTT) ----
+Chị Thanh (BOD)
+Anh Tuấn Tú (BOD)
+Anh Ân (IT)
+Anh Vũ (Kế toán)
+Anh Khiêm (KT)
+Chị Thu (KT)
+Chị Trâm (KTT)
+Chị Dung (KT)
+Anh Phương (QC)
+Anh Tân (Kho)
+Anh Tuấn (Kho)
+Chị Như (PP)
+Chị Linh Nhi (PP)
+Anh Quang (PP)
+Anh Duy (MKT)
+Chị Mai (MKT)
+Anh Lộc (MKT)
+Chị Ngọc (HR)
+Chị Vy (DA)
+Anh Phát (DA)
+Anh Thành (Sale)
+Chị Gia Hân (Sale)
+Anh Tài (Sale)
+Anh Quang Tuẩn (Sale)
+Chị Bích Vi (Sale)
+Chị Bích Vân (Sale)
+Anh Hùng (Sale)
+
+# ---- Chuẩn hoá danh xưng / Gender & Chính tả hay nhầm trong ghi âm họp ----
+phân tịch => phân tích
+nghiệm thư => nghiệm thu
+công lợ => công nợ
+đối xoát => đối soát
+tiến đồ => tiến độ
+xử dụng => sử dụng
+kiểm xoát => kiểm soát
+rà xoát => rà soát
+đề suất => đề xuất
+sản suất => sản xuất
+
+# ---- Sửa lỗi nhận diện sai Tên phần mềm & Thương hiệu ----
+bitrix24 => AMIS
+bitrix => AMIS
+bi trích => AMIS
+natri => NACHI
+na chi => NACHI
+na-chi => NACHI
+kio => KYO
+ki ô => KYO
+ki-ô => KYO
+cô dô => Koyo
+a sa hi => ASAHI
+ca na => Cana
+kana => Cana
+ru li cô => Roleco
+rulico => Roleco
+rô lê cô => Roleco
+anh lộc => Anh Lộc
+chị như => Chị Như
+
+# ---- Lỗi nhận dạng thuật ngữ tiếng Anh đọc theo âm Việt ----
+ây mít => AMIS
+a mít => AMIS
+a-mít => AMIS
+cờ rờ em => CRM
+xi a em => CRM
+xi em => CRM
+i a pi => ERP
+ơ rờ pê => ERP
+gô lai => go-live
+gô-lai => go-live
+bê o đê => BOD
+bi ô đi => BOD
+pao bi ai => Power BI
+pao ơ bi ai => Power BI
+u a tê => UAT
+iu ây ti => UAT
+cây pi ai => KPI
+kê pi ai => KPI
+mát tơ đa ta => master data
+en tám en => n8n
+nờ tám nờ => n8n
+en ây en => n8n
+vi pi ét => VPS
+vê pê ét => VPS
+ca mi => Kami
+ka mi => Kami
+lót lô => lot/lô
+lót nô => lot/lô
+eo đi pi => LDP
+ờ đê bê => LDP
+
+# ---- Tên người & Danh xưng chuẩn (thêm theo cuộc họp: "Anh <Tên>", "Chị <Tên>") ----
+chị thanh => Chị Thanh
+anh ân => Anh Ân
+anh vũ => Anh Vũ
+anh khiêm => Anh Khiêm
+anh phương => Anh Phương
+anh tân => Anh Tân
+chị linh nhi => Chị Linh Nhi
+chị nhi => Chị Linh Nhi
+anh duy => Anh Duy
+chị mai => Chị Mai
+chị ngọc => Chị Ngọc
+chị thu => Chị Thu
+chị vy => Chị Vy
+anh phát => Anh Phát
+anh thành => Anh Thành
+chị gia hân => Chị Gia Hân
+chị hân => Chị Gia Hân
+anh tài => Anh Tài
+anh quang tuẩn => Anh Quang Tuẩn
+anh tuẩn => Anh Quang Tuẩn
+chị bích vi => Chị Bích Vi
+chị vi => Chị Bích Vi
+anh hùng => Anh Hùng
+anh quốc => Anh Quốc
+anh sơn => Anh Sơn

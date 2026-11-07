@@ -1,0 +1,53 @@
+===== Hr.m4a (00:00 -> 11:24) =====
+[00:00:00] [Anh Duy (MKT)] Về việc đào tạo nội bộ và chia sẻ giữa các thành viên trong công ty, cơ bản em nghĩ là có rất nhiều thành viên có năng lực và mong muốn được học hỏi lẫn nhau. Việc công ty mình có một số chính sách khuyến khích cho các bạn chia sẻ kiến thức nội bộ với nhau thì em mong muốn đề xuất bộ phận Nhân sự (HR) có thể xây dựng và thiết kế để tính một số khoản khuyến khích, chính sách khuyến khích cho hoạt động đó.
+[00:00:40] [Chị Ngọc (HR)] Dạ.
+[00:00:41] [Chị Thanh (BOD)] Ý là hiện tại chị thấy trong tổ chức của mình, một số các bạn cũng có những kiến thức chuyên môn tốt. Thay vì đi học bên ngoài thì đào tạo và chia sẻ lại trong nội bộ, có một ngân sách nhất định để khuyến khích việc đó. Ví dụ như có nội dung rõ ràng, có giáo trình đào tạo cụ thể thì để khuyến khích mọi người chia sẻ đào tạo trong nội bộ mình.
+[00:01:12] [Chị Ngọc (HR)] Dạ, em ghi nhận phần đó.
+[00:01:17] [Chị Thanh (BOD)] Ví dụ như mở lớp lên, có học viên đăng ký tham gia, bao nhiêu học viên đăng ký tham gia là đủ trả chi phí bao nhiêu đúng không?
+[00:01:30] [Chị Ngọc (HR)] Dựa trên phản hồi của học viên nữa chứ ạ.
+[00:01:34] [Anh Duy (MKT)] Phản hồi học viên là khoá học có đạt yêu cầu không, và phải dựa trên chất lượng giảng dạy nữa.
+[00:01:41] [Chị Thanh (BOD)] Không, nói chung là đi dạy là có phí trước. Rồi xong rồi ví dụ như đi dạy một buổi là phí 300.000đ, nhưng nếu đánh giá giảng viên hạng A thì là 600.000đ hay sao?
+[00:01:55] [Chị Ngọc (HR)] Dạ, ví dụ như là trung bình, hoặc căn cứ vào độ thu hút (độ hot) của giảng viên hả Chị?
+[00:02:00] [Chị Thanh (BOD)] Không, dựa theo xếp hạng đánh giá (ranking) đúng không?
+[00:02:02] [Anh Duy (MKT)] Dạ nhưng còn vị trí là người học nữa Chị, khác nhau nữa mà. Đánh giá giảng viên thì phải đánh giá người tiếp thu nữa.
+[00:02:11] [Chị Thanh (BOD)] Ai muốn giỏi thì mới học, không muốn giỏi thì đâu đi học đâu.
+[00:02:15] [Anh Duy (MKT)] Thì có một cái hướng như vầy Chị: sẽ xếp hạng (ranking) nội dung và giảng viên, nhưng trên cơ sở để mở một lớp như vậy thì tối thiểu nội dung đó có bao nhiêu học viên, bao nhiêu bạn đăng ký tham gia.
+[00:02:28] [Chị Thanh (BOD)] Tối thiểu là bao nhiêu bạn đăng ký thì mới được mở đúng không? Ok.
+[00:02:32] [Anh Duy (MKT)] Khi mở thì theo ranking chất lượng nội dung của giảng viên để đánh giá chuyên môn.
+[00:02:37] [Chị Thanh (BOD)] Ừ. Rồi xong rồi thêm một điều kiện là người đi học thì sau đó sẽ ra sao? Ví dụ công ty ứng trước 70% - 30%, khi nào học xong mà áp dụng được thực tế thì thôi; có nghĩa là mình ghi nhận bằng tín chỉ (Credit). Đến cuối năm mà đi học xong không xài được gì hết thì Credit đó mình trừ lại, đúng không Chị Thu (KT)?
+[00:03:05] [Chị Thu (KT)] Dạ.
+[00:03:11] [Chị Thanh (BOD)] Hợp lý không? Ok.
+[00:03:18] [Chị Ngọc (HR)] Dạ, còn thành viên nào có ý kiến nữa không ạ?
+[00:03:20] [Chị Thanh (BOD)] Nhưng mà nếu làm cái đó là nên làm sao để tự động hoá (Automation): có người đăng ký (apply) dạy cái gì, rồi khi người kia đăng ký học là tự động gửi thông tin (information), chứ đừng để làm thủ công bằng tay hay đi hỏi từng người có thích học hay không. Có nghĩa là có thông báo tự động gửi ra: có khoá đào tạo này, ai đăng ký học thì bấm vào. Xong rồi mấy bạn nhìn vào thấy có những khoá học đang được quan tâm (hot) thì sẽ mở lớp dạy và được đánh giá tốt để nhận chi phí hỗ trợ. Và đừng làm bằng tay, tất cả những cái đó phải được thiết lập tự động, minh bạch và rõ ràng. Chị ủng hộ ý tưởng (idea) đó.
+[00:04:26] [Chị Ngọc (HR)] Dạ, cảm ơn Anh Duy (MKT). Dạ mời Anh Quang Tuẩn (Sale).
+[00:04:41] [Anh Quang Tuẩn (Sale)] Em có một mong muốn là bổ sung thêm vị trí bạn hỗ trợ thông tin kinh doanh là Sale Admin đó Chị. Tại vì trong thời gian các bạn Kinh doanh đi công tác thì hầu hết các thành viên đều phải tự xử lý hoặc nhờ lại các bạn ở nhà làm, việc này cũng đang ảnh hưởng không ít đến các bạn còn lại. Thêm nữa là sắp tới mình bỏ phần mềm Kami vào cuối tháng 11 rồi, nên lượng công việc của các bạn sẽ tăng lên; còn dự án huấn luyện con AI của AMIS CRM thì hiện vẫn mới trên giấy và chưa biết khi nào thực hiện xong. Nên em nghĩ là cần bổ sung thêm vị trí hỗ trợ này, hoặc mình có một giải pháp nào đó cho nội bộ khi các bạn ở nhà hỗ trợ cho người đi công tác.
+[00:05:42] [Chị Thanh (BOD)] Cũng giống như việc mở lớp dạy vậy đó đúng không?
+[00:05:48] [Anh Quang Tuẩn (Sale)] Dạ em nói rõ hơn luôn: cũng giống như việc mở lớp dạy vậy đó, mình cũng nên có một khoản chi phí nội bộ nào đó phù hợp cho các bạn hỗ trợ.
+[00:05:54] [Chị Thanh (BOD)] Ủa vậy các bạn được hỗ trợ có chia sẻ (share) lại cho bạn hỗ trợ không? Tức là bạn đi công tác được hỗ trợ có chia sẻ lại chi phí cho bạn ở nhà hỗ trợ không?
+[00:06:05] [Anh Quang Tuẩn (Sale)] Dạ tại vì nếu mà tình trạng công việc như vậy chắc em xin rút lại ý kiến.
+[00:06:13] [Chị Ngọc (HR)] Dạ rồi, phòng Nhân sự ghi nhận. Còn thành viên nào có ý kiến nữa không ạ?
+[00:06:22] [Chị Thanh (BOD)] Chị Thu (KT) ghi nhận phần của Kinh doanh vừa phản hồi (feedback) về việc hỗ trợ khi anh em Sale đi công tác, em xem lại thử chính sách xây dựng như thế nào, khung chi phí ra sao nha. Lấy số liệu tài chính trước đi, xem số tài chính trong khung ngân sách của mình được bao nhiêu trước.
+[00:07:05] [Chị Ngọc (HR)] Dạ rồi, cảm ơn cả nhà. Phần Nhân sự xin chuyển lại cho bộ phận QC nha.
+[00:07:17] [Chị Thanh (BOD)] Khoan, cái công tác tăng ca (Overtime) hồi nãy Chị Ngọc (HR) có nói trong báo cáo thì hướng hành động (Action) của mình sẽ là gì?
+[00:07:28] [Chị Ngọc (HR)] Dạ, trong phần em phân tích dựa trên thực hiện đơn hàng trong Quý 3 thì nguyên nhân rơi nhiều vào hai phần. Phần thứ nhất là quy trình của Kho: thời gian thực hiện đơn hàng hơi dài so với trước đây, mặc dù khối lượng đơn hàng của cùng kỳ năm nay so với năm trước không phải là tăng quá nhiều.
+[00:07:53] [Chị Thanh (BOD)] Đúng rồi. Hiện nay công tác kiểm hàng đó Anh Tân (Kho), mình còn kiểm theo kiểu dây soạn xong rồi dây kiểm lại (bạn nhỏ soạn xong, bạn lớn kiểm lại) không?
+[00:08:06] [Anh Tân (Kho)] Dạ còn.
+[00:08:10] [Chị Thanh (BOD)] Vì sao chưa bỏ được khâu kiểm lặp lại (double check) như vậy?
+[00:08:14] [Chị Ngọc (HR)] Dạ, đó là phần thứ nhất về quy trình của Kho. Còn phần thứ hai là liên quan đến đơn hàng: hiện tại số lượng và khối lượng đơn hàng ra sau 15h00 (3 giờ chiều) nhiều hơn so với năm trước.
+[00:08:28] [Chị Thanh (BOD)] Em có chắc không?
+[00:08:29] [Chị Ngọc (HR)] Dạ có. Tại vì năm 2026 khi Kho thực hiện thì có ghi số bao trong phần thực hiện đơn hàng, em dựa trên dữ liệu đó.
+[00:08:39] [Chị Thanh (BOD)] Em dựa vào dữ liệu từ lúc Kinh doanh đưa xuống hay lấy dữ liệu từ đâu?
+[00:08:43] [Chị Ngọc (HR)] Dạ lấy từ hệ thống AMIS.
+[00:08:46] [Chị Thanh (BOD)] Không, ý chị là lấy dữ liệu từ khi Kinh doanh lên toa hàng hay là lấy dữ liệu từ lúc Kho xử lý?
+[00:08:54] [Chị Ngọc (HR)] Dạ em lấy cả hai chỉ số: thứ nhất là thời điểm Kinh doanh lên đơn, thứ hai là thời điểm Kho kéo thẻ (card) hoàn thành. Nó đang có vấn đề ở cả hai phần.
+[00:09:03] [Chị Thanh (BOD)] Không, em phải nói riêng từng phần. Ví dụ thời gian Kinh doanh lên đơn là mấy giờ; còn thời gian hoàn thành là thuộc về hiệu suất, quy trình và vận hành của Kho. Nếu Kinh doanh lên đơn từ 09h00 sáng mà đến chiều mới xong là do Kho; còn nếu em đánh giá 15h00 chiều đơn nhiều thì phải chỉ rõ bao nhiêu phần trăm đơn hàng do Sale gõ lên từ sau 15h00 chiều.
+[00:09:36] [Anh Quang Tuẩn (Sale)] Cái đó là hai phần riêng đó Chị Ngọc (HR). Ví dụ khi tính hiệu suất của Kho thì phải tính lượng đơn đó trung bình bao nhiêu phút xong một đơn. Còn nếu tính lượng đơn sau 15h00 chiều (tức là lên đơn trễ) thì phải tính số lượng từ thời điểm Sale lên đơn hàng; chứ tính thời điểm hoàn thành thì đó là quy trình soạn, kéo, kiểm của Kho rồi.
+[00:09:56] [Chị Ngọc (HR)] Dạ đúng rồi, em dựa vào thời gian Sale lên đơn hàng để tính lượng đơn sau 15h00 chiều, và tách riêng hai chỉ số đó ra để phân tích chứ không gộp chung.
+[00:10:11] [Anh Tân (Kho)] Có hai nguyên nhân làm số lượng đơn hàng ghi nhận tăng nhiều:
+- Thứ nhất là năm nay mình không còn được bổ sung hàng trực tiếp vào đơn hàng cũ nữa, mà mỗi lần khách cần bổ sung mặt hàng nào là phải lên thêm một đơn hàng mới bổ sung (dù đơn bổ sung đó chỉ một vài món rất nhanh chứ không phải một đơn hàng lớn nguyên bản).
+- Thứ hai là đơn hàng kênh Online trên sàn TMĐT năm nay cũng nhiều hơn, nhưng gộp chung vào tổng số đơn.
+[00:10:39] [Chị Thanh (BOD)] Việc ghi bổ sung tay vào phiếu đã ra như trước đây là không phản ánh đúng trên hệ thống (không đồng bộ được hệ thống và Kế toán). Khi tách thành đơn mới thì số lượng đầu đơn ghi nhận sẽ tăng lên.
+[00:10:53] [Anh Thành (Sale)] Nếu được thì mình nên tách riêng phần đơn kênh Online ra khi so sánh. Tại vì kênh Online ra số lượng đơn rất nhiều (nhưng quy mô từng đơn nhỏ), nếu gộp chung vào thì tỷ lệ số đơn sẽ tăng nhưng không sát thực tế khối lượng. Nếu tách riêng kênh Online và đo riêng kênh Đại lý thì sẽ sát hơn.
+[00:11:08] [Chị Ngọc (HR)] Dạ ok. Khi làm việc chung với liên bộ phận thì em sẽ làm rõ và tách riêng phần này ra để phân tích cụ thể hơn.
+[00:11:17] [Chị Thanh (BOD)] Gửi lại thông tin dữ liệu mà em đang phân tích nha.
+[00:11:20] [Chị Ngọc (HR)] Dạ ok Chị.

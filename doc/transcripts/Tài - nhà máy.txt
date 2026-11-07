@@ -1,0 +1,63 @@
+===== Tài - nhà máy.m4a (00:00 -> 09:13) =====
+[00:00:00] [Anh Tài (Sale)] ...nhóm sản phẩm ASAHI này thì một lát nữa em sẽ chia sẻ chi tiết.
+[00:00:05] [Anh Tài (Sale)] Ở đây em có tổng hợp Top 20 mã hàng bán chạy nhất trong Quý 3. Top 3 là những mã vòng bi WIN cho công nghiệp. Còn lại là những sản phẩm dây curoa Yamatachi [cần kiểm tra - 00:00:25: Yamatachi / Yamatron] và vòng bi NTN.
+[00:00:34] [Anh Tài (Sale)] Ở mục Khách hàng và Thị trường: hiện tại trong Quý 3 em mở mới được 24 khách hàng. Trong đó, nhóm khách hàng mở mới do Sale tự mở là 10 khách hàng, và nguồn khách hàng tiềm năng (lead) do Marketing đổ về mở được 14 khách hàng. Tổng doanh số mang về từ nhóm khách hàng mới là 283 triệu đồng.
+[00:01:02] [Anh Tài (Sale)] Trên bảng báo cáo, em có liệt kê chi tiết danh sách những khách hàng do Sale tự mở và khách hàng từ nguồn lead Marketing đổ về mà em đã mở thành công.
+[00:01:18] [Chị Thanh (BOD)] Cho Chị Thanh (BOD) xem lại tỷ lệ hiệu quả chuyển đổi giữa hai kênh: kênh Sale tự mở là 10/45 khách hàng đúng không?
+[00:01:28] [Anh Tài (Sale)] Dạ đúng rồi chị.
+[00:01:29] [Chị Thanh (BOD)] Còn kênh Marketing là chốt được 14/212 lead?
+[00:01:33] [Anh Tài (Sale)] Dạ, ở chỗ nguồn lead Marketing đổ về thì bao gồm cả nhóm khách hàng thương mại và nhóm khách hàng nhà máy được tổng hợp chung. Trước đó em có tách riêng ra, nhưng hiện tại đang gộp chung lại trên bảng này.
+[00:01:47] [Chị Thanh (BOD)] Em đang nói tỷ lệ 14/212 lead là bao gồm cả nhóm thương mại là sao em?
+[00:01:50] [Anh Tài (Sale)] Dạ, trước đó khi lead Marketing đổ về thì em có phân chia ra thành nhóm khách hàng thương mại và nhóm khách hàng nhà máy riêng, nhưng hiện tại khi tổng hợp vào bảng này em gộp hết lại luôn nên tổng số là 212 khách.
+[00:02:06] [Chị Thanh (BOD)] Khách hàng thương mại mà em nói là nhánh truyền thống Đại lý hay gì?
+[00:02:09] [Anh Tài (Sale)] Dạ là những công ty thương mại mua đi bán lại cho nhà máy đó chị.
+[00:02:21] [Chị Thanh (BOD)] Về phân bổ khu vực: Hồ Chí Minh, Cần Thơ, Đắk Lắk...
+[00:02:26] [Anh Tài (Sale)] Dạ, ở khu vực Bình Dương và Bà Rịa - Vũng Tàu hiện tại theo địa giới hành chính người ta gộp chung thành TP. Hồ Chí Minh, thành ra trong bảng báo cáo này hiển thị tỷ lệ ở TP. Hồ Chí Minh là nhiều nhất.
+[00:02:48] [Anh Tài (Sale)] Phía dưới em có liệt kê Top 20 khách hàng đóng góp doanh số lớn nhất trong Quý 3: đứng đầu là Công ty Nguồn Xanh [cần kiểm tra - 00:02:55], thứ hai là nhóm khách hàng Cơ khí Thanh Tùng [cần kiểm tra - 00:03:00]...
+[00:03:07] [Anh Tài (Sale)] Về tình hình công nợ Quý 3:
+- Tổng dư nợ phải thu là 393 triệu đồng.
+- Trong đó: công nợ không có hạn nợ (thanh toán theo đợt/giao hàng) là 255 triệu đồng, công nợ chưa đến hạn là 79 triệu đồng.
+- Hiện tại đang có khoản công nợ quá hạn là 58 triệu đồng nằm ở 2 khách hàng: Công ty Á Châu [cần kiểm tra - 00:03:31] và Công ty Phong Hướng Nguồn Xanh [cần kiểm tra - 00:03:33].
+[00:03:43] [Anh Tài (Sale)] Sang kế hoạch Quý 4, em tập trung vào 4 nhóm ngành chính trọng điểm với tỷ trọng phân bổ mục tiêu như sau:
+1. Ngành Khai thác đá: chiếm 30%.
+2. Ngành Viên nén củi gỗ: chiếm 30%.
+3. Ngành Chế biến điều: chiếm 20%.
+4. Ngành Xay xát lúa gạo: chiếm 20% còn lại.
+[00:04:12] [Anh Tài (Sale)] Em đã xây dựng kế hoạch hành động chi tiết cho từng ngành:
+- Thứ nhất, đối với ngành Khai thác mỏ đá: Triển khai các dự án vòng bi Cana và Roleco cho máy sàng rung, lắp chạy thử nghiệm tại Mỏ đá Hóa An. Theo kế hoạch, cuối tháng 11/2026 hàng sẽ về kho, em sẽ lên kế hoạch lắp chạy thử tại nhà máy Mỏ đá Hóa An (lộ trình chi tiết em có đính kèm trong file).
+[00:04:47] [Anh Tài (Sale)] Về bài toán chi phí cho ngành mỏ đá: Hiện tại Mỏ đá Hóa An đang sử dụng các thương hiệu lớn như NSK, SKF, NTN, FAG, Timken với giá thành rất cao. Giải pháp vòng bi Roleco của KTT sẽ giúp khách hàng tiết kiệm từ 30% đến 40% chi phí, trong khi chất lượng đạt khoảng 80% so với các thương hiệu lớn, giúp nhà máy tối ưu chi phí vận hành.
+[00:05:21] [Anh Tài (Sale)] Tiếp theo là đẩy mạnh các sản phẩm thế mạnh công ty đang có sẵn như gối đỡ WIN và các mã dây curoa bản C, D, E, SPC. Khu vực mục tiêu trọng điểm của ngành đá là Đồng Nai, Bình Dương, Tây Ninh và Kiên Giang.
+[00:05:50] [Anh Tài (Sale)] Thứ hai, đối với ngành Viên nén củi gỗ: Em có kế hoạch hành động tiếp cận các nhà máy lớn như S-Wood [cần kiểm tra - 00:05:57], Tín Nhân, Bình Nam với dự án đưa vòng bi Roleco và Cana vào vị trí con lăn (rulo) máy ép viên. Hiện tại trên thị trường các nhà máy đang dùng NTN, NSK, FAG, ZKL với giá thành cao trong bối cảnh thị trường viên nén cạnh tranh rất khắc nghiệt. Giải pháp vòng bi Roleco của mình sẽ giúp doanh nghiệp tiết kiệm khoảng 30% - 40% giá thành, chất lượng đạt 80% so với các thương hiệu lớn, giúp giảm chi phí vận hành cho nhà máy.
+[00:06:54] [Anh Tài (Sale)] Thứ ba, đối với ngành Chế biến điều: Hiện tại sản phẩm gối đỡ ASAHI đang chuẩn bị có những đợt hàng mới về với mã hàng đa dạng. KTT sẽ dùng ASAHI làm sản phẩm phễu dẫn để tiếp cận khách hàng, sau đó chuyển dịch dần sang gối đỡ WIN và KYO, kết hợp với dây curoa Yamatachi [cần kiểm tra - 00:07:17: Yamatachi / Yamatron]. Đó là kế hoạch Quý 4 cho ngành điều.
+[00:07:32] [Anh Tài (Sale)] Thứ tư, đối với ngành Xay xát lúa gạo: Tập trung chủ yếu vào gối đỡ ASAHI, gối đỡ KYO và dây curoa Yamatachi [cần kiểm tra - 00:07:40]. Em sẽ rà soát và tư vấn lại cho danh sách khách hàng tiềm năng (lead) mà trước đây mình đã gặp nhưng thời điểm đó chưa có hàng để chào, nay hàng về sẽ quay lại tư vấn và chuyển đổi thành đơn hàng.
+[00:08:03] [Anh Tài (Sale)] Ngoài ra trong Quý 4, em sẽ triển khai bộ bao thư và bộ nhận diện thương hiệu (catalogue, hồ sơ năng lực) của Kiên Thành Tín để trong các chuyến công tác sẽ kết hợp gửi trực tiếp vào các khu công nghiệp và các nhà máy. Việc này giúp Kiên Thành Tín tăng độ phủ nhận diện thương hiệu trong kênh công nghiệp. Phần này em cũng nhờ bộ phận Marketing hỗ trợ hoàn thiện bộ catalogue và bao thư nhận diện của Kiên Thành Tín cho team Nhà máy.
+[00:08:39] [Anh Tài (Sale)] Về lịch trình đi thị trường: mỗi tháng em vẫn duy trì 2 chuyến công tác/tháng. Đồng thời, đối với nhóm ngành Cơ khí và nhóm ngành Chế biến điều, em cũng nhờ bộ phận Marketing hỗ trợ chạy quảng cáo Google Ads để thu thập thêm khách hàng tiềm năng cho 2 nhóm này.
+[00:09:07] [Anh Tài (Sale)] Báo cáo của em tới đây là kết thúc, em xin cảm ơn mọi người. (chuyển sang file Chị Thanh nhận xét - kênh nhà máy.m4a)
+
+===== Chị Thanh nhận xét - kênh nhà máy.m4a (00:00 -> 06:40) =====
+[00:00:03] [Chị Thanh (BOD)] Về nội dung "Ảnh hưởng thị trường viên nén củi trấu miền Tây" trong báo cáo: hiện nó đang ảnh hưởng đến mức độ như thế nào? Bởi vì ngành này đang chiếm doanh số chủ lực của kênh Nhà máy bên em đúng không?
+[00:00:20] [Anh Tài (Sale)] Dạ, nhóm này chủ yếu dùng hàng KYO ạ.
+[00:00:24] [Chị Thanh (BOD)] Ừ, nhưng doanh số của ngành viên nén đang là doanh số chủ lực của kênh bên em. Vậy với sự ảnh hưởng của thị trường này, mình đang dự đoán mức độ tác động cụ thể ra sao, chiếm bao nhiêu phần trăm doanh số?
+[00:00:37] [Anh Tài (Sale)] Dạ, hiện tại khu vực viên nén củi trấu miền Tây chiếm khoảng 10% trong tổng doanh thu của kênh Nhà máy tại Kiên Thành Tín. Đối với các nhà máy viên nén củi trấu ở miền Tây thì họ chủ yếu xài vòng bi KYO của mình; còn từ khu vực miền Đông trở đi ra miền Trung thì họ chủ yếu xài hàng WIN.
+[00:01:02] [Chị Thanh (BOD)] Ý Chị Thanh (BOD) đang nói là về mặt số liệu dự báo ảnh hưởng thị trường: nếu em nói doanh số viên nén miền Tây đang chiếm 10% tổng doanh số của kênh và đang bị ảnh hưởng sụt giảm — ví dụ khả năng giảm 20% trên phần 10% đó — thì tính trên tổng (total) doanh số của em sẽ bị giảm 2%. Và ngược lại, để không bị mất đi phần doanh số sụt giảm đó, em có kế hoạch hành động cụ thể gì để khắc phục và bù đắp rủi ro? Phân tích như vậy thì báo cáo sẽ rõ ràng hơn.
+[00:01:35] [Chị Thanh (BOD)] Còn về ý "Áp lực cạnh tranh gay gắt từ các thương hiệu đối thủ, đặc biệt là Trung Quốc" là sao?
+[00:01:40] [Anh Tài (Sale)] Dạ đúng rồi chị. Hiện các nhà máy sản xuất từ bên Trung Quốc đi trực tiếp vào chào hàng tại các nhà máy ở Việt Nam luôn, nên dòng sản phẩm OEM của mình hiện tại đang gặp nhiều sự cạnh tranh về giá.
+[00:02:04] [Chị Thanh (BOD)] Tiếp tục, câu hỏi đặt ra vẫn là: Giải pháp cho câu chuyện này là gì?
+[00:02:10] [Anh Tài (Sale)] Dạ.
+[00:02:11] [Chị Thanh (BOD)] Mình sẽ làm gì và làm như thế nào để ứng phó với tất cả những thách thức này? Mọi thách thức nêu ra đều cần có sự chuẩn bị: những vấn đề nào lớn, nghiêm trọng thì phải có hành động (action) xử lý ngay; còn những vấn đề mang tính xu hướng thì phải có hoạt động chuẩn bị nền tảng từ bây giờ cho các thách thức mà các bạn đã nêu ra. Đó là ý kiến của Chị Thanh (BOD) về phần phân tích thách thức.
+[00:02:34] [Chị Thanh (BOD)] Riêng đối với kế hoạch triển khai Quý 4, cấu trúc tỷ trọng em đang phân bổ cho 4 ngành trọng điểm (30% - 30% - 20% - 20%) thì Chị Thanh (BOD) thấy tương đối hợp lý.
+[00:02:46] [Chị Thanh (BOD)] Tuy nhiên, đối với dòng sản phẩm chiến lược Roleco, cần phải có kế hoạch (planning) cụ thể hơn:
+1. Nếu tháng 11 hàng về, thì tới thời điểm hiện tại mình đã đánh giá tiêu chuẩn chất lượng của nhóm sản phẩm này ở mức nào rồi? Khi mình nhắm tới tệp khách hàng đang dùng Timken, NTN... thì mình đã nắm rõ các thông số, tiêu chuẩn chất lượng của nhóm này để đối chiếu chưa? Cần phải vạch ra (point out) đây là một Mục tiêu (Objective trong OKR) và xác định rõ các Kết quả then chốt (Key Results) bắt buộc phải hoàn thành ngay trong tháng 10 và tháng 11, bởi vì đây là dự án quan trọng.
+[00:03:39] [Chị Thanh (BOD)] 2. Để phát triển thị trường khi hàng về vào tháng 11, ngay từ bây giờ mình đã lập danh sách các khách hàng trọng điểm (Key Customers) để triển khai chạy thử và chào hàng chưa? Họ đang dùng những mã sản phẩm nào, phản hồi (feedback) hiện tại của họ ra sao, kỳ vọng của họ đối với sản phẩm của mình là gì, và hành động cụ thể mình sẽ tập trung vào nhóm Key Customers này là gì?
+[00:04:07] [Chị Thanh (BOD)] Bắt đầu từ bây giờ, em phải làm rõ (clear) và chuẩn bị sẵn sàng toàn bộ những phần này. Những nội dung Chị Thanh (BOD) vừa nhận xét (comment), Anh Tài (Sale) hoàn thiện lại; những phần nào liên quan đến bộ phận Mua hàng (PP) hay liên bộ phận thì các bạn ngồi lại với nhau để thống nhất thông tin, giải pháp và làm rõ vấn đề, rồi trong tuần sau ngồi lại với Chị Thanh (BOD) để chốt (clarify) toàn bộ kế hoạch này. Cảm ơn em.
+[00:04:36] [Chị Thanh (BOD)] Mọi người có nhận xét hay câu hỏi gì khác cho kênh Nhà máy không?
+[00:04:49] [Anh Vũ (Kế toán)] Chị Thanh (BOD) cho em hỏi một chút về báo cáo tổng thể của công ty ạ.
+[00:04:50] [Chị Thanh (BOD)] Mời Anh Vũ (Kế toán).
+[00:04:51] [Anh Vũ (Kế toán)] Hiện tại team Kế toán đang lập báo cáo theo khung thẻ điểm cân bằng BSC (Balanced Scorecard) của công ty, bao gồm 4 khía cạnh: Tài chính, Khách hàng, Quy trình nội bộ, và Học hỏi & Phát triển. Phần này em thấy hơi gợn từ hồi báo cáo Quý 2: có một số phòng ban báo cáo theo đúng khung KPI hỗ trợ công ty đạt mục tiêu BSC chung, nhưng riêng khối Kinh doanh hôm nay em thấy chỉ đưa vào các chỉ số báo cáo kết quả kinh doanh thuần túy (doanh số, công nợ, khách hàng), còn các nhóm KPI khác trong bảng BSC (như Quy trình nội bộ, Học hỏi & Phát triển) thì không thấy số liệu báo cáo. Một phần em hỏi để kiểm tra xem phòng ban mình đang hiểu và báo cáo theo khung BSC như vậy có đúng chuẩn của công ty không, nếu chưa đúng thì tụi em điều chỉnh lại.
+[00:05:37] [Chị Thanh (BOD)] Khối Kinh doanh kiểm tra lại bảng BSC KPI của mình xem có chỉ số nào đang rớt không, và có báo cáo đầy đủ trên file BSC KPI chưa?
+[00:05:44] [Anh Quang Tuẩn (Sale)] Dạ có cập nhật trong file BSC KPI chung, nhưng khi đưa lên slide trình bày thì tụi em chỉ đưa 3 mục chính là Doanh số, Công nợ và Phát triển khách hàng mới/sản phẩm mới.
+[00:05:53] [Chị Thanh (BOD)] Trong BSC KPI của Kinh doanh có mục Quy trình nội bộ và Học hỏi phát triển không?
+[00:05:54] [Anh Quang Tuẩn (Sale)] Dạ có mục Vận hành / Quy trình và mục Đào tạo & Phát triển ạ.
+[00:05:59] [Chị Thanh (BOD)] Dành một tràng vỗ tay cho câu hỏi rất hay (Good question) của Anh Vũ (Kế toán) để nhắc các bộ phận lưu ý tính nhất quán khi báo cáo BSC KPI. Vậy phần file BSC KPI gốc của khối Kinh doanh hiện có đang cập nhật (update) đầy đủ không?
+[00:06:11] [Chị Bích Vi (Sale)] Dạ có cập nhật nhưng chưa đầy đủ hết tất cả các mục, mới cập nhật phần doanh số, công nợ và sản phẩm mới.
+[00:06:19] [Chị Thanh (BOD)] Còn những phần khác thì sao? Bây giờ đã là tháng 10 rồi, mở file BSC KPI của Kinh doanh lên kiểm tra luôn xem nào...

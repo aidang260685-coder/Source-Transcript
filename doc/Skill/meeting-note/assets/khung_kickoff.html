@@ -1,0 +1,152 @@
+<!--
+  KHUNG MẪU LOẠI A — "THEO TỪNG VẤN ĐỀ"
+  ----------------------------------------
+  Dùng khi: họp kickoff/triển khai dự án, họp ad-hoc không có thông báo
+  họp chia mục theo team, hoặc khi nội dung cuộc họp xoay quanh một danh
+  sách vấn đề/issue rời rạc (không phải đánh giá theo từng bộ phận).
+
+  Đặc điểm nhận diện: input là ghi âm/note thô, hoặc agenda chỉ có dạng
+  "các vấn đề cần giải quyết: 1, 2, 3..." mà KHÔNG có mục "đánh giá từng
+  team/bộ phận" riêng.
+
+  Cách dùng file này: copy toàn bộ cấu trúc bên dưới, giữ nguyên class
+  CSS, thay nội dung trong [DẤU NGOẶC VUÔNG]. KHÔNG copy comment này vào
+  file output. Dán nguyên <style> từ assets/style.css vào <head>.
+-->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[Tiêu đề biên bản]</title>
+<style>
+/* === DÁN NGUYÊN VĂN NỘI DUNG assets/style.css VÀO ĐÂY === */
+</style>
+</head>
+<body>
+
+<div class="company-header">
+  <span class="company-name">Công ty TNHH Kiên Thành Tín</span>
+  <span class="company-address">66 An Dương Vương, P. An Lạc, Q. Bình Tân, TP. Hồ Chí Minh</span>
+</div>
+
+<div class="header">
+  <div class="header-logo">
+    <img src="https://assets.ktt.mthan.net/2026/06/cropped-Asset-6logo-avatar.png"
+         alt="Kiên Thành Tín"
+         onerror="this.style.display='none'">
+    <h1 style="margin:0">BIÊN BẢN CUỘC HỌP</h1>
+  </div>
+  <h2>[Tên chủ đề cuộc họp — ngắn gọn]</h2>
+</div>
+
+<div class="meta-info">
+  <strong>Thời gian:</strong> [DD/MM/YYYY — HH:MM đến HH:MM]<br>
+  <strong>Địa điểm:</strong> [Nếu có]<br>
+  <strong>Tham chiếu:</strong> [Nếu có — Tiếp nối Biên bản ngày DD/MM/YYYY]<br>
+  <strong>Loại cuộc họp:</strong> [Họp triển khai / Họp kickoff / Họp ad-hoc...]<br>
+  <strong>Thành phần tham dự:</strong><br>
+  • <strong>[Bộ phận viết tắt, ví dụ BOD]:</strong> [Anh/Chị Tên — Vai trò]<br>
+  • <strong>[Bộ phận]:</strong> [Anh/Chị Tên — Vai trò]<br>
+  <!-- Lặp lại cho mỗi bộ phận. LUÔN gắn danh xưng Anh/Chị đúng giới tính
+       và vai trò ngắn sau tên, vì các section sau sẽ gọi "Anh/Chị Tên
+       (Tag bộ phận)", ví dụ "Anh Tân (Kho)", "Chị Mai (KT)" — phải nhất
+       quán 100% với danh xưng và tag đã định nghĩa ở đây. -->
+</div>
+
+<div class="section-title">I. MỤC TIÊU CUỘC HỌP</div>
+<ul>
+  <li>[Mục tiêu 1 — gạch đầu dòng ngắn, có động từ hành động]</li>
+  <li>[Mục tiêu 2]</li>
+</ul>
+
+<div class="section-title">II. NỘI DUNG THẢO LUẬN CHÍNH</div>
+<!-- Mỗi vấn đề là 1 subsection, đánh số tăng dần. Nếu vấn đề có người
+     trình bày, ghi rõ "— Tên (Bộ phận)" sau tiêu đề subsection. -->
+<div class="subsection-title">1. [Tên vấn đề] — [Người trình bày nếu có]</div>
+<div class="open-issue">
+  <strong>🔴 Vấn đề:</strong> [Mô tả ngắn vấn đề, nguyên nhân nếu biết]
+</div>
+<p><strong>Hướng xử lý:</strong></p>
+<ul>
+  <li>[Hành động cụ thể 1]</li>
+  <li>[Hành động cụ thể 2]</li>
+</ul>
+<!-- Nếu vấn đề KHÔNG giải quyết được (vd: hạn chế từ nhà cung cấp), dùng
+     .highlight với icon ⚠️ thay vì .open-issue, để phân biệt "vấn đề
+     đang mở" và "đã có kết luận cuối cùng, không cần theo dõi tiếp". -->
+<div class="subsection-title">2. [Vấn đề tiếp theo]</div>
+...
+
+<div class="section-title">III. QUYẾT ĐỊNH &amp; KẾ HOẠCH HÀNH ĐỘNG</div>
+<!-- Nếu có mốc go-live hoặc quyết định lớn cần nhấn mạnh, đặt 1 khối
+     .highlight ngay đầu section này trước khi vào bảng phân công. -->
+<div class="highlight">
+  <strong>⚠️ [Quyết định quan trọng / nguyên tắc vận hành cần nhấn mạnh]</strong>
+</div>
+<table>
+  <thead>
+    <tr>
+      <th style="width:18%">Người thực hiện</th>
+      <th style="width:34%">Công việc</th>
+      <th style="width:13%">Deadline</th>
+      <th style="width:35%">Ghi chú</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>[Tên (Tag bộ phận)]</strong></td>
+      <td>[Công việc cụ thể, có động từ hành động]</td>
+      <td>[DD/MM/YYYY]</td>
+      <td>[Ghi chú, điều kiện, phụ thuộc]</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="section-title">IV. LỘ TRÌNH TRIỂN KHAI</div>
+<div class="tips-box">
+  <strong>📅 Các mốc quan trọng:</strong><br><br>
+  📌 <strong>[DD/MM/YYYY]:</strong> [Mốc 1]<br>
+  📌 <strong>[DD/MM/YYYY]:</strong> [Mốc 2]<br>
+</div>
+
+<div class="section-title">V. RỦI RO CẦN KIỂM SOÁT</div>
+<!-- Mỗi rủi ro PHẢI nêu hậu quả cụ thể nếu không xử lý, không chỉ mô tả
+     hiện trạng. -->
+<div class="open-issue">
+  <strong>🔴 [Tên rủi ro]:</strong> [Mô tả + hậu quả nếu không xử lý]
+</div>
+
+<!-- Section VI "YÊU CẦU BÁO CÁO & LIÊN LẠC" là TÙY CHỌN — chỉ thêm nếu
+     cuộc họp có quy định rõ về kênh báo cáo/deadline báo cáo định kỳ.
+     Nếu thêm, đây sẽ là Section VI và Kết luận lùi xuống VII. -->
+
+<div class="section-title">VI. KẾT LUẬN</div>
+<div class="action-box">
+  <strong>✅ Các điểm chốt của cuộc họp:</strong><br><br>
+  ✔ [Điểm chốt 1 — phải thật sự "chốt", không lặp lại nội dung đã nói ở trên]<br>
+  ✔ [Điểm chốt 2]<br>
+</div>
+
+<div class="footer">
+  <p>Biên bản được lập ngày [DD/MM/YYYY]</p>
+  <p style="margin-top:5px;font-size:10pt;">
+    <strong>Thư ký / Người ghi chép &amp; tổng hợp:</strong> [Anh/Chị Tên (Tag)] — <strong>Chủ trì &amp; Phê duyệt:</strong> [Tên người duyệt]
+  </p>
+  <span class="screen-page-label">Số trang sẽ tự động hiển thị khi in PDF (Trang X / Y)</span>
+</div>
+
+<button class="download-btn" onclick="downloadHTML()">⬇️ TẢI FILE HTML</button>
+<script>
+function downloadHTML() {
+  const blob = new Blob([document.documentElement.outerHTML],
+    {type:'text/html;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = '[ten_file_khong_dau_khong_dau_cach].html';
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a);
+}
+</script>
+</body>
+</html>

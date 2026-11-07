@@ -1,0 +1,11 @@
+# Cấu hình mẫu. Mọi con số đều là đòn bẩy hiệu năng/chi phí: chỉnh dựa trên số liệu trong runs/*.jsonl.
+[context]
+window = 16000          # token mục tiêu cho mỗi lần gọi model
+output_reserve = 2000   # chừa cho câu trả lời
+safety_margin = 0.10
+max_per_source = 8
+
+[retry]
+max_attempts = 3
+max_seconds = 120
+max_total_tokens = 200000
