@@ -1,3 +1,5 @@
+from pathlib import Path
+BASE_DIR = Path(__file__).resolve().parent.parent
 # -*- coding: utf-8 -*-
 """
 Harness Quality & Fact Verification Audit for KTT Meeting Note
@@ -10,8 +12,8 @@ from pathlib import Path
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
-GLOSSARY_PATH = Path(r"d:\Source-Transcript\doc\glossary.txt")
-HTML_PATH = Path(r"d:\Source-Transcript\doc\transcripts\Bien_Ban_Hop_Bao_Cao_Quy_3_Va_Ke_Hoach_Quy_4_2026_BSC_KPI.html")
+GLOSSARY_PATH = BASE_DIR / "doc" / "glossary.txt"
+HTML_PATH = BASE_DIR / "doc" / "transcripts" / "Bien_Ban_Hop_Bao_Cao_Quy_3_Va_Ke_Hoach_Quy_4_2026_BSC_KPI.html"
 
 def main():
     if not HTML_PATH.exists():

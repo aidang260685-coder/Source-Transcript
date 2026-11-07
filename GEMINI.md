@@ -7,7 +7,13 @@ Toàn bộ quy tắc cốt lõi của dự án được định nghĩa chi tiế
 - Bất kỳ thao tác chuyển giao, chia sẻ hay cấp quyền nào đều **BẮT BUỘC PHẢI HỎI VÀ ĐƯỢC NGƯỜI DÙNG CONFIRM TRỰC TIẾP**.
 - Tuyệt đối không commit bí mật đăng nhập vào git hoặc lưu trong mã nguồn mở.
 
-## 2. NGUYÊN TẮC HARNESS ENGINEERING (ZERO HALLUCINATION)
+## 2. QUY ĐỊNH TUYỆT ĐỐI KHÔNG HARDCODE (ZERO HARDCODING POLICY)
+- **CẤM hardcode đường dẫn tuyệt đối**: Tuyệt đối không hardcode ổ đĩa vật lý (`C:\`, `D:\`, `/home/`). Luôn dùng đường dẫn động `Path(__file__).resolve().parent.parent` hoặc biến môi trường `BASE_DIR`.
+- **CẤM hardcode thông tin bí mật**: Không ghi token, mật khẩu, API keys vào file mã nguồn hoặc cấu hình commit lên Git. Luôn nạp qua biến môi trường hoặc `.env` (đã có trong `.gitignore`).
+- **CẤM hardcode IP / URL nội bộ**: Quản lý qua file config môi trường hoặc tham số CLI (`argparse`).
+- **CẤM hardcode số liệu không có căn cứ**: Toàn bộ số liệu báo cáo bắt buộc phải trích dẫn và truy vết từ transcript/glossary gốc.
+
+## 3. NGUYÊN TẮC HARNESS ENGINEERING (ZERO HALLUCINATION)
 - Tuân thủ chu trình 5 pha: `GATHER -> CURATE -> ACT -> VERIFY -> RETRY`.
 - Biên bản họp trước khi xuất bản phải vượt qua **6 Cổng kiểm chứng tất định (6 Deterministic Gates)**:
   1. Khớp toán học & chú giải số liệu.

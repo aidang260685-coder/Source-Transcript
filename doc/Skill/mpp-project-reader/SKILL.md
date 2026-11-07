@@ -36,7 +36,7 @@ def init_mpxj():
         import mpxj
         mpxj_dir = os.path.join(os.path.dirname(mpxj.__file__), 'lib')
     except ImportError:
-        mpxj_dir = '/usr/local/lib/python3.12/dist-packages/mpxj/lib'
+        mpxj_dir = os.path.join(sys.prefix, 'lib', 'site-packages', 'mpxj', 'lib')
     jars = [os.path.join(mpxj_dir, f) for f in os.listdir(mpxj_dir) if f.endswith('.jar')]
     classpath = os.pathsep.join(jars)
     

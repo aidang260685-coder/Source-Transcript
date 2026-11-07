@@ -1,3 +1,5 @@
+from pathlib import Path
+BASE_DIR = Path(__file__).resolve().parent.parent
 # -*- coding: utf-8 -*-
 """
 Sửa triệt để lỗi gán nhầm bộ phận cho Chị Thu:
@@ -8,8 +10,8 @@ from pathlib import Path
 import re
 
 FILES = [
-    Path(r"d:\Source-Transcript\output\Bien_Ban_Hop_Bao_Cao_Quy_3_Va_Ke_Hoach_Quy_4_2026_BSC_KPI_Verified.html"),
-    Path(r"d:\Source-Transcript\doc\transcripts\Bien_Ban_Hop_Bao_Cao_Quy_3_Va_Ke_Hoach_Quy_4_2026_BSC_KPI.html")
+    BASE_DIR / "output" / "Bien_Ban_Hop_Bao_Cao_Quy_3_Va_Ke_Hoach_Quy_4_2026_BSC_KPI_Verified.html",
+    BASE_DIR / "doc" / "transcripts" / "Bien_Ban_Hop_Bao_Cao_Quy_3_Va_Ke_Hoach_Quy_4_2026_BSC_KPI.html"
 ]
 
 def fix_file(p: Path):
@@ -60,7 +62,7 @@ for f in FILES:
         fix_file(f)
 
 # Cập nhật Hr.txt
-hr_file = Path(r"d:\Source-Transcript\doc\transcripts\Hr.txt")
+hr_file = BASE_DIR / "doc" / "transcripts" / "Hr.txt"
 if hr_file.exists():
     hr_txt = hr_file.read_text(encoding="utf-8")
     hr_txt = hr_txt.replace("[Chị Thu (HR)]", "[Chị Thu (KT)]")

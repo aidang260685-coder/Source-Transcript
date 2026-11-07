@@ -1,6 +1,6 @@
 # QUY TẮC CODEBASE & TIÊU CHUẨN NGÔN NGỮ: HỆ THỐNG CHUYỂN ĐỔI GHI ÂM (.M4A) THÀNH BIÊN BẢN HỌP TIẾNG VIỆT
 
-Tài liệu này (`AGENTS.md`) thiết lập các quy tắc bắt buộc cho toàn bộ codebase trong workspace `d:\Source-Transcript`. Mọi tác vụ chỉnh sửa code, quản lý Skill, xử lý âm thanh, chuẩn hoá transcript và tạo biên bản họp (Meeting Note) đều phải tuân thủ nghiêm ngặt các nguyên tắc dưới đây.
+Tài liệu này (`AGENTS.md`) thiết lập các quy tắc bắt buộc cho toàn bộ codebase trong workspace của dự án. Mọi tác vụ chỉnh sửa code, quản lý Skill, xử lý âm thanh, chuẩn hoá transcript và tạo biên bản họp (Meeting Note) đều phải tuân thủ nghiêm ngặt các nguyên tắc dưới đây.
 
 ---
 
@@ -17,6 +17,21 @@ Tài liệu này (`AGENTS.md`) thiết lập các quy tắc bắt buộc cho to�
 
 ---
 
+## 01. QUY ĐỊNH BẮT BUỘC: TUYỆT ĐỐI KHÔNG HARDCODE (ZERO HARDCODING POLICY)
+
+1. **CẤM Hardcode Đường dẫn Tuyệt đối (No Hardcoded Absolute Paths)**:
+   - **Tuyệt đối KHÔNG** hardcode đường dẫn ổ đĩa vật lý (ví dụ: `C:\...`, `D:\...`, `/home/...`, hoặc `d:\Source-Transcript`).
+   - **Bắt buộc dùng đường dẫn động / tương đối**: Sử dụng `Path(__file__).resolve().parent.parent` hoặc các biến `BASE_DIR`, `ROOT_DIR` để mã nguồn chạy độc lập và tương thích trên mọi môi trường.
+2. **CẤM Hardcode Mật khẩu, Token & Thông tin Bí mật (No Hardcoded Secrets/Credentials)**:
+   - **Tuyệt đối KHÔNG** ghi mật khẩu, Personal Access Token (PAT), Secret Key, API Key trực tiếp vào mã nguồn `.py`, `.json` hay file cấu hình được commit lên Git.
+   - Mọi thông tin nhạy cảm phải nạp qua **Biến môi trường (`os.getenv(...)`)**, file `.env` (đã khai báo trong `.gitignore`) hoặc tham số dòng lệnh an toàn.
+3. **CẤM Hardcode Cấu hình Mạng & IP nội bộ**:
+   - Các thông số như Endpoint URL, VPS IP, Port phải được quản lý qua file cấu hình môi trường hoặc tham số CLI (`argparse`).
+4. **CẤM Hardcode Số liệu Nghiệp vụ không có bằng chứng**:
+   - Mọi số liệu trong biên bản họp hoặc báo cáo bắt buộc phải trích dẫn và truy vết từ dữ liệu gốc (`citations` / `transcripts` / `glossary`).
+
+---
+
 ## 0. Quy Tắc Quản Lý & Lưu Trữ Skill (`doc/Skill/`)
 
 1. **Thư mục gốc duy nhất cho mọi Skill trong dự án**:
@@ -26,9 +41,9 @@ Tài liệu này (`AGENTS.md`) thiết lập các quy tắc bắt buộc cho to�
 2. **Các Skill chuẩn hiện có trong `doc/Skill/`**:
    - [`harness-engineering`](./doc/Skill/harness-engineering/SKILL.md): Vòng lặp tự hành 5 pha (GATHER, CURATE, ACT, VERIFY, RETRY) cùng các chốt chặn an toàn dữ liệu, trần chi phí và cổng xuất bản.
    - [`ktt-transcript-normalizer`](./doc/Skill/ktt-transcript-normalizer/SKILL.md): Nghe trực tiếp file ghi âm (`.m4a`), định danh chính xác nhân sự theo từng bộ phận/buổi họp và chuẩn hoá transcript, thuật ngữ hệ thống (`MISA AMIS`), thương hiệu & mã hàng của Công ty TNHH Kiên Thành Tín.
-   - [`meeting-note`](file:///d:/Source-Transcript/doc/Skill/meeting-note/SKILL.md): Tạo và cập nhật biên bản họp HTML chuẩn in PDF A4 (gồm 3 khung [`khung_kickoff.html`](file:///d:/Source-Transcript/doc/Skill/meeting-note/assets/khung_kickoff.html), [`khung_weekly.html`](file:///d:/Source-Transcript/doc/Skill/meeting-note/assets/khung_weekly.html), [`khung_bsc_kpi.html`](file:///d:/Source-Transcript/doc/Skill/meeting-note/assets/khung_bsc_kpi.html) cho họp Báo cáo Quý / BSC & KPI từng bộ phận kèm đánh giá sau báo cáo của BOD, và [`style.css`](file:///d:/Source-Transcript/doc/Skill/meeting-note/assets/style.css) với letterhead & logo Công ty TNHH Kiên Thành Tín, font Montserrat).
-   - [`vietnamese-spellcheck`](file:///d:/Source-Transcript/doc/Skill/vietnamese-spellcheck/SKILL.md): Kiểm tra và sửa lỗi chính tả, dấu thanh, khoảng trắng, danh xưng giới tính (`Anh`/`Chị`) và kiểm tra Unicode code point ([`check_unicode.py`](file:///d:/Source-Transcript/doc/Skill/vietnamese-spellcheck/scripts/check_unicode.py)).
-   - [`mpp-project-reader`](file:///d:/Source-Transcript/doc/Skill/mpp-project-reader/SKILL.md): Đọc, phân tích tiến độ, WBS, critical path và chi phí từ file Microsoft Project (`.mpp`).
+   - [`meeting-note`](./doc/Skill/meeting-note/SKILL.md): Tạo và cập nhật biên bản họp HTML chuẩn in PDF A4 (gồm 3 khung `khung_kickoff.html`, `khung_weekly.html`, `khung_bsc_kpi.html` cho họp Báo cáo Quý / BSC & KPI từng bộ phận kèm đánh giá sau báo cáo của BOD, và `style.css` với letterhead & logo Công ty TNHH Kiên Thành Tín, font Montserrat).
+   - [`vietnamese-spellcheck`](./doc/Skill/vietnamese-spellcheck/SKILL.md): Kiểm tra và sửa lỗi chính tả, dấu thanh, khoảng trắng, danh xưng giới tính (`Anh`/`Chị`) và kiểm tra Unicode code point (`check_unicode.py`).
+   - [`mpp-project-reader`](./doc/Skill/mpp-project-reader/SKILL.md): Đọc, phân tích tiến độ, WBS, critical path và chi phí từ file Microsoft Project (`.mpp`).
 
 ---
 
@@ -36,7 +51,7 @@ Tài liệu này (`AGENTS.md`) thiết lập các quy tắc bắt buộc cho to�
 
 1. **Chuẩn mã hoá & Unicode**:
    - Toàn bộ file mã nguồn (`.py`), cấu hình (`.txt`), tài liệu (`.md`, `.html`) và kết quả đầu ra bắt buộc dùng bảng mã **UTF-8** và chuẩn **Unicode dựng sẵn (NFC - Normalization Form C)**. Tuyệt đối không trộn lẫn ký tự Unicode tổ hợp (NFD) gây lỗi hiển thị dấu hoặc tìm kiếm.
-   - Luôn tuân thủ quy trình rà soát của skill [`vietnamese-spellcheck`](file:///d:/Source-Transcript/doc/Skill/vietnamese-spellcheck/SKILL.md) trước khi bàn giao tài liệu.
+   - Luôn tuân thủ quy trình rà soát của skill [`vietnamese-spellcheck`](./doc/Skill/vietnamese-spellcheck/SKILL.md) trước khi bàn giao tài liệu.
 2. **Chính tả Tiếng Việt chuẩn mực**:
    - Kiểm soát và sửa triệt để các lỗi phát âm vùng miền hoặc lỗi nhận dạng âm thanh đồng âm của AI:
      - Lỗi phụ âm đầu: `ch/tr`, `s/x`, `d/gi/r`, `l/n`, `v/d`.

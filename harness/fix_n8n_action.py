@@ -1,3 +1,5 @@
+from pathlib import Path
+BASE_DIR = Path(__file__).resolve().parent.parent
 # -*- coding: utf-8 -*-
 """
 Chỉnh sửa chính xác Action Item IT về n8n:
@@ -6,8 +8,8 @@ Anh Ân (IT) hướng dẫn Anh Duy (MKT) export workflow n8n từ cloud và imp
 from pathlib import Path
 
 FILES = [
-    Path(r"d:\Source-Transcript\output\Bien_Ban_Hop_Bao_Cao_Quy_3_Va_Ke_Hoach_Quy_4_2026_BSC_KPI_Verified.html"),
-    Path(r"d:\Source-Transcript\doc\transcripts\Bien_Ban_Hop_Bao_Cao_Quy_3_Va_Ke_Hoach_Quy_4_2026_BSC_KPI.html")
+    BASE_DIR / "output" / "Bien_Ban_Hop_Bao_Cao_Quy_3_Va_Ke_Hoach_Quy_4_2026_BSC_KPI_Verified.html",
+    BASE_DIR / "doc" / "transcripts" / "Bien_Ban_Hop_Bao_Cao_Quy_3_Va_Ke_Hoach_Quy_4_2026_BSC_KPI.html"
 ]
 
 OLD_ACTION = """    <tr>

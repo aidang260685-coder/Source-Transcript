@@ -1,7 +1,7 @@
 # QUY TRÌNH 2 BƯỚC: TRANSCRIPT (.m4a) → BIÊN BẢN HỌP CHUYÊN NGHIỆP
 
 Dùng sau khi chạy `transcribe_batch.py` và có file `ALL_transcripts.txt` (kèm `*_flagged.txt`).
-Bạn có thể chạy trực tiếp với Agent trong workspace này (nhờ bộ skill `meeting-note` và `vietnamese-spellcheck` trong `d:\Source-Transcript\doc\Skill\`) hoặc gửi cho AI theo 2 bước dưới đây.
+Bạn có thể chạy trực tiếp với Agent trong workspace này (nhờ bộ skill `meeting-note` và `vietnamese-spellcheck` trong `doc/Skill\`) hoặc gửi cho AI theo 2 bước dưới đây.
 
 ---
 

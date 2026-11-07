@@ -1,3 +1,5 @@
+from pathlib import Path
+BASE_DIR = Path(__file__).resolve().parent.parent
 # -*- coding: utf-8 -*-
 """
 Chuẩn hoá nhân sự thuyết trình bộ phận Mua hàng (PP):
@@ -8,8 +10,8 @@ from pathlib import Path
 import re
 
 FILES = [
-    Path(r"d:\Source-Transcript\output\Bien_Ban_Hop_Bao_Cao_Quy_3_Va_Ke_Hoach_Quy_4_2026_BSC_KPI_Verified.html"),
-    Path(r"d:\Source-Transcript\doc\transcripts\Bien_Ban_Hop_Bao_Cao_Quy_3_Va_Ke_Hoach_Quy_4_2026_BSC_KPI.html")
+    BASE_DIR / "output" / "Bien_Ban_Hop_Bao_Cao_Quy_3_Va_Ke_Hoach_Quy_4_2026_BSC_KPI_Verified.html",
+    BASE_DIR / "doc" / "transcripts" / "Bien_Ban_Hop_Bao_Cao_Quy_3_Va_Ke_Hoach_Quy_4_2026_BSC_KPI.html"
 ]
 
 def update_html(p: Path):
@@ -54,7 +56,7 @@ for f in FILES:
         update_html(f)
 
 # Cập nhật PP.txt
-pp_file = Path(r"d:\Source-Transcript\doc\transcripts\PP.txt")
+pp_file = BASE_DIR / "doc" / "transcripts" / "PP.txt"
 if pp_file.exists():
     pp_txt = pp_file.read_text(encoding="utf-8")
     # Đổi các lượt nói thuyết trình từ [Chị Như (PP)] thành [Chị Linh Nhi (PP)]
@@ -63,7 +65,7 @@ if pp_file.exists():
     print("✅ Đã cập nhật lượt nói người thuyết trình thành [Chị Linh Nhi (PP)] trong PP.txt")
 
 # Cập nhật 00_DANH_MUC_TRANSCRIPT.md
-dm_file = Path(r"d:\Source-Transcript\doc\transcripts\00_DANH_MUC_TRANSCRIPT.md")
+dm_file = BASE_DIR / "doc" / "transcripts" / "00_DANH_MUC_TRANSCRIPT.md"
 if dm_file.exists():
     dm_txt = dm_file.read_text(encoding="utf-8")
     dm_txt = dm_txt.replace("`Chị Như (PP)`, `Chị Linh Nhi (PP)`", "`Chị Linh Nhi (PP)` (thuyết trình chính), `Chị Như (PP)`")

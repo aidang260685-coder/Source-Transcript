@@ -21,3 +21,9 @@ __pycache__/
 *.log
 *.tmp
 temp/
+
+# Large audio recordings (>100MB blocked by GitHub)
+doc/ghi_am/*.m4a
+doc/ghi_am/*.mp3
+doc/ghi_am/*.wav
+!doc/ghi_am/.gitkeep
