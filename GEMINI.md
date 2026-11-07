@@ -12,6 +12,7 @@ Toàn bộ quy tắc cốt lõi của dự án được định nghĩa chi tiế
 - **CẤM hardcode thông tin bí mật**: Không ghi token, mật khẩu, API keys vào file mã nguồn hoặc cấu hình commit lên Git. Luôn nạp qua biến môi trường hoặc `.env` (đã có trong `.gitignore`).
 - **CẤM hardcode IP / URL nội bộ**: Quản lý qua file config môi trường hoặc tham số CLI (`argparse`).
 - **CẤM hardcode số liệu không có căn cứ**: Toàn bộ số liệu báo cáo bắt buộc phải trích dẫn và truy vết từ transcript/glossary gốc.
+- **QUY ĐỊNH FILE DUNG LƯỢNG LỚN (LOCAL ONLY)**: Các file lớn (file ghi âm audio, video, models, dumps) chỉ lưu trữ ở local, TUYỆT ĐỐI KHÔNG commit/push lên Git. Tự động loại trừ qua `.gitignore` và chốt chặn `tools/check_large_files.py` (tối đa **45 MB**).
 
 ## 3. NGUYÊN TẮC HARNESS ENGINEERING (ZERO HALLUCINATION)
 - Tuân thủ chu trình 5 pha: `GATHER -> CURATE -> ACT -> VERIFY -> RETRY`.

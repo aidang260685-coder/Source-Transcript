@@ -18,3 +18,7 @@ description: "Quy định bắt buộc tuyệt đối không hardcode đường 
 
 4. **Không hardcode số liệu nghiệp vụ bịa đặt**:
    - Mọi số liệu trong biên bản họp phải truy vết được từ bằng chứng gốc (`citations` / `transcripts`).
+
+5. **Quy định File dung lượng lớn (Chỉ lưu Local, cấm Push Git)**:
+   - File âm thanh (.m4a, .mp3, .wav), video, AI model weights chỉ lưu ở local để xử lý, không bao giờ commit/push lên Git.
+   - Luôn duy trì trong .gitignore và kiểm soát qua tools/check_large_files.py (ngưỡng tối đa 45 MB).

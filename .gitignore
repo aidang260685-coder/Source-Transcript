@@ -4,7 +4,7 @@ env/
 venv/
 ENV/
 
-# Python cache
+# Python cache & test cache
 __pycache__/
 *.py[cod]
 *$py.class
@@ -16,14 +16,62 @@ __pycache__/
 .env.*
 *.secret
 *.token
+*.key
+*.pem
+*.pfx
 
 # Logs & temp
 *.log
 *.tmp
 temp/
 
-# Large audio recordings (>100MB blocked by GitHub)
-doc/ghi_am/*.m4a
-doc/ghi_am/*.mp3
-doc/ghi_am/*.wav
-!doc/ghi_am/.gitkeep
+# =============================================================================
+# FILE DUNG LƯỢNG LỚN & ĐA PHƯƠNG TIỆN (CHỈ LƯU LOCAL - KHÔNG ĐẨY LÊN GIT)
+# =============================================================================
+
+# Âm thanh cuộc họp & audio files
+*.m4a
+*.mp3
+*.wav
+*.wma
+*.aac
+*.ogg
+*.flac
+*.m4p
+*.aiff
+
+# Video & screen recordings
+*.mp4
+*.mkv
+*.avi
+*.mov
+*.wmv
+*.webm
+
+# AI Model weights, checkpoints & cache lớn
+*.bin
+*.pt
+*.pth
+*.onnx
+*.safetensors
+*.gguf
+*.tflite
+
+# File nén & archive lớn (ngoại trừ .skill của dự án)
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+*.iso
+!doc/Skill/*.skill
+
+# Database, data dumps & binary datasets
+*.sqlite
+*.sqlite3
+*.db
+*.parquet
+*.feather
+*.dump
+*.bak

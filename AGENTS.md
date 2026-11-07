@@ -29,6 +29,10 @@ Tài liệu này (`AGENTS.md`) thiết lập các quy tắc bắt buộc cho to�
    - Các thông số như Endpoint URL, VPS IP, Port phải được quản lý qua file cấu hình môi trường hoặc tham số CLI (`argparse`).
 4. **CẤM Hardcode Số liệu Nghiệp vụ không có bằng chứng**:
    - Mọi số liệu trong biên bản họp hoặc báo cáo bắt buộc phải trích dẫn và truy vết từ dữ liệu gốc (`citations` / `transcripts` / `glossary`).
+5. **QUY ĐỊNH FILE DUNG LƯỢNG LỚN (LARGE FILE POLICY - LOCAL ONLY)**:
+   - Toàn bộ file có dung lượng lớn (file ghi âm `.m4a`, `.wav`, `.mp3`, video `.mp4`, checkpoint/model weights, dump dữ liệu) **TUYỆT ĐỐI KHÔNG ĐƯỢC COMMIT VÀ PUSH LÊN GIT**.
+   - **Chỉ lưu trữ ở local** trên máy để phục vụ xử lý phiên âm và dữ liệu nội bộ.
+   - Khi commit & push, bắt buộc loại trừ qua `.gitignore` và kiểm soát qua chốt chặn `tools/check_large_files.py` (ngưỡng tối đa cho phép là **45 MB**).
 
 ---
 
