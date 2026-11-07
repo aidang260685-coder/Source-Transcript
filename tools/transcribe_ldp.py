@@ -1,22 +1,29 @@
 # -*- coding: utf-8 -*-
 """
 transcribe_ldp.py - Phiên âm cuộc họp chương trình học LDP (Leader Development Program)
-Tập tin: doc/ghi_am/11-07-2026 09.08_1.m4a
-Đầu ra: doc/transcripts/LDP_Leader_Development_Program.txt (.srt)
+Tập tin âm thanh: doc/ghi_am/11-07-2026 09.08_1.m4a
+Đầu ra: doc/transcripts/11-07-2026 09.08_1_LDP.txt (.srt)
 """
+import os
 import sys
 import time
 import unicodedata
 import re
 from pathlib import Path
 
-# Đảm bảo console Windows hiển thị đúng UTF-8
+# Đảm bảo UTF-8
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 if hasattr(sys.stderr, "reconfigure"):
     sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Cấu hình DLL cho CUDA cublas
+cublas_dir = BASE_DIR / ".venv" / "Lib" / "site-packages" / "nvidia" / "cublas" / "bin"
+if cublas_dir.exists():
+    os.add_dll_directory(str(cublas_dir))
+    os.environ["PATH"] = str(cublas_dir) + os.pathsep + os.environ.get("PATH", "")
 
 HALLUCINATION_PATTERNS = [
     re.compile(r"^hãy\s+subscribe\s+cho\s+kênh", re.IGNORECASE),
@@ -92,8 +99,8 @@ def main():
     audio_path = BASE_DIR / "doc" / "ghi_am" / "11-07-2026 09.08_1.m4a"
     out_dir = BASE_DIR / "doc" / "transcripts"
     out_dir.mkdir(parents=True, exist_ok=True)
-    out_txt = out_dir / "LDP_Leader_Development_Program.txt"
-    out_srt = out_dir / "LDP_Leader_Development_Program.srt"
+    out_txt = out_dir / "11-07-2026 09.08_1_LDP.txt"
+    out_srt = out_dir / "11-07-2026 09.08_1_LDP.srt"
     glossary_path = BASE_DIR / "doc" / "glossary.txt"
 
     if not audio_path.exists():
@@ -110,29 +117,30 @@ def main():
     )
 
     from faster_whisper import WhisperModel
-    print("Khởi tạo WhisperModel (small, cuda, float16)...")
-    model = WhisperModel("small", device="cuda", compute_type="float16")
+    model_dir = BASE_DIR / "models" / "faster-whisper-small"
+    print("Khởi tạo WhisperModel (small, cuda, float16)...", flush=True)
+    model = WhisperModel(str(model_dir), device="cuda", compute_type="float16", local_files_only=True)
 
-    print(f"Bắt đầu phiên âm tệp: {audio_path.name}")
+    print(f"Bắt đầu phiên âm tệp: {audio_path.name}", flush=True)
     start_time = time.time()
 
     segments, info = model.transcribe(
         str(audio_path),
         language="vi",
-        beam_size=5,
-        best_of=5,
-        temperature=(0.0, 0.2, 0.4),
+        beam_size=3,
+        best_of=3,
+        temperature=0.0,
         compression_ratio_threshold=2.2,
         log_prob_threshold=-1.0,
         no_speech_threshold=0.6,
         vad_filter=True,
-        vad_parameters=dict(min_silence_duration_ms=450, speech_pad_ms=250),
+        vad_parameters=dict(min_silence_duration_ms=500, speech_pad_ms=250),
         condition_on_previous_text=False,
         initial_prompt=initial_prompt,
     )
 
     total_dur = max(info.duration, 0.1)
-    print(f"Tổng thời lượng âm thanh: {ts(total_dur)} ({total_dur:.1f} giây)")
+    print(f"Tổng thời lượng âm thanh: {ts(total_dur)} ({total_dur:.1f} giây)", flush=True)
 
     txt_f = open(out_txt, "w", encoding="utf-8")
     srt_f = open(out_srt, "w", encoding="utf-8")
@@ -167,20 +175,20 @@ def main():
             srt_f.write(f"{count}\n{ts(seg.start, True)} --> {ts(seg.end, True)}\n{text}\n\n")
             srt_f.flush()
 
-            if count % 15 == 0:
+            if count % 10 == 0:
                 elapsed = time.time() - start_time
                 speed = seg.end / max(elapsed, 0.001)
                 percent = (seg.end / total_dur) * 100
-                print(f"Tiến độ: [{ts(seg.end)} / {ts(total_dur)}] ({percent:.1f}%) - Tốc độ: {speed:.1f}x realtime", flush=True)
+                print(f"[{ts(seg.end)} / {ts(total_dur)}] ({percent:.1f}%) | {speed:.1f}x | {text[:50]}...", flush=True)
 
     finally:
         txt_f.close()
         srt_f.close()
 
     elapsed = time.time() - start_time
-    print(f"\nHoàn tất phiên âm trong {elapsed:.1f}s ({elapsed/60:.1f} phút)!")
-    print(f"Tổng số phân đoạn: {count} | Gắn cờ [??]: {flagged} | Lọc bỏ: {skipped}")
-    print(f"File kết quả: {out_txt}")
+    print(f"\n✓ Hoàn tất phiên âm trong {elapsed:.1f}s ({elapsed/60:.1f} phút)!", flush=True)
+    print(f"✓ Tổng số phân đoạn: {count} | Gắn cờ [??]: {flagged} | Lọc bỏ: {skipped}", flush=True)
+    print(f"✓ File kết quả: {out_txt}", flush=True)
 
 if __name__ == "__main__":
     main()
