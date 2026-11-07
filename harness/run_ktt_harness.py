@@ -18,7 +18,7 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
 # Nạp các module cốt lõi từ skill harness-engineering
-sys.path.insert(0, str(Path(r"d:\Source-Transcript\doc\Skill\harness-engineering\assets\harness_core")))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "doc" / "Skill" / "harness-engineering" / "assets" / "harness_core"))
 
 from harness.models import RawItem, ContextPack, Draft, Verdict, CheckResult, Task, RunResult
 from harness.loop import RetryPolicy, Tracer
@@ -26,7 +26,7 @@ from harness.curate import Curator, CurateConfig
 from harness.act import Actor, Tool
 from harness.verify import Verifier, SchemaCheck, CitationCheck, NumericGroundingCheck
 
-BASE_DIR = Path(r"d:\Source-Transcript")
+BASE_DIR = Path(__file__).resolve().parent.parent
 TRANSCRIPTS_DIR = BASE_DIR / "doc" / "transcripts"
 GLOSSARY_PATH = BASE_DIR / "doc" / "glossary.txt"
 OUTPUT_DIR = BASE_DIR / "output"

@@ -9,6 +9,11 @@ import os
 import re
 import sys
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8")
+
 SKIP = {".git", "node_modules", "__pycache__", ".venv", "venv", "dist", "build", "runs"}
 EXT = {".py", ".ts", ".js", ".go", ".java", ".rs", ".md", ".toml", ".yaml", ".yml"}
 

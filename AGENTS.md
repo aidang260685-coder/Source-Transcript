@@ -4,14 +4,28 @@ Tài liệu này (`AGENTS.md`) thiết lập các quy tắc bắt buộc cho to�
 
 ---
 
-## 0. Quy Tắc Quản Lý & Lưu Trữ Skill (`d:\Source-Transcript\doc\Skill\`)
+## 00. NGUYÊN TẮC BẢO MẬT & BẢO VỆ DỮ LIỆU NGƯỜI DÙNG (HIGHEST PRIORITY - STRICT)
+
+1. **Bảo mật tuyệt đối thông tin người dùng chia sẻ**:
+   - Mọi thông tin nhạy cảm người dùng cung cấp bao gồm: **mật khẩu, tài khoản, Personal Access Token (PAT), Secret Key, API Key, thông tin cá nhân, bản ghi âm nội bộ và số liệu kinh doanh** CHỈ được dùng trực tiếp cho tác vụ hiện tại.
+2. **CẤM tự ý chia sẻ thông tin cho bất kỳ AI Agent nào khác**:
+   - **Tuyệt đối KHÔNG** tự ý gửi, chuyển tiếp (qua subagent prompt, message, network request hay log) bất kỳ thông tin bảo mật, mật khẩu hay token nào cho bất kỳ AI Agent, Sub-agent hay bên thứ ba nào khác.
+3. **Quy tắc Bắt buộc Xác nhận (User Confirmation Required)**:
+   - Trước khi có bất kỳ hành động nào liên quan đến việc ủy quyền, phân phối hoặc sử dụng lại dữ liệu nhạy cảm / thông tin đăng nhập, AI Agent **bắt buộc phải hỏi rõ và nhận được sự đồng ý (CONFIRM) từ người dùng**.
+4. **Bảo vệ mã nguồn & Git**:
+   - Tuyệt đối không commit token, mật khẩu, file cấu hình chứa thông tin đăng nhập vào Git. Luôn dùng `.gitignore`, biến môi trường hoặc Windows Credential Manager an toàn.
+
+---
+
+## 0. Quy Tắc Quản Lý & Lưu Trữ Skill (`doc/Skill/`)
 
 1. **Thư mục gốc duy nhất cho mọi Skill trong dự án**:
-   - Toàn bộ các Skill của dự án **bắt buộc** được lưu trữ, đọc và cập nhật trực tiếp tại thư mục: **`d:\Source-Transcript\doc\Skill\`** (đã được đăng ký tự động qua [`.agents/skills.json`](file:///d:/Source-Transcript/.agents/skills.json)).
-   - **Khi tạo mới bất kỳ Skill nào**: Bắt buộc tạo thư mục con `d:\Source-Transcript\doc\Skill\<tên-skill>\SKILL.md` (kèm các thư mục `assets/`, `scripts/`, `resources/` nếu có). Tuyệt đối không tạo skill rải rác ở thư mục khác.
-   - **Khi đọc và cập nhật Skill**: Luôn đọc từ `d:\Source-Transcript\doc\Skill\<tên-skill>\`, cập nhật trực tiếp vào thư mục đó, và đồng bộ đóng gói lại file nén `<tên-skill>.skill` (định dạng ZIP archive chứa thư mục `<tên-skill>/`) ngay trong `d:\Source-Transcript\doc\Skill\`.
-2. **Các Skill chuẩn hiện có trong `d:\Source-Transcript\doc\Skill\`**:
-   - [`ktt-transcript-normalizer`](file:///d:/Source-Transcript/doc/Skill/ktt-transcript-normalizer/SKILL.md): Nghe trực tiếp file ghi âm (`.m4a`), định danh chính xác nhân sự theo từng bộ phận/buổi họp và chuẩn hoá transcript, thuật ngữ hệ thống (`MISA AMIS`), thương hiệu & mã hàng của Công ty TNHH Kiên Thành Tín.
+   - Toàn bộ các Skill của dự án **bắt buộc** được lưu trữ, đọc và cập nhật trực tiếp tại thư mục: **`doc/Skill/`** (đã được đăng ký tự động qua [`.agents/skills.json`](./.agents/skills.json)).
+   - **Khi tạo mới bất kỳ Skill nào**: Bắt buộc tạo thư mục con `doc/Skill/<tên-skill>/SKILL.md` (kèm các thư mục `assets/`, `scripts/`, `resources/` nếu có). Tuyệt đối không tạo skill rải rác ở thư mục khác.
+   - **Khi đọc và cập nhật Skill**: Luôn đọc từ `doc/Skill/<tên-skill>/`, cập nhật trực tiếp vào thư mục đó, và đồng bộ đóng gói lại file nén `<tên-skill>.skill` (định dạng ZIP archive chứa thư mục `<tên-skill>/`) ngay trong `doc/Skill/`.
+2. **Các Skill chuẩn hiện có trong `doc/Skill/`**:
+   - [`harness-engineering`](./doc/Skill/harness-engineering/SKILL.md): Vòng lặp tự hành 5 pha (GATHER, CURATE, ACT, VERIFY, RETRY) cùng các chốt chặn an toàn dữ liệu, trần chi phí và cổng xuất bản.
+   - [`ktt-transcript-normalizer`](./doc/Skill/ktt-transcript-normalizer/SKILL.md): Nghe trực tiếp file ghi âm (`.m4a`), định danh chính xác nhân sự theo từng bộ phận/buổi họp và chuẩn hoá transcript, thuật ngữ hệ thống (`MISA AMIS`), thương hiệu & mã hàng của Công ty TNHH Kiên Thành Tín.
    - [`meeting-note`](file:///d:/Source-Transcript/doc/Skill/meeting-note/SKILL.md): Tạo và cập nhật biên bản họp HTML chuẩn in PDF A4 (gồm 3 khung [`khung_kickoff.html`](file:///d:/Source-Transcript/doc/Skill/meeting-note/assets/khung_kickoff.html), [`khung_weekly.html`](file:///d:/Source-Transcript/doc/Skill/meeting-note/assets/khung_weekly.html), [`khung_bsc_kpi.html`](file:///d:/Source-Transcript/doc/Skill/meeting-note/assets/khung_bsc_kpi.html) cho họp Báo cáo Quý / BSC & KPI từng bộ phận kèm đánh giá sau báo cáo của BOD, và [`style.css`](file:///d:/Source-Transcript/doc/Skill/meeting-note/assets/style.css) với letterhead & logo Công ty TNHH Kiên Thành Tín, font Montserrat).
    - [`vietnamese-spellcheck`](file:///d:/Source-Transcript/doc/Skill/vietnamese-spellcheck/SKILL.md): Kiểm tra và sửa lỗi chính tả, dấu thanh, khoảng trắng, danh xưng giới tính (`Anh`/`Chị`) và kiểm tra Unicode code point ([`check_unicode.py`](file:///d:/Source-Transcript/doc/Skill/vietnamese-spellcheck/scripts/check_unicode.py)).
    - [`mpp-project-reader`](file:///d:/Source-Transcript/doc/Skill/mpp-project-reader/SKILL.md): Đọc, phân tích tiến độ, WBS, critical path và chi phí từ file Microsoft Project (`.mpp`).

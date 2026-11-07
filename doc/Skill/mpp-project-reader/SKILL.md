@@ -16,6 +16,8 @@ description: >
 Skill này dùng thư viện **MPXJ** (Java-based, qua JPype) để đọc file `.mpp` từ Microsoft Project.
 Hỗ trợ toàn bộ các tác vụ phân tích dự án: WBS, timeline, critical path, resource, cost, và xuất báo cáo.
 
+> **BẢO MẬT & QUYỀN RIÊNG TƯ (STRICT PRIVACY)**: File kế hoạch dự án, chi phí, ngân sách và phân bổ nhân sự là tài sản bảo mật của doanh nghiệp. Tuyệt đối KHÔNG tự ý chia sẻ dữ liệu hoặc thông tin tài khoản cho bất kỳ AI Agent nào khác nếu chưa có sự xác nhận (CONFIRM) từ người dùng.
+
 ## Yêu cầu môi trường
 
 - Python 3.x

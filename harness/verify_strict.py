@@ -11,7 +11,8 @@ from pathlib import Path
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
-TARGET_FILE = Path(r"d:\Source-Transcript\output\Bien_Ban_Hop_Bao_Cao_Quy_3_Va_Ke_Hoach_Quy_4_2026_BSC_KPI_Verified.html")
+BASE_DIR = Path(__file__).resolve().parent.parent
+TARGET_FILE = BASE_DIR / "output" / "Bien_Ban_Hop_Bao_Cao_Quy_3_Va_Ke_Hoach_Quy_4_2026_BSC_KPI_Verified.html"
 
 def run_strict_audit():
     print("=" * 70)

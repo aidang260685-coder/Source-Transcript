@@ -7,6 +7,8 @@ description: Kiểm tra, thiết kế và xây dựng hệ thống AI theo mô h
 
 Harness là lớp kỹ thuật bao quanh model: model chỉ là một thành phần, còn độ tin cậy, chi phí và độ trễ do harness quyết định. Skill này giúp kiểm tra một dự án đã có harness chưa, và nếu chưa thì dựng một khung chạy được, có test.
 
+> **BẢO MẬT & QUYỀN RIÊNG TƯ (STRICT PRIVACY)**: Dữ liệu thô thu thập trong pha GATHER, bộ đệm ngữ cảnh trong pha CURATE và toàn bộ thông tin đăng nhập/mật khẩu của người dùng TUYỆT ĐỐI KHÔNG ĐƯỢC TỰ Ý CHIA SẺ cho bất kỳ AI Agent nào khác. Phải có sự xác nhận (CONFIRM) từ người dùng.
+
 ## Quy trình làm việc
 
 ### Bước 1: Kiểm tra trước, không giả định

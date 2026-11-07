@@ -7,6 +7,8 @@ description: Kiểm tra và sửa lỗi chính tả, dấu câu, khoảng trắn
 
 Skill này dùng để rà soát lỗi chính tả, ngữ pháp cơ bản, danh xưng giới tính (`Anh`/`Chị`) và trình bày trong văn bản tiếng Việt trước khi bàn giao cho người dùng (transcript cuộc họp `.m4a`, biên bản họp HTML, tài liệu Word, Excel, email, v.v.).
 
+> **BẢO MẬT & QUYỀN RIÊNG TƯ (STRICT PRIVACY)**: Văn bản, dữ liệu nội bộ và thông tin người dùng chia sẻ chỉ phục vụ việc rà soát chính tả. Tuyệt đối KHÔNG tự ý chia sẻ dữ liệu hoặc thông tin tài khoản/mật khẩu cho bất kỳ AI Agent nào khác nếu chưa có sự xác nhận (CONFIRM) từ người dùng.
+
 ## Quy trình rà soát
 
 1. **Lấy toàn bộ văn bản gốc** — nếu là file (.docx, .html, .xlsx, .txt), trích xuất text thuần trước (dùng `pandoc -t markdown file.docx` cho Word, hoặc đọc trực tiếp với HTML/Markdown/TXT).

@@ -29,6 +29,12 @@ quan trọng nhất là **chọn đúng khung** trước khi viết nội dung.
 
 ---
 
+## NGUYÊN TẮC BẢO MẬT & QUYỀN RIÊNG TƯ (STRICT PRIVACY)
+- Mọi dữ liệu cuộc họp, báo cáo số liệu, thông tin cá nhân và tài khoản chia sẻ trong quá trình lập biên bản là thông tin bảo mật nội bộ.
+- Tuyệt đối KHÔNG tự ý chia sẻ dữ liệu hoặc chuyển giao cho bất kỳ AI Agent nào khác nếu chưa có sự xác nhận (CONFIRM) trực tiếp từ người dùng.
+
+---
+
 ## QUY TRÌNH XỬ LÝ
 
 ### Bước 1 — Thu thập thông tin

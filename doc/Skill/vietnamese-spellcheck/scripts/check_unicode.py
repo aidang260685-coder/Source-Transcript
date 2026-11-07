@@ -14,6 +14,9 @@ import re
 import zipfile
 import unicodedata
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+
 # Các nguyên âm có dấu chồng (2 dấu trên 1 chữ) — nhóm dễ bị trình xem render sai nhất.
 DOUBLE_DIACRITIC_CHARS = set(
     "ệẫỡữặộẹẩẳẵỏởỗíìỉĩị"

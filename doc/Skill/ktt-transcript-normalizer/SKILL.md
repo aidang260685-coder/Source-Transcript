@@ -12,7 +12,7 @@ Skill này thiết lập quy trình chuẩn để **nghe trực tiếp file âm 
 ## 1. Nguyên Tắc Cốt Lõi (Zero Hallucination & Direct Audio Inspection)
 
 1. **Nghe trực tiếp toàn bộ thời lượng file âm thanh**:
-   - Bắt buộc dùng công cụ đọc file (`read_file`) trên từng file `.m4a` trong `d:\Source-Transcript\doc\ghi_am\` để nghe từ giây đầu tiên đến giây cuối cùng.
+   - Bắt buộc dùng công cụ đọc file (`read_file`) trên từng file `.m4a` trong `doc/ghi_am/` để nghe từ giây đầu tiên đến giây cuối cùng.
    - Không đoán nội dung qua tên file và không lược bỏ các phần thảo luận, phản biện liên bộ phận ở nửa sau băng ghi âm.
 2. **Không bịa đặt thông tin**:
    - Giữ nguyên 100% sự thật về số liệu, tỷ lệ %, số tiền, mốc thời gian, tên người phụ trách và quyết định của BOD.
@@ -20,6 +20,9 @@ Skill này thiết lập quy trình chuẩn để **nghe trực tiếp file âm 
 3. **Chuẩn hoá lời nói khẩu ngữ sang văn phong biên bản công sở**:
    - Lược bỏ từ đệm (*"à, ừm, kiểu như là, nói chung là, cái phần mà..."*), câu lặp, câu nói dở.
    - Chuyển đại từ xưng hô thân mật (*"mày - tao, chị - em, chế, tụi em, nó"*) sang định dạng chuẩn **`<Danh xưng Anh/Chị> <Tên> (<Tag Bộ phận>)`**.
+4. **Bảo mật âm thanh & Dữ liệu nội bộ (Strict Security & Privacy)**:
+   - File âm thanh (.m4a), nội dung trao đổi, mật khẩu hoặc số liệu kinh doanh là tài sản bảo mật của doanh nghiệp.
+   - Tuyệt đối KHÔNG tự ý chia sẻ dữ liệu hoặc chuyển giao cho bất kỳ AI Agent nào khác. Bắt buộc phải có sự xác nhận (CONFIRM) trực tiếp từ người dùng.
 
 ---
 
@@ -94,7 +97,7 @@ Khi phiên âm hoặc biên tập, bắt buộc chuẩn hoá chính xác các th
 2. **Quy tắc Gộp file ghi âm cùng phòng ban (`Multi-File Consolidation`)**:
    - Khi một bộ phận có nhiều file ghi âm liên tiếp (ví dụ: `It1.m4a` + `It2.m4a` -> **`IT.txt`**; `Marketing.m4a` + `Marketing2.m4a` + `Chị Thanh chia sẻ cùng marketing.m4a` -> **`Marketing.txt`**; `Tài - nhà máy.m4a` + `Chị Thanh nhận xét - kênh nhà máy.m4a` -> **`Tài - nhà máy.txt`**), bắt buộc gộp chung theo đúng trình tự thời gian vào **01 file transcript duy nhất của bộ phận đó**, ngăn cách bằng dòng tiêu đề `===== <Tên file .m4a> (MM:SS -> MM:SS) =====`.
 3. **Quy tắc Chống bỏ sót thông tin khi lập Biên bản họp (`Meeting Note`)**:
-   - Luôn duy trì và đối chiếu bảng chỉ mục [`00_DANH_MUC_TRANSCRIPT.md`](file:///d:/Source-Transcript/doc/transcripts/00_DANH_MUC_TRANSCRIPT.md) trong `d:\Source-Transcript\doc\transcripts\`.
+   - Luôn duy trì và đối chiếu bảng chỉ mục `00_DANH_MUC_TRANSCRIPT.md` trong thư mục `doc/transcripts/`.
    - Trước khi tạo `Meeting Note`, AI bắt buộc kiểm tra đủ số lượng file trong `00_DANH_MUC_TRANSCRIPT.md` và đọc từ dòng đầu tiên đến dòng cuối cùng của từng file transcript (bao gồm tất cả các phân đoạn `===== ... =====` đã gộp bên trong).
 4. **Kiểm tra Unicode NFC**:
    - Sau khi tạo hoặc cập nhật file transcript/biên bản, luôn kiểm tra chuẩn UTF-8 NFC (`FormC`).
