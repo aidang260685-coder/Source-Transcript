@@ -45,7 +45,7 @@ Tài liệu này (`AGENTS.md`) thiết lập các quy tắc bắt buộc cho to�
 2. **Các Skill chuẩn hiện có trong `doc/Skill/`**:
    - [`harness-engineering`](./doc/Skill/harness-engineering/SKILL.md): Vòng lặp tự hành 5 pha (GATHER, CURATE, ACT, VERIFY, RETRY) cùng các chốt chặn an toàn dữ liệu, trần chi phí và cổng xuất bản.
    - [`ktt-transcript-normalizer`](./doc/Skill/ktt-transcript-normalizer/SKILL.md): Nghe trực tiếp file ghi âm (`.m4a`), định danh chính xác nhân sự theo từng bộ phận/buổi họp và chuẩn hoá transcript, thuật ngữ hệ thống (`MISA AMIS`), thương hiệu & mã hàng của Công ty TNHH Kiên Thành Tín.
-   - [`meeting-note`](./doc/Skill/meeting-note/SKILL.md): Tạo và cập nhật biên bản họp HTML chuẩn in PDF A4 (gồm 3 khung `khung_kickoff.html`, `khung_weekly.html`, `khung_bsc_kpi.html` cho họp Báo cáo Quý / BSC & KPI từng bộ phận kèm đánh giá sau báo cáo của BOD, và `style.css` với letterhead & logo Công ty TNHH Kiên Thành Tín, font Montserrat).
+   - [`meeting-note`](./doc/Skill/meeting-note/SKILL.md): Tạo và cập nhật biên bản họp HTML chuẩn in PDF A4 lưu tại `output/` (gồm 3 khung `khung_kickoff.html`, `khung_weekly.html`, `khung_bsc_kpi.html` cho họp Báo cáo Quý / BSC & KPI từng bộ phận kèm đánh giá sau báo cáo của BOD, và `style.css` với letterhead & logo Công ty TNHH Kiên Thành Tín, font Montserrat).
    - [`vietnamese-spellcheck`](./doc/Skill/vietnamese-spellcheck/SKILL.md): Kiểm tra và sửa lỗi chính tả, dấu thanh, khoảng trắng, danh xưng giới tính (`Anh`/`Chị`) và kiểm tra Unicode code point (`check_unicode.py`).
    - [`mpp-project-reader`](./doc/Skill/mpp-project-reader/SKILL.md): Đọc, phân tích tiến độ, WBS, critical path và chi phí từ file Microsoft Project (`.mpp`).
 

@@ -50,7 +50,14 @@ Làm theo thứ tự này, chạy test sau mỗi thay đổi:
 | VERIFY | Chấm độc lập trước khi xuất bản | Có check tất định (trích dẫn có thật, số liệu có căn cứ); giám khảo LLM tách riêng; check hỏng = không đạt |
 | RETRY | Phát hiện sai lệch và sửa | Feedback cụ thể; phân loại lỗi; phát hiện dậm chân; có trần số lần, thời gian, token; hết lượt thì escalate |
 
-Cổng xuất bản: chỉ `RunResult.publishable` (status `verified`) mới được đi ra ngoài. Không có ngoại lệ, kể cả khi "gần đạt".
+Cổng xuất bản: chỉ `RunResult.publishable` (status `verified`) mới được đi ra ngoài và bắt buộc lưu trữ tại thư mục **`output/`** (ví dụ: `output/Bien_Ban_Hop_[TieuDe]_[DD-MM-YYYY]_Verified.html`). Không có ngoại lệ, kể cả khi "gần đạt".
+
+### Bản đồ Thư mục Chuẩn (Directory Mapping) của Hệ thống:
+- **`doc/ghi_am/`**: Dữ liệu âm thanh thô thu thập ban đầu (Pha GATHER - Local Only).
+- **`doc/transcripts/`**: Dữ liệu bóc băng, sàng lọc và bảng chỉ mục kiểm soát (Pha CURATE).
+- **`harness/`**: Mã nguồn điều phối các pha và bộ kiểm chứng độc lập (Pha ACT & VERIFY).
+- **`output/`**: Cổng xuất bản chính thức lưu trữ các ấn phẩm hoàn chỉnh đã qua kiểm định (Publishable Gate).
+- **`runs/`**: Nhật ký chu trình JSONL truy vết toàn bộ quá trình tự hành.
 
 ## Nguyên tắc cốt lõi (kèm lý do)
 

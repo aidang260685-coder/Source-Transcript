@@ -22,7 +22,7 @@ Toàn bộ quy tắc cốt lõi của dự án được định nghĩa chi tiế
   3. Phủ đủ 100% chỉ đạo và giao việc của Ban Giám Đốc (`Chị Thanh (BOD)`).
   4. Chuẩn hoá danh xưng theo giới tính: `<Danh xưng Anh/Chị> <Tên> (<Tag Bộ phận>)`.
   5. Deadline hợp lệ (từ Thứ Hai đến Thứ Sáu, không rơi vào cuối tuần).
-  6. Chuẩn cấu trúc biên bản 7 phần, cân bằng thẻ HTML.
+  6. Chuẩn cấu trúc biên bản 7 phần, cân bằng thẻ HTML, lưu file tại cổng xuất bản `output/`.
 
 ## 3. CHUẨN NGÔN NGỮ TIẾNG VIỆT & UNICODE
 - 100% file mã nguồn, cấu hình, tài liệu dùng bảng mã **UTF-8** và chuẩn **Unicode dựng sẵn (NFC)**.

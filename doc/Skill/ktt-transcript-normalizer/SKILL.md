@@ -42,8 +42,12 @@ Chi tiết từng bộ phận:
 - **IT (`It1.m4a`, `It2.m4a`)**:
   - **`Anh Ân (IT)`**: Trưởng bộ phận / Phụ trách IT (báo cáo chính về `AMIS CRM`, `AMIS Kế toán`, `App Kho`, `n8n`, `VPS`, bản quyền `Microsoft Office` & `Windows Server 2016`).
   - Nhân sự IT được nhắc tên hỗ trợ kỹ thuật/dưới kho: `Quốc`, `Sơn`.
-- **Kế toán (`Kế toán.m4a`)**:
-  - **`Anh Vũ (Kế toán)`** (hoặc `Anh Vũ (KT)`), **`Anh Khiêm (KT)`**, **`Chị Thu (KT)`**, **`Chị Trâm (KTT)`**, **`Chị Dung (KT)`**.
+- **Kế toán (Kế toán.m4a)**:
+  - **Chị Thu (KT)**: Kế toán tổng hợp (phụ trách hạch toán tổng hợp, đối soát công nợ, số dư tài khoản, đối soát chênh lệch sổ sách và thuế).
+  - **Anh Vũ (Kế toán)** (hoặc Anh Vũ (KT)), **Anh Khiêm (KT)**, **Chị Trâm (KTT)**, **Chị Dung (KT)**.
+- **Đối tác Tư vấn Quản trị & Tài chính (Nidobiz - Nido)**:
+  - **Chị Thúy (Nido)**: Trưởng nhóm Chuyên gia Tư vấn Quản trị, Tài chính & Vận hành.
+  - **Chị Trang (KT - Nido)**: Chuyên viên Tư vấn Kế toán (Nidobiz).
 - **QC (`Qc.m4a`)**:
   - **`Anh Phương (QC)`**: Phụ trách Kiểm soát chất lượng (QC).
 - **Kho (`Kho.m4a`)**:

@@ -6,6 +6,8 @@
 # ---- Tên công ty / Hệ thống / Công cụ Kỹ thuật ----
 Kiên Thành Tín
 KTT
+Nidobiz
+Nido
 MISA AMIS
 AMIS Kế toán
 AMIS CRM
@@ -59,7 +61,7 @@ B54
 A38
 A36
 
-# ---- Danh sách Nhân sự & Bộ phận Chuẩn (KTT) ----
+# ---- Danh sách Nhân sự & Bộ phận Chuẩn (KTT & Đối tác) ----
 Chị Thanh (BOD)
 Anh Tuấn Tú (BOD)
 Anh Ân (IT)
@@ -68,6 +70,8 @@ Anh Khiêm (KT)
 Chị Thu (KT)
 Chị Trâm (KTT)
 Chị Dung (KT)
+Chị Thúy (Nido)
+Chị Trang (KT - Nido)
 Anh Phương (QC)
 Anh Tân (Kho)
 Anh Tuấn (Kho)

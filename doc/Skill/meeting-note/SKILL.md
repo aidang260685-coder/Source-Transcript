@@ -214,11 +214,15 @@ Hoạt động tốt trên Chrome/Edge. Trên màn hình hiển thị ghi chú t
 <span class="screen-page-label">Số trang sẽ tự động hiển thị khi in PDF (Trang X / Y)</span>
 ```
 
-### Bước 5 — Lưu file & trình bày
+### Bước 5 — Lưu file theo chuẩn Harness Engineering & Trình bày
 
-Lưu vào thư mục `doc/transcripts/` (hoặc thư mục do người dùng chỉ định) theo tên `Bien_Ban_Hop_[TieuDe]_[DD-MM-YYYY].html` (hoặc `Bien_Ban_Bao_Cao_Quy_[Quy]_[DD-MM-YYYY].html`),
-sửa tên file trong `downloadHTML()` cho khớp.
-Kèm tóm tắt ngắn các mục chính và danh sách các điểm `[??]` / `Chưa xác định` cần người duyệt xác nhận — không cần liệt lại toàn bộ nội dung file.
+Tuân thủ nghiêm ngặt cấu trúc phân tầng của **Harness Engineering**:
+1. **Cổng xuất bản chính thức (Publishable Gate):** Bắt buộc lưu file HTML biên bản họp hoàn chỉnh (đã vượt qua kiểm định) tại thư mục **output/** theo định dạng Bien_Ban_Hop_[TieuDe]_[DD-MM-YYYY]_Verified.html (hoặc Bien_Ban_Hop_[TieuDe]_[DD-MM-YYYY].html), đồng bộ hàm downloadHTML() trong thẻ <script> cho khớp tên file.
+2. **Dữ liệu chứng cứ & Quản lý transcript (Curated Evidence):** File bóc băng lời thoại .txt lưu tại **doc/transcripts/**, đồng thời cập nhật vào bảng kiểm **doc/transcripts/00_DANH_MUC_TRANSCRIPT.md**.
+3. **Nhật ký chu trình (Run Traceability):** Ghi nhận trạng thái hoàn thành vào thư mục **
+uns/** (.jsonl).
+4. **Quy tắc Bảng phân công (Action Plan & Zero Hallucination):** Tuyệt đối KHÔNG tự suy đoán, gán ghép deadline hoặc công việc cụ thể nếu trong cuộc họp chưa thống nhất. Mọi đầu mục chưa chốt ngày phải ghi rõ Chưa xác định và nêu rõ điều kiện/thời điểm sẽ chốt.
+5. **Báo cáo kết quả:** Kèm tóm tắt ngắn các mục chính và danh sách các điểm [??] / Chưa xác định cần người duyệt xác nhận — không re-summarize toàn bộ file.
 
 ---
 

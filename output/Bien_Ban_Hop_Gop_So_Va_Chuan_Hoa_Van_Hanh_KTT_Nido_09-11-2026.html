@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biên Bản Họp — Thống Nhất Phương Án Gộp Sổ Kế Toán & Chuẩn Hoá Vận Hành (KTT & Nidobiz)</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    max-width: 210mm;
+    margin: 20px auto;
+    padding: 30mm;
+    background: white;
+    font-size: 11pt;
+    line-height: 1.7;
+    color: #333;
+}
+p { margin: 8px 0; line-height: 1.7; }
+ul { margin: 6px 0 10px 24px; padding: 0; }
+li { margin: 5px 0; line-height: 1.7; }
+.header {
+    text-align: center;
+    border-bottom: 3px solid #2c3e50;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
+.header-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin-bottom: 10px;
+}
+.header-logo img {
+    height: 56px;
+    width: auto;
+    object-fit: contain;
+}
+h1 {
+    font-size: 20pt;
+    margin-bottom: 8px;
+    color: #000000;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+h2 {
+    font-size: 14pt;
+    color: #1a1a1a;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+}
+.meta-info {
+    background: #ecf0f1;
+    padding: 16px 20px;
+    margin: 20px 0;
+    border-radius: 5px;
+    line-height: 1.8;
+}
+.meta-info strong { color: #2c3e50; }
+.section-title {
+    background: #3498db;
+    color: white;
+    padding: 10px 15px;
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+    border-radius: 3px;
+}
+.subsection-title {
+    font-weight: bold;
+    color: #2980b9;
+    margin: 14px 0 6px 0;
+    font-size: 11pt;
+}
+.highlight {
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    padding: 12px; margin: 12px 0; border-radius: 3px;
+}
+.action-box {
+    background: #e8f5e9;
+    border-left: 4px solid #4caf50;
+    padding: 12px; margin: 12px 0; border-radius: 5px;
+}
+.open-issue {
+    background: #ffebee;
+    border-left: 4px solid #f44336;
+    padding: 12px; margin: 12px 0; border-radius: 5px;
+}
+.tips-box {
+    background: #e3f2fd;
+    border-left: 4px solid #2196f3;
+    padding: 12px; margin: 12px 0; border-radius: 5px;
+}
+table { width: 100%; border-collapse: collapse; margin: 15px 0; line-height: 1.65; }
+table th {
+    background: #3498db; color: white;
+    padding: 10px 12px; text-align: left; font-weight: bold;
+    line-height: 1.45;
+}
+table td { padding: 10px 12px; border-bottom: 1px solid #ddd; vertical-align: top; line-height: 1.65; }
+table tr:hover { background: #f5f5f5; }
+.footer {
+    text-align: center; font-style: italic;
+    margin-top: 30px; padding-top: 15px;
+    border-top: 2px solid #ecf0f1; color: #7f8c8d;
+}
+.download-btn {
+    position: fixed; bottom: 30px; right: 30px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white; border: none;
+    padding: 15px 25px; font-size: 15px; font-weight: bold;
+    border-radius: 50px; cursor: pointer;
+    box-shadow: 0 8px 20px rgba(102,126,234,0.4);
+    transition: all 0.3s; z-index: 1000;
+}
+.download-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(102,126,234,0.6);
+}
+* { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+@media print {
+    body { padding: 0; margin: 0; }
+    @page { size: A4; margin: 15mm; }
+    .download-btn { display: none; }
+    .section-title  { background: #3498db !important; color: white !important; }
+    table th        { background: #3498db !important; color: white !important; }
+    .highlight      { background: #fff3cd !important; border-left: 4px solid #ffc107 !important; }
+    .action-box     { background: #e8f5e9 !important; border-left: 4px solid #4caf50 !important; }
+    .open-issue     { background: #ffebee !important; border-left: 4px solid #f44336 !important; }
+    .tips-box       { background: #e3f2fd !important; border-left: 4px solid #2196f3 !important; }
+    .meta-info      { background: #ecf0f1 !important; }
+}
+.company-header {
+    text-align: center;
+    padding: 0 0 12px 0;
+    margin-bottom: 18px;
+    border-bottom: 1px solid #bdc3c7;
+}
+.company-name {
+    display: block;
+    font-size: 12pt;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    color: #C0392B;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+.company-address {
+    display: block;
+    font-size: 9pt;
+    color: #7f8c8d;
+    margin-top: 3px;
+    font-family: 'Montserrat', sans-serif;
+}
+@page {
+    size: A4;
+    margin: 15mm 20mm 22mm 20mm;
+}
+.screen-page-label {
+    display: block;
+    text-align: center;
+    font-size: 9pt;
+    color: #bbb;
+    margin-top: 8px;
+    font-style: italic;
+}
+@media print {
+    .screen-page-label { display: none; }
+    .company-header { border-bottom: 1px solid #bdc3c7 !important; }
+    .page-break { page-break-after: always; break-after: page; }
+    .no-break { page-break-inside: avoid; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<div class="company-header">
+  <span class="company-name">Công ty TNHH Kiên Thành Tín</span>
+  <span class="company-address">66 An Dương Vương, P. An Lạc, Q. Bình Tân, TP. Hồ Chí Minh</span>
+</div>
+
+<div class="header">
+  <div class="header-logo">
+    <img src="https://assets.ktt.mthan.net/2026/06/cropped-Asset-6logo-avatar.png"
+         alt="Kiên Thành Tín"
+         onerror="this.style.display='none'">
+    <h1 style="margin:0">BIÊN BẢN CUỘC HỌP</h1>
+  </div>
+  <h2>THỐNG NHẤT PHƯƠNG ÁN TRIỂN KHAI DỰ ÁN HỢP NHẤT SỔ KẾ TOÁN VÀ CHUẨN HOÁ HỆ THỐNG VẬN HÀNH</h2>
+</div>
+
+<div class="meta-info">
+  <strong>Thời gian:</strong> 09/11/2026 — 14:04 đến 14:51 (46 phút 58 giây)<br>
+  <strong>Địa điểm:</strong> Phòng họp trực tuyến kết hợp trực tiếp — Trụ sở Công ty TNHH Kiên Thành Tín<br>
+  <strong>Tập tin ghi âm gốc:</strong> <code>doc/ghi_am/11-09-2026 14.04_1.m4a</code> (Transcript: <code>doc/transcripts/11-09-2026 14.04_1.txt</code>)<br>
+  <strong>Loại cuộc họp:</strong> Họp rà soát phương án, giải quyết xung đột tiến độ và thống nhất phạm vi công việc (Scope of Work - SOW)<br>
+  <strong>Thành phần tham dự:</strong><br>
+  • <strong>Ban Giám Đốc (BOD) Kiên Thành Tín:</strong> Chị Thanh (BOD) — Tổng Giám đốc (CEO), Chủ trì cuộc họp.<br>
+  • <strong>Bộ phận IT Kiên Thành Tín:</strong> Anh Ân (IT) — Phụ trách Bộ phận IT.<br>
+  • <strong>Bộ phận Marketing & Quản trị dự án:</strong> Anh Duy (MKT) — Phụ trách Marketing và điều phối cấu trúc vận hành.<br>
+  • <strong>Bộ phận Kế toán Kiên Thành Tín:</strong> Chị Thu (KT) — Kế toán tổng hợp; Anh Vũ (KT) — Kế toán.<br>
+  • <strong>Đối tác Tư vấn Quản trị & Tài chính Nidobiz (Nido):</strong> Chị Thúy (Nido) — Trưởng nhóm Chuyên gia Tư vấn; Chị Trang (KT - Nido) — Chuyên viên Tư vấn Kế toán.
+</div>
+
+<div class="section-title">I. MỤC TIÊU CUỘC HỌP & NGUYÊN TẮC CỐT LÕI</div>
+<ul>
+  <li><strong>Mục tiêu chiến lược tối thượng:</strong> Kể từ ngày <strong>01/01/2027</strong>, toàn bộ hệ thống tài chính - kế toán của Công ty TNHH Kiên Thành Tín vận hành trên <strong>01 hệ thống duy nhất (All-in-one / 1 sổ duy nhất trên MISA AMIS)</strong>, xóa bỏ hoàn toàn tình trạng tồn tại song song 2 sổ (sổ thuế và sổ quản trị nội bộ).</li>
+  <li><strong>Tính hợp pháp và minh bạch đối ngoại:</strong> Đối với cơ quan thuế, ngân hàng và đối tác bên ngoài, Kiên Thành Tín chỉ trình bày duy nhất 1 bộ sổ sách tài chính chuẩn mực, hợp pháp, có đầy đủ chứng từ hóa đơn hợp lệ. Về mặt kỹ thuật, dữ liệu có thể lưu trữ tại nhiều database nhưng phải tuyệt đối an toàn và không gây rủi ro pháp lý.</li>
+  <li><strong>Giảm tải áp lực tiến độ cho Kế toán:</strong> Tái cấu trúc lộ trình từ dồn toàn bộ xử lý chênh lệch lịch sử vào 2 tháng (T11 & T12/2026) thành <strong>Phase 1 & 1.5 (trước 31/12/2026)</strong> và <strong>Phase 2 (trong năm 2027)</strong>.</li>
+  <li><strong>Đảm bảo tính liên tục của vận hành thực tế:</strong> Tích hợp ngay các chính sách giá, chính sách chiết khấu và quy trình liên thông giữa <strong>AMIS CRM</strong>, Kho và Kế toán vào Phase 1.5 để hệ thống chạy trơn tru từ ngày đầu năm 2027.</li>
+</ul>
+
+<div class="section-title">II. NỘI DUNG THẢO LUẬN CHI TIẾT</div>
+
+<div class="subsection-title">1. Phân kỳ lộ trình và tháo gỡ áp lực thời gian cho Kế toán — Chị Thu (KT) & Chị Thúy (Nido)</div>
+<div class="open-issue">
+  <strong>🔴 Xung đột tiến độ ban đầu:</strong> Bản dự thảo báo giá và phạm vi công việc (SOW) của Nidobiz dồn toàn bộ việc rà soát, xác nhận chênh lệch và đẩy bút toán số dư lịch sử vào vỏn vẹn 2 tháng cuối năm 2026 (tháng 11 và tháng 12). Kế toán KTT (Chị Thu (KT), Anh Vũ (KT)) không đủ nguồn lực để vừa thực hiện nghiệp vụ hàng ngày vừa kiểm tra toàn bộ chứng từ lịch sử nhiều năm trong thời gian quá ngắn.
+</div>
+<p><strong>Giải pháp thống nhất giữa hai bên:</strong></p>
+<ul>
+  <li><strong>Giai đoạn 1 & 1.5 (Tập trung hoàn thành trước 31/12/2026 để Go-live từ 01/01/2027):</strong> Ưu tiên đạt <strong>03 điều kiện tiên quyết bắt buộc</strong> để mở cơ sở dữ liệu mới và vận hành ngay từ đầu năm 2027:
+    <ul>
+      <li><strong>1. Nợ phải thu (Công nợ khách hàng):</strong> Khớp số liệu chi tiết đến từng khách hàng, từng hóa đơn và dòng tiền thu.</li>
+      <li><strong>2. Nợ phải trả (Công nợ nhà cung cấp):</strong> Khớp số liệu chi tiết đến từng nhà cung cấp và đối tượng thanh toán.</li>
+      <li><strong>3. Hàng tồn kho:</strong> Khớp số liệu theo từng đối tượng, từng mã hàng (SKU) và số lượng thực tế giữa phần mềm và kiểm kê.</li>
+    </ul>
+  </li>
+  <li><strong>Nguyên tắc lựa chọn số dư đầu kỳ:</strong> Tạm thời chốt theo <strong>Sổ thuế</strong> làm nền tảng pháp lý.</li>
+  <li><strong>Giai đoạn 2 (Xử lý tiếp nối trong năm 2027):</strong> Các khoản mục tài sản, nguồn vốn và số dư lịch sử phức tạp còn lại sẽ tiếp tục được rà soát, lập bút toán xử lý bổ sung theo từng bước trong năm 2027 để hoàn thiện hồ sơ quyết toán và đảm bảo tính nhất quán dữ liệu từ năm 2028 trở đi.</li>
+</ul>
+
+<div class="subsection-title">2. Phân định rạch ròi trách nhiệm nghiệp vụ và dữ liệu — Anh Vũ (KT), Chị Thúy (Nido) & Chị Thanh (BOD)</div>
+<div class="tips-box">
+  <strong>📌 Nguyên tắc phân công trách nhiệm giữa Kiên Thành Tín và Nidobiz:</strong><br><br>
+  ✔ <strong>Trách nhiệm của Nidobiz:</strong><br>
+  • Thực hiện tính toán chi tiết sự chênh lệch trên cơ sở dữ liệu do KTT cung cấp; lập bảng phân tích tác động rủi ro thuế và nghĩa vụ tài chính tương ứng.<br>
+  • Thiết lập sẵn danh sách các bút toán điều chỉnh dưới dạng <strong>tập tin mẫu import chuẩn</strong> để nạp thẳng vào MISA AMIS Kế toán.<br>
+  • Lập hồ sơ giải trình nghiệp vụ phục vụ giải trình thuế sau này.<br>
+  • <em>Cam kết:</em> Nidobiz tuyệt đối không tự ý ghi đè hoặc chỉnh sửa trực tiếp vào cơ sở dữ liệu của Kiên Thành Tín khi chưa có văn bản phê duyệt.<br><br>
+  ✔ <strong>Trách nhiệm của Kiên Thành Tín:</strong><br>
+  • Cung cấp đầy đủ chứng từ gốc, sao kê ngân hàng và bảng kiểm kê thực tế.<br>
+  • Chị Thu (KT) và Anh Vũ (KT) kiểm tra, đối soát tính phù hợp của các nguyên nhân chênh lệch do Nido đưa ra.<br>
+  • Chị Thanh (BOD) cùng Ban Giám đốc Kiên Thành Tín thẩm định và <strong>ký phê duyệt phương án xử lý chênh lệch</strong> (chọn mức độ xử lý 50%, 80% hay 100% kèm mức chấp nhận rủi ro thuế tương ứng).<br>
+  • Sau khi được duyệt, Kế toán KTT thực hiện thao tác import bút toán vào phần mềm.
+</div>
+
+<div class="subsection-title">3. Chuẩn hoá Master Data và Chuyển giao Danh mục — Chị Thanh (BOD) & Chị Thúy (Nido)</div>
+<p>
+  Nhằm đảm bảo cơ sở dữ liệu mới năm 2027 không bị "nhiễm rác" từ dữ liệu cũ, hai bên thống nhất:
+</p>
+<ul>
+  <li>Kiên Thành Tín phối hợp cùng Nidobiz tiến hành làm sạch, chuẩn hóa toàn bộ: <strong>Danh mục hàng hóa (vòng bi, dây curoa), Danh mục khách hàng, Danh mục nhà cung cấp</strong>.</li>
+  <li>Nidobiz chịu trách nhiệm xây dựng <strong>Bảng Mapping (ánh xạ mã cũ sang mã mới)</strong>. Khi chuyển số dư tồn kho và công nợ từ 31/12/2026 sang database 2027, hệ thống sẽ tự động gán nhãn (label) và mã danh mục chuẩn hóa mới.</li>
+</ul>
+
+<div class="subsection-title">4. Đưa Chính sách Giá, Chiết khấu và Luồng Vận hành vào Phase 1.5 — Anh Duy (MKT), Chị Thanh (BOD) & Chị Thúy (Nido)</div>
+<div class="highlight">
+  <strong>⚠️ Chỉ đạo mang tính bước ngoặt của Ban Giám Đốc Kiên Thành Tín:</strong><br>
+  Cuối năm 2026, Kiên Thành Tín sẽ <strong>reset (lập mới) toàn bộ Chính sách giá bán và Chính sách chiết khấu</strong> áp dụng cho toàn thể khách hàng từ đầu năm 2027. Các chính sách này là "xương sống" để cấu hình hệ thống <strong>AMIS CRM</strong>, chi phối trực tiếp đến quy trình lên đơn bán hàng của Sale, luân chuyển lệnh xuất kho và hạch toán doanh thu của Kế toán. Nếu chờ đến Phase 2 mới làm thì ngày 01/01/2027 bộ máy kinh doanh sẽ bị tê liệt.<br>
+  👉 <strong>Quyết định:</strong> Nâng cấp phạm vi công việc từ Phase 1 thành <strong>Phase 1.5</strong>: đưa toàn bộ việc chuẩn hóa Chính sách giá, Chính sách chiết khấu, Quy chế duyệt đơn và luồng dữ liệu CRM - Kho - Kế toán vào triển khai ngay trong tháng 11 và tháng 12 năm 2026.
+</div>
+
+<div class="subsection-title">5. Mô hình 4 Nhóm Công Việc & Vai trò của Nidobiz trong Kiến trúc Vận hành — Anh Duy (MKT) & Chị Thúy (Nido)</div>
+<p>Anh Duy (MKT) trình bày mô hình quản trị dự án gồm 4 nhóm đầu việc:</p>
+<ul>
+  <li><strong>Nhóm 1 — Kế toán, Database, Thuế & Nội bộ:</strong> Trọng tâm của Phase 1.5 (Nidobiz đóng vai trò tư vấn giải pháp, tính toán bút toán, KTT kiểm tra và import).</li>
+  <li><strong>Nhóm 2 — Kiến trúc & Vận hành (Sơ đồ tổ chức, cơ chế phân quyền, chính sách & quy chế):</strong> Nidobiz khảo sát nhu cầu, phác thảo khung sơ đồ tổ chức, hạn mức phê duyệt, quy chế ủy quyền; đồng thời rà soát tính tuân thủ pháp lý, luật lao động và rủi ro thuế (ví dụ: điều khoản bảo vệ dữ liệu cá nhân trên website, đăng ký Bộ Công Thương cho kênh TMĐT, hợp đồng đại lý). Ban Giám đốc Kiên Thành Tín là cấp thẩm định và ban hành chính thức.</li>
+  <li><strong>Nhóm 3 — Chuẩn hóa Quy trình Tác nghiệp (SOP phòng ban):</strong> Các Trưởng bộ phận (Heads) của KTT tự chủ động xây dựng; Nidobiz đóng vai trò phản biện, review tính khả thi và pháp lý.</li>
+  <li><strong>Nhóm 4 — Đào tạo, Chuyển giao & Thay đổi hành vi nhân sự:</strong> Kiên Thành Tín tự tổ chức đào tạo nội bộ; Nidobiz hỗ trợ tài liệu hướng dẫn và đồng hành tháo gỡ vướng mắc phát sinh.</li>
+</ul>
+
+<div class="section-title">III. QUYẾT ĐỊNH & KẾ HOẠCH HÀNH ĐỘNG (ACTION PLAN)</div>
+<div class="highlight">
+  <strong>⚠️ NGUYÊN TẮC HÀNH ĐỘNG BẮT BUỘC:</strong> Mọi deadline phải hoàn thành đúng hạn trong tuần làm việc (Thứ Hai đến Thứ Sáu), đảm bảo trước ngày 31/12/2026 hoàn tất 100% điều kiện Go-live để sáng ngày 01/01/2027 hệ thống chính thức kích hoạt vận hành 1 sổ.
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:20%">Người thực hiện</th>
+      <th style="width:34%">Nội dung công việc</th>
+      <th style="width:16%">Hạn chót (Deadline)</th>
+      <th style="width:30%">Ghi chú & Tình trạng</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Chị Trang (KT - Nido)</strong></td>
+      <td>Cập nhật, điều chỉnh lại Báo giá & Scope of Work (SOW) phần Kế toán theo lộ trình Phase 1 & 1.5; gửi file cho KTT rà soát trước phiên họp tiếp theo.</td>
+      <td><strong>10/11/2026</strong><br><em>(Sáng Thứ Ba)</em></td>
+      <td>Đã chốt tại cuộc họp: Tách bạch rõ Phase 1 (xử lý 3 chỉ số công nợ, tồn kho) và Phase 1.5.</td>
+    </tr>
+    <tr>
+      <td><strong>Chị Thúy (Nido)</strong></td>
+      <td>Soạn thảo bản mô tả chi tiết phương thức triển khai cấu phần Kiến trúc & Vận hành (Sơ đồ tổ chức, phân quyền, review pháp lý/thuế).</td>
+      <td><strong>10/11/2026</strong><br><em>(Sáng Thứ Ba)</em></td>
+      <td>Đã chốt tại cuộc họp: Làm rõ danh mục tài liệu bàn giao (Deliverables) và ranh giới trách nhiệm tư vấn.</td>
+    </tr>
+    <tr>
+      <td><strong>Chị Thanh (BOD) & Nhóm Dự Án KTT, Nidobiz</strong></td>
+      <td>Tổ chức phiên họp tiếp theo để rà soát bản điều chỉnh báo giá và ký chốt SOW chính thức giữa KTT và Nidobiz.</td>
+      <td><strong>10/11/2026</strong><br><em>(Chiều Thứ Ba)</em></td>
+      <td>Đã chốt tại cuộc họp. Thành phần: Chị Thanh (BOD), Anh Ân (IT), Anh Duy (MKT), Chị Thu (KT), Anh Vũ (KT), Chị Thúy (Nido), Chị Trang (KT - Nido).</td>
+    </tr>
+    <tr>
+      <td><strong>Chị Thu (KT) & Anh Vũ (KT)</strong></td>
+      <td>Tổng hợp số liệu nợ phải thu, nợ phải trả và bảng kiểm kê hàng tồn kho thực tế tính đến hiện tại để phối hợp cùng Nidobiz đối soát.</td>
+      <td><em>Chưa xác định</em><br><em>(Thống nhất tại buổi họp 10/11/2026)</em></td>
+      <td>Dữ liệu trích xuất từ MISA AMIS và bảng kiểm kê kho thực tế có đối chiếu ký tá của thủ kho.</td>
+    </tr>
+    <tr>
+      <td><strong>Anh Duy (MKT) & Chị Thanh (BOD)</strong></td>
+      <td>Hoàn thiện khung Chính sách giá bán và Chính sách chiết khấu năm 2027 của Kiên Thành Tín chuyển Nidobiz rà soát pháp lý & thuế.</td>
+      <td><em>Chưa xác định</em><br><em>(Thực hiện trong T11-T12/2026)</em></td>
+      <td>Làm cơ sở cấu hình bảng giá và công thức chiết khấu tự động trên AMIS CRM trước khi Go-live.</td>
+    </tr>
+    <tr>
+      <td><strong>Chị Thúy (Nido) & Chị Trang (KT - Nido)</strong></td>
+      <td>Lập bảng tính đối soát chênh lệch chi tiết và chuyển giao bộ file mẫu bút toán import điều chỉnh cho 3 khoản mục trọng yếu.</td>
+      <td><em>Chưa xác định</em><br><em>(Thực hiện trong T11-T12/2026)</em></td>
+      <td>Kèm theo hồ sơ phân tích tác động thuế và rủi ro tài chính trình BOD duyệt.</td>
+    </tr>
+    <tr>
+      <td><strong>Chị Thanh (BOD) & Chị Thu (KT)</strong></td>
+      <td>Ký duyệt phương án xử lý chênh lệch số dư; chốt số dư đầu kỳ và khóa sổ năm 2026, hoàn tất điều kiện Go-live.</td>
+      <td><strong>31/12/2026</strong><br><em>(Thứ Năm)</em></td>
+      <td>Mốc mục tiêu chiến lược: Đảm bảo toàn bộ 3 điều kiện tiên quyết sẵn sàng 100% trước giờ kích hoạt hệ thống mới.</td>
+    </tr>
+    <tr>
+      <td><strong>Toàn thể Công ty Kiên Thành Tín</strong></td>
+      <td><strong>CHÍNH THỨC KÍCH HOẠT GO-LIVE HỆ THỐNG 1 SỔ DUY NHẤT TRÊN MISA AMIS.</strong></td>
+      <td><strong>01/01/2027</strong><br><em>(Thứ Sáu)</em></td>
+      <td>Mốc mục tiêu chiến lược: Toàn bộ giao dịch phát sinh từ ngày 01/01/2027 chỉ ghi nhận vào 1 hệ thống duy nhất.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="section-title">IV. LỘ TRÌNH TRIỂN KHAI TỔNG THỂ (TIMELINE)</div>
+<div class="tips-box">
+  <strong>📅 Lộ trình các mốc triển khai chiến lược:</strong><br><br>
+  📌 <strong>10/11/2026 (Thứ Ba):</strong> Họp chốt Báo giá & SOW điều chỉnh (Phase 1 & 1.5) giữa Ban Giám đốc KTT và Nidobiz; thống nhất chi tiết kế hoạch hành động.<br>
+  📌 <strong>Giai đoạn chuẩn bị (Tháng 11 và Tháng 12/2026):</strong> Rà soát chênh lệch 3 chỉ số tiên quyết (Công nợ phải thu, Công nợ phải trả, Hàng tồn kho); chuẩn hóa Master Data và lập bảng Mapping; hoàn thiện chính sách giá & chiết khấu 2027; lập bút toán điều chỉnh số dư 2026 và kiểm thử liên thông.<br>
+  📌 <strong>31/12/2026 (Thứ Năm):</strong> Khóa sổ năm tài chính 2026, chuyển giao số dư đầu kỳ sang cơ sở dữ liệu 2027.<br>
+  📌 <strong>01/01/2027 (Thứ Sáu):</strong> <strong>GO-LIVE CHÍNH THỨC HỆ THỐNG 1 SỔ ALL-IN-ONE TRÊN MISA AMIS.</strong><br>
+  📌 <strong>Năm 2027 (Phase 2):</strong> Tiếp tục xử lý dứt điểm các khoản chênh lệch lịch sử phức tạp còn lại; hoàn thiện hệ thống quy chế, SOP và chuẩn bị hồ sơ quyết toán thuế.
+</div>
+
+<div class="section-title">V. RỦI RO CẦN KIỂM SOÁT</div>
+<div class="open-issue">
+  <strong>🔴 1. Rủi ro quá tải nghiệp vụ của Kế toán nội bộ:</strong> Nếu việc rà soát chứng từ công nợ và kiểm kê kho kéo dài qua tháng 12/2026 sẽ gây nghẽn tiến độ Go-live. <em>Biện pháp:</em> Nidobiz chủ động lập file mẫu tính toán và bút toán import; kế toán KTT chỉ đối soát theo mẫu có sẵn.
+</div>
+<div class="open-issue">
+  <strong>🔴 2. Rủi ro gián đoạn kinh doanh do chính sách giá và chiết khấu mới:</strong> Nếu chính sách giá bán và chiết khấu 2027 không hoàn tất kịp thời trong tháng 12/2026 thì bộ phận IT không thể cấu hình kịp lên AMIS CRM, dẫn đến Sale không thể lên đơn trong ngày đầu năm mới 01/01/2027. <em>Biện pháp:</em> Anh Duy (MKT) phối hợp cùng Chị Thanh (BOD) chủ động hoàn thiện khung chính sách giá và chiết khấu trong tháng 11/2026.
+</div>
+<div class="highlight">
+  <strong>⚠️ 3. Rủi ro pháp lý & thuế đối với số liệu lịch sử:</strong> Chênh lệch số liệu quá khứ không thể biến mất 100% bằng giải pháp kỹ thuật. Mọi bút toán xử lý điều chỉnh đều có mức độ rủi ro nhất định. <em>Biện pháp:</em> Ban Giám đốc KTT thẩm định và lựa chọn phương án xử lý trên cơ sở hồ sơ giải trình chi tiết do Nidobiz lập.
+</div>
+
+<div class="section-title">VI. KẾT LUẬN CUỘC HỌP</div>
+<div class="action-box">
+  <strong>✅ Các điểm chốt cốt lõi đã đạt được sự đồng thuận 100%:</strong><br><br>
+  ✔ <strong>Thống nhất mục tiêu tối thượng:</strong> Toàn bộ Kiên Thành Tín vận hành trên 1 hệ thống sổ sách duy nhất (All-in-one trên MISA AMIS) từ ngày 01/01/2027.<br>
+  ✔ <strong>Thống nhất cơ chế phân kỳ:</strong> Tách biệt giai đoạn Go-live trước ngày 31/12/2026 (Phase 1 & 1.5 với 3 điều kiện tiên quyết: Thu, Trả, Tồn kho) và giai đoạn xử lý dứt điểm số dư lịch sử trong năm 2027 (Phase 2).<br>
+  ✔ <strong>Thống nhất phương thức phối hợp:</strong> Nidobiz tính toán chênh lệch, phân tích tác động thuế và lập file bút toán import; Kế toán KTT đối soát; Ban Giám đốc KTT thẩm định phê duyệt trước khi import vào hệ thống.<br>
+  ✔ <strong>Tích hợp vận hành vào Phase 1.5:</strong> Chuẩn hóa chính sách giá, chiết khấu và liên thông CRM - Kho - Kế toán để sẵn sàng vận hành đồng bộ từ 01/01/2027.<br>
+  ✔ <strong>Lịch họp tiếp theo:</strong> Chiều ngày mai, <strong>10/11/2026</strong>, hai bên sẽ gặp lại để rà soát SOW điều chỉnh và chốt phương án chính thức.
+</div>
+
+<div class="footer">
+  <p>Biên bản được lập và chuẩn hoá ngày 09/11/2026</p>
+  <p style="margin-top:5px;font-size:10pt;">
+    <strong>Thư ký / Tổng hợp nội dung:</strong> Bộ phận Kế toán & Quản trị Dự án Kiên Thành Tín — <strong>Chủ trì & Phê duyệt:</strong> Chị Thanh (BOD) - CEO
+  </p>
+  <span class="screen-page-label">Số trang sẽ tự động hiển thị khi in PDF (Trang X / Y)</span>
+</div>
+
+<button class="download-btn" onclick="downloadHTML()">⬇️ TẢI FILE HTML</button>
+<script>
+function downloadHTML() {
+  const blob = new Blob([document.documentElement.outerHTML],
+    {type:'text/html;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'Bien_Ban_Hop_Gop_So_Va_Chuan_Hoa_Van_Hanh_KTT_Nido_09-11-2026.html';
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a);
+}
+</script>
+</body>
+</html>
