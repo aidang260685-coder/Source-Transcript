@@ -330,11 +330,22 @@ def export_karaoke_ass(
     val_outline = preset.get("outline", 2.2)
     val_shadow = preset.get("shadow", 1.5)
 
-    # Tự động tính lề đáy an toàn (Safe Zone): TikTok/Zalo/Reels cần lề đáy ~320-340px để tránh bị nút bấm & thanh nhạc che
+    # Tự động tính lề đáy an toàn (Safe Zone):
+    # - 3:4 (1080x1440): Lề đáy ~160px
+    # - 9:16 (1080x1920): Lề đáy ~340px (tránh nút TikTok/Reels)
+    # - 16:9 (1920x1080): Lề đáy ~60px
     if margin_v is None:
-        val_margin_v = 340 if int_h > int_w else 60
+        if int_h == 1440 and int_w == 1080:
+            val_margin_v = 160
+        elif int_h > int_w:
+            val_margin_v = 340
+        else:
+            val_margin_v = 60
     else:
         val_margin_v = margin_v
+
+    # Tính lề đỉnh cho Chữ ký bản quyền (Top-Center)
+    sig_margin_v = 60 if int_h == 1440 else (90 if int_h > int_w else 50)
 
     styles_block = [
         "Style: Karaoke," + f"{f_name},{f_size},{c_primary},{c_secondary},{c_outline},&H64000000,{val_bold},{val_italic},0,0,100,100,{val_spacing},0,1,{val_outline},{val_shadow},{alignment},40,40,{val_margin_v},1"
@@ -343,11 +354,11 @@ def export_karaoke_ass(
     # Style cho Chữ ký nghệ thuật (Top-Center, mờ nhẹ 75%, chữ THẲNG ĐỨNG KHÔNG NGHIÊNG dãn cách thanh lịch)
     if signature:
         styles_block.append(
-            f"Style: Signature,Arial,28,&H30FFFFFF,&H30FFFFFF,&H00000000,&H64000000,1,0,0,0,100,100,4.0,0,1,1.5,1.0,8,40,40,90,1"
+            f"Style: Signature,Arial,28,&H30FFFFFF,&H30FFFFFF,&H00000000,&H64000000,1,0,0,0,100,100,4.0,0,1,1.5,1.0,8,40,40,{sig_margin_v},1"
         )
     # Style cho Hashtag (Top-Center ngay dưới chữ ký, màu vàng nhạt hoặc xám mờ)
     if hashtags:
-        top_offset = 145 if signature else 90
+        top_offset = sig_margin_v + 55 if signature else sig_margin_v
         styles_block.append(
             f"Style: Hashtag,{f_name},24,&H30F0E0D0,&H30F0E0D0,&H00000000,&H64000000,0,-1,0,0,100,100,1.2,0,1,1.2,0.8,8,40,40,{top_offset},1"
         )

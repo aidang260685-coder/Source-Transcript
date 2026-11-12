@@ -108,9 +108,17 @@ def auto_detect_inputs(
             chosen_img = image_files[0].resolve()
             print(f"💡 [TỰ ĐỘNG GHÉP CẶP] Tự động bắt cặp với bức ảnh duy nhất trong input/images/: {chosen_img.name}")
         elif len(image_files) > 1:
-            # Tự động nạp toàn bộ ảnh để tạo Slideshow chuyển cảnh mềm mại
-            chosen_img = [img.resolve() for img in image_files]
-            print(f"💡 [TỰ ĐỘNG GHÉP CẶP] Phát hiện {len(image_files)} ảnh trong input/images/. Tự động kích hoạt chế độ Trình chiếu chuyển cảnh (Crossfade Slideshow) qua các ảnh:")
+            # Loại trừ ảnh thuộc về bài hát khác nếu có
+            other_music_stems = {mf.stem.lower() for mf in music_files if mf.stem.lower() != chosen_input.stem.lower()}
+            candidate_imgs = [
+                img for img in image_files 
+                if not any(other_stem in img.stem.lower() or img.stem.lower() in other_stem for other_stem in other_music_stems)
+            ]
+            if not candidate_imgs:
+                candidate_imgs = image_files
+
+            chosen_img = [img.resolve() for img in candidate_imgs]
+            print(f"💡 [TỰ ĐỘNG GHÉP CẶP] Phát hiện {len(chosen_img)} ảnh phù hợp trong input/images/. Tự động kích hoạt Trình chiếu chuyển cảnh (Crossfade Slideshow):")
             for idx, im in enumerate(chosen_img, 1):
                 print(f"      [{idx}] {im.name}")
             print("   (👉 Anh có thể dùng tham số -img \"tên_ảnh.jpg\" nếu chỉ muốn dùng duy nhất 1 ảnh)")
@@ -220,7 +228,12 @@ def run_pipeline(
     out_srt = dir_lyrics / f"{input_file.stem}.srt"
     out_json = dir_lyrics / f"{input_file.stem}_timeline.json"
 
-    res_str = "1080x1920" if aspect_ratio == "9:16" else "1920x1080"
+    if aspect_ratio == "3:4":
+        res_str = "1080x1440"
+    elif aspect_ratio == "9:16":
+        res_str = "1080x1920"
+    else:
+        res_str = "1920x1080"
     out_lrc.write_text(export_standard_lrc(segments, title, artist), encoding="utf-8")
     out_enhanced_lrc.write_text(export_enhanced_lrc(segments, title, artist), encoding="utf-8")
     out_ass.write_text(
@@ -325,7 +338,7 @@ def main():
     parser.add_argument("--artist", "-a", default="Ca Sĩ", help="Tên ca sĩ / nghệ sĩ")
     parser.add_argument("--signature", "--sig", default=None, help="Chữ ký / Watermark bản quyền (ví dụ: 'H O A N G A N')")
     parser.add_argument("--hashtags", "--tag", default=None, help="Dải hashtag trên video và caption (ví dụ: '#saicuasai #cover #nhachay')")
-    parser.add_argument("--ratio", "-r", default="9:16", choices=["9:16", "16:9"], help="Tỷ lệ khung hình video: 9:16 (TikTok, Zalo, Reels, Shorts) hoặc 16:9 (YouTube)")
+    parser.add_argument("--ratio", "-r", default="3:4", choices=["3:4", "9:16", "16:9"], help="Tỷ lệ khung hình video: 3:4 (chuẩn ảnh dọc chân dung 3:4 Facebook/Zalo/TikTok, vừa khít 100% không dư viền), 9:16 (TikTok full) hoặc 16:9 (YouTube)")
     parser.add_argument("--bg-mode", default="blur_padding", choices=["blur_padding", "crop"], help="Chế độ xử lý ảnh nền: blur_padding (nền mờ CapCut/TikTok giữ trọn vẹn ảnh) hoặc crop (cắt vừa khít)")
     parser.add_argument("--style", default="dancing_script", choices=["dancing_script", "soft_italic", "poetic", "handwritten", "modern_italic"], help="Phong cách phụ đề lyric (mặc định: dancing_script)")
     parser.add_argument("--font", default="Dancing Script", help="Tên phông chữ nghệ thuật cho lyric (mặc định: Dancing Script)")

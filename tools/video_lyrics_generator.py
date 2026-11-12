@@ -73,7 +73,9 @@ def render_image_lyrics_video(
     output_video_path.parent.mkdir(parents=True, exist_ok=True)
     ffmpeg_bin = get_ffmpeg_binary()
 
-    if aspect_ratio == "9:16":
+    if aspect_ratio == "3:4":
+        width, height = 1080, 1440
+    elif aspect_ratio == "9:16":
         width, height = 1080, 1920
     else:
         width, height = 1920, 1080
@@ -237,7 +239,9 @@ def render_video_lyrics_video(
     output_video_path.parent.mkdir(parents=True, exist_ok=True)
     ffmpeg_bin = get_ffmpeg_binary()
 
-    if aspect_ratio == "9:16":
+    if aspect_ratio == "3:4":
+        width, height = 1080, 1440
+    elif aspect_ratio == "9:16":
         width, height = 1080, 1920
     else:
         width, height = 1920, 1080
