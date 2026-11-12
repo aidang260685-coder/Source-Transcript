@@ -60,11 +60,13 @@ def test_karaoke_ass_generation():
         ]
     )
 
-    ass_content = export_karaoke_ass([line], title="Test Song", resolution="1920x1080")
+    ass_content = export_karaoke_ass([line], title="Test Song", resolution="1920x1080", style_preset="soft_italic")
     assert "[Script Info]" in ass_content
     assert "PlayResX: 1920" in ass_content
     assert "PlayResY: 1080" in ass_content
-    assert "Style: Karaoke,Montserrat" in ass_content
+    # Phải dùng font nghệ thuật nghiêng mềm mại (Georgia, Italic=-1), KHÔNG dùng Montserrat biên bản
+    assert "Style: Karaoke,Georgia" in ass_content
+    assert ",0,-1," in ass_content  # Bold=0, Italic=-1 (chữ nghiêng mềm mại)
     # Kiểm tra có thẻ \k đổi màu chữ
     assert r"{\k50}Nơi" in ass_content
     assert r"{\k70}này" in ass_content

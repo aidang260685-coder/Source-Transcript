@@ -124,22 +124,91 @@ def export_enhanced_lrc(
     return "\n".join(output) + "\n"
 
 
+LYRIC_STYLE_PRESETS: Dict[str, Dict[str, Any]] = {
+    "soft_italic": {
+        "font_name": "Georgia",
+        "font_size": 46,
+        "bold": 0,
+        "italic": -1,       # -1 trong ASS là bật chữ nghiêng (Italic)
+        "spacing": 1.2,
+        "outline": 2.2,
+        "shadow": 1.5,
+        "primary_color": "&H00FFFFFF",
+        "secondary_color": "&H0000D7FF",
+        "outline_color": "&H00000000",
+    },
+    "poetic": {
+        "font_name": "Palatino Linotype",
+        "font_size": 46,
+        "bold": 0,
+        "italic": -1,
+        "spacing": 1.5,
+        "outline": 2.0,
+        "shadow": 1.5,
+        "primary_color": "&H00F5F5F5",
+        "secondary_color": "&H0050D0FF",
+        "outline_color": "&H00111111",
+    },
+    "handwritten": {
+        "font_name": "Segoe Print",
+        "font_size": 42,
+        "bold": 0,
+        "italic": -1,
+        "spacing": 1.0,
+        "outline": 2.5,
+        "shadow": 2.0,
+        "primary_color": "&H00FFFFFF",
+        "secondary_color": "&H0022E6FF",
+        "outline_color": "&H00000000",
+    },
+    "modern_italic": {
+        "font_name": "Segoe UI",
+        "font_size": 46,
+        "bold": 0,
+        "italic": -1,
+        "spacing": 1.0,
+        "outline": 2.2,
+        "shadow": 1.5,
+        "primary_color": "&H00FFFFFF",
+        "secondary_color": "&H0000D7FF",
+        "outline_color": "&H00000000",
+    }
+}
+
+
 def export_karaoke_ass(
     lines: List[LineSegment],
     title: str = "Karaoke Lyrics",
     resolution: str = "1920x1080",
-    font_name: str = "Montserrat",
-    font_size: int = 44,
-    primary_color: str = "&H00FFFFFF",      # Màu chữ chưa hát (Trắng)
-    secondary_color: str = "&H0000D7FF",    # Màu chữ khi ca sĩ hát (Vàng cam Karaoke)
-    outline_color: str = "&H00000000",      # Viền chữ (Đen)
+    style_preset: str = "soft_italic",
+    font_name: Optional[str] = None,
+    font_size: Optional[int] = None,
+    italic: bool = True,
+    bold: bool = False,
+    primary_color: Optional[str] = None,
+    secondary_color: Optional[str] = None,
+    outline_color: Optional[str] = None,
     alignment: int = 2                       # Căn giữa ở 1/3 dưới màn hình (Bottom-Center)
 ) -> str:
     """
     Xuất định dạng Karaoke ASS (Advanced SubStation Alpha) với hiệu ứng đổi màu \\k.
-    Tương thích 100% với FFmpeg, VLC, Aegisub, Premiere, CapCut.
+    Mặc định: Phông chữ nghiêng mềm mại nghệ thuật (khác biệt với font Montserrat hành chính của biên bản họp).
     """
     res_w, res_h = resolution.lower().split("x")
+
+    # Nạp cấu hình từ preset
+    preset = LYRIC_STYLE_PRESETS.get(style_preset, LYRIC_STYLE_PRESETS["soft_italic"]).copy()
+
+    f_name = font_name or preset["font_name"]
+    f_size = font_size or preset["font_size"]
+    c_primary = primary_color or preset["primary_color"]
+    c_secondary = secondary_color or preset["secondary_color"]
+    c_outline = outline_color or preset["outline_color"]
+    val_bold = -1 if bold else preset["bold"]
+    val_italic = -1 if italic else 0
+    val_spacing = preset.get("spacing", 1.2)
+    val_outline = preset.get("outline", 2.2)
+    val_shadow = preset.get("shadow", 1.5)
 
     header = f"""[Script Info]
 Title: {normalize_vietnamese_text(title)}
@@ -152,7 +221,7 @@ PlayResY: {res_h}
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Karaoke,{font_name},{font_size},{primary_color},{secondary_color},{outline_color},&H64000000,-1,0,0,0,100,100,1,0,1,3,2,{alignment},30,30,60,1
+Style: Karaoke,{f_name},{f_size},{c_primary},{c_secondary},{c_outline},&H64000000,{val_bold},{val_italic},0,0,100,100,{val_spacing},0,1,{val_outline},{val_shadow},{alignment},30,30,60,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text

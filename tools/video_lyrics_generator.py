@@ -203,7 +203,7 @@ def export_capcut_draft_project(
 
         draft_payload["materials"]["texts"].append({
             "id": text_id,
-            "content": f"<color=#FFFFFF>{text_content}</color>",
+            "content": f"<color=#FFFFFF><i>{text_content}</i></color>",
             "font_size": 10.0
         })
         draft_payload["tracks"][1]["segments"].append({

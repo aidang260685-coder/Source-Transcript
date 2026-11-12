@@ -48,6 +48,9 @@ def run_pipeline(
     title: str = "Tên Bài Hát",
     artist: str = "Ca Sĩ",
     aspect_ratio: str = "16:9",
+    style_preset: str = "soft_italic",
+    font_name: str = "Georgia",
+    italic: bool = True,
     output_dir: Path = None,
     export_capcut: bool = False
 ):
@@ -117,7 +120,17 @@ def run_pipeline(
     res_str = "1080x1920" if aspect_ratio == "9:16" else "1920x1080"
     out_lrc.write_text(export_standard_lrc(segments, title, artist), encoding="utf-8")
     out_enhanced_lrc.write_text(export_enhanced_lrc(segments, title, artist), encoding="utf-8")
-    out_ass.write_text(export_karaoke_ass(segments, title, resolution=res_str), encoding="utf-8")
+    out_ass.write_text(
+        export_karaoke_ass(
+            segments,
+            title,
+            resolution=res_str,
+            style_preset=style_preset,
+            font_name=font_name,
+            italic=italic
+        ),
+        encoding="utf-8"
+    )
     out_srt.write_text(export_srt(segments), encoding="utf-8")
     out_json.write_text(export_json_timeline(segments), encoding="utf-8")
 
@@ -180,6 +193,9 @@ def main():
     parser.add_argument("--title", "-t", default="Tên Bài Hát", help="Tiêu đề bài hát")
     parser.add_argument("--artist", "-a", default="Ca Sĩ", help="Tên ca sĩ / nghệ sĩ")
     parser.add_argument("--ratio", "-r", default="16:9", choices=["16:9", "9:16"], help="Tỷ lệ khung hình video")
+    parser.add_argument("--style", default="soft_italic", choices=["soft_italic", "poetic", "handwritten", "modern_italic"], help="Phong cách phụ đề lyric (mặc định: soft_italic)")
+    parser.add_argument("--font", default="Georgia", help="Tên phông chữ nghệ thuật cho lyric (mặc định: Georgia)")
+    parser.add_argument("--no-italic", action="store_true", help="Tắt chữ nghiêng (mặc định luôn bật chữ nghiêng mềm mại)")
     parser.add_argument("--outdir", "-o", default=None, help="Thư mục xuất kết quả")
     parser.add_argument("--capcut", action="store_true", help="Xuất thêm file project CapCut PC draft")
 
@@ -193,6 +209,9 @@ def main():
         title=args.title,
         artist=args.artist,
         aspect_ratio=args.ratio,
+        style_preset=args.style,
+        font_name=args.font,
+        italic=not args.no_italic,
         output_dir=Path(args.outdir) if args.outdir else None,
         export_capcut=args.capcut
     )
