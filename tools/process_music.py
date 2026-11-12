@@ -102,6 +102,10 @@ def auto_detect_inputs(
         elif len(image_files) == 1:
             chosen_img = image_files[0].resolve()
             print(f"💡 [TỰ ĐỘNG GHÉP CẶP] Tự động bắt cặp với bức ảnh duy nhất trong input/images/: {chosen_img.name}")
+        elif len(image_files) > 1:
+            chosen_img = image_files[0].resolve()
+            print(f"💡 [TỰ ĐỘNG GHÉP CẶP] Phát hiện {len(image_files)} ảnh trong input/images/. Mặc định ghép với ảnh đầu tiên: {chosen_img.name}")
+            print(f"   (👉 Anh có thể dùng tham số -img \"{image_files[1].name}\" nếu muốn đổi ảnh khác)")
 
     # 3. Tự động nhận diện file lời (lyrics) nếu có
     chosen_lyr = None
@@ -135,6 +139,8 @@ def run_pipeline(
     style_preset: str = "soft_italic",
     font_name: str = "Georgia",
     italic: bool = True,
+    signature: str = None,
+    hashtags: str = None,
     output_dir: Path = None,
     export_capcut: bool = False
 ):
@@ -159,6 +165,10 @@ def run_pipeline(
     print("=" * 70)
     print("🎵 HỆ THỐNG XỬ LÝ NHẠC & TỰ ĐỘNG TẠO VIDEO KARAOKE ĐỒNG BỘ")
     print(f"📁 Tệp đầu vào: {input_file.name}")
+    if signature:
+        print(f"✍️  Chữ ký bản quyền: {signature}")
+    if hashtags:
+        print(f"🏷️  Hashtags: {hashtags}")
     print(f"🎯 Thư mục xuất chuẩn: {song_dir}")
     print("=" * 70)
 
@@ -209,12 +219,27 @@ def run_pipeline(
             resolution=res_str,
             style_preset=style_preset,
             font_name=font_name,
-            italic=italic
+            italic=italic,
+            signature=signature,
+            hashtags=hashtags
         ),
         encoding="utf-8"
     )
     out_srt.write_text(export_srt(segments), encoding="utf-8")
     out_json.write_text(export_json_timeline(segments), encoding="utf-8")
+
+    # Xuất file caption_social.txt tiện sao chép khi đăng TikTok/Zalo
+    caption_txt = f"{title} - {artist}\n"
+    if segments:
+        quote_line = segments[len(segments)//2].text if len(segments) > 2 else segments[0].text
+        caption_txt += f"\"{quote_line}\" 🎵\n\n"
+    if signature:
+        caption_txt += f"Cre: {signature}\n"
+    default_tags = hashtags or "#nhachay #tamtrang #cover #nhacbuon #xuhuong #fyp #tiktokmusic"
+    caption_txt += f"----------------------------------------\n{default_tags}\n"
+    out_caption = dir_videos / "caption_social.txt"
+    out_caption.write_text(caption_txt, encoding="utf-8")
+    print(f"   ✓ [videos/] File Caption mạng xã hội: {out_caption.name}")
 
     print(f"   ✓ [lyrics/] Standard LRC: {out_lrc.name}")
     print(f"   ✓ [lyrics/] Enhanced LRC (Word-level): {out_enhanced_lrc.name}")
@@ -275,6 +300,8 @@ def main():
     parser.add_argument("--lyrics", "-l", default=None, help="Đường dẫn file text chứa lời bài hát gốc (nếu có)")
     parser.add_argument("--title", "-t", default="Tên Bài Hát", help="Tiêu đề bài hát")
     parser.add_argument("--artist", "-a", default="Ca Sĩ", help="Tên ca sĩ / nghệ sĩ")
+    parser.add_argument("--signature", "--sig", default=None, help="Chữ ký / Watermark bản quyền (ví dụ: 'H O A N G A N')")
+    parser.add_argument("--hashtags", "--tag", default=None, help="Dải hashtag trên video và caption (ví dụ: '#saicuasai #cover #nhachay')")
     parser.add_argument("--ratio", "-r", default="9:16", choices=["9:16", "16:9"], help="Tỷ lệ khung hình video: 9:16 (TikTok, Zalo, Reels, Shorts) hoặc 16:9 (YouTube)")
     parser.add_argument("--bg-mode", default="blur_padding", choices=["blur_padding", "crop"], help="Chế độ xử lý ảnh nền: blur_padding (nền mờ CapCut/TikTok giữ trọn vẹn ảnh) hoặc crop (cắt vừa khít)")
     parser.add_argument("--style", default="soft_italic", choices=["soft_italic", "poetic", "handwritten", "modern_italic"], help="Phong cách phụ đề lyric (mặc định: soft_italic)")
@@ -297,6 +324,8 @@ def main():
         style_preset=args.style,
         font_name=args.font,
         italic=not args.no_italic,
+        signature=args.signature,
+        hashtags=args.hashtags,
         output_dir=Path(args.outdir) if args.outdir else None,
         export_capcut=args.capcut
     )

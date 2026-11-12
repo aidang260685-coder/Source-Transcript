@@ -189,11 +189,14 @@ def export_karaoke_ass(
     secondary_color: Optional[str] = None,
     outline_color: Optional[str] = None,
     alignment: int = 2,                      # Căn giữa ở 1/3 dưới màn hình (Bottom-Center)
-    margin_v: Optional[int] = None           # Lề đáy (tự động tính an toàn cho 9:16 TikTok/Zalo)
+    margin_v: Optional[int] = None,          # Lề đáy (tự động tính an toàn cho 9:16 TikTok/Zalo)
+    signature: Optional[str] = None,         # Chữ ký thương hiệu / tác giả (ví dụ: "H O A N G A N")
+    hashtags: Optional[str] = None           # Dải hashtag trên video (ví dụ: "#nhachay #tamtrang")
 ) -> str:
     """
     Xuất định dạng Karaoke ASS (Advanced SubStation Alpha) với hiệu ứng đổi màu \\k.
     Mặc định: Phông chữ nghiêng mềm mại nghệ thuật (khác biệt với font Montserrat hành chính của biên bản họp).
+    Hỗ trợ chèn Chữ ký (Signature) và Hashtag nghệ thuật cố định trên video.
     """
     res_w, res_h = resolution.lower().split("x")
     int_w, int_h = int(res_w), int(res_h)
@@ -218,6 +221,24 @@ def export_karaoke_ass(
     else:
         val_margin_v = margin_v
 
+    styles_block = [
+        "Style: Karaoke," + f"{f_name},{f_size},{c_primary},{c_secondary},{c_outline},&H64000000,{val_bold},{val_italic},0,0,100,100,{val_spacing},0,1,{val_outline},{val_shadow},{alignment},40,40,{val_margin_v},1"
+    ]
+
+    # Style cho Chữ ký nghệ thuật (Top-Center, mờ nhẹ 75%, chữ nghiêng dãn cách thanh lịch)
+    if signature:
+        styles_block.append(
+            f"Style: Signature,{f_name},30,&H40FFFFFF,&H40FFFFFF,&H00000000,&H64000000,0,-1,0,0,100,100,3.0,0,1,1.5,1.0,8,40,40,90,1"
+        )
+    # Style cho Hashtag (Top-Center ngay dưới chữ ký, màu vàng nhạt hoặc xám mờ)
+    if hashtags:
+        top_offset = 145 if signature else 90
+        styles_block.append(
+            f"Style: Hashtag,{f_name},24,&H30F0E0D0,&H30F0E0D0,&H00000000,&H64000000,0,-1,0,0,100,100,1.2,0,1,1.2,0.8,8,40,40,{top_offset},1"
+        )
+
+    all_styles = "\n".join(styles_block)
+
     header = f"""[Script Info]
 Title: {normalize_vietnamese_text(title)}
 ScriptType: v4.00+
@@ -229,12 +250,24 @@ PlayResY: {res_h}
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Karaoke,{f_name},{f_size},{c_primary},{c_secondary},{c_outline},&H64000000,{val_bold},{val_italic},0,0,100,100,{val_spacing},0,1,{val_outline},{val_shadow},{alignment},40,40,{val_margin_v},1
+{all_styles}
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 """
     events = []
+
+    # Tính thời lượng tổng để ghim Chữ ký và Hashtag suốt bài
+    max_duration = max((line.end for line in lines), default=360.0)
+    end_stamp_full = format_timestamp_ass(max_duration + 5.0)
+
+    if signature:
+        clean_sig = normalize_vietnamese_text(signature.strip())
+        events.append(f"Dialogue: 1,0:00:00.00,{end_stamp_full},Signature,,0,0,0,,{clean_sig}")
+
+    if hashtags:
+        clean_tags = normalize_vietnamese_text(hashtags.strip())
+        events.append(f"Dialogue: 1,0:00:00.00,{end_stamp_full},Hashtag,,0,0,0,,{clean_tags}")
     for line in lines:
         if not line.words:
             clean_text = normalize_vietnamese_text(line.text)
