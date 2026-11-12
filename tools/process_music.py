@@ -116,13 +116,16 @@ def auto_detect_inputs(
         elif (lyrics_dir / p_lyr.name).is_file():
             chosen_lyr = (lyrics_dir / p_lyr.name).resolve()
     else:
-        matching_lyrs = [txt for txt in text_files if txt.stem.lower() == chosen_input.stem.lower()]
+        matching_lyrs = sorted(
+            [txt for txt in text_files if txt.stem.lower() == chosen_input.stem.lower()],
+            key=lambda x: 0 if x.suffix.lower() == ".lrc" else 1
+        )
         if matching_lyrs:
             chosen_lyr = matching_lyrs[0].resolve()
             print(f"💡 [TỰ ĐỘNG GHÉP CẶP] Tìm thấy file lời trùng tên trong input/lyrics/: {chosen_lyr.name}")
         elif len(text_files) == 1:
             chosen_lyr = text_files[0].resolve()
-            print(f"💡 [TỰ ĐỘNG GHÉP CẶP] Tự động bắt cặp với file lời text duy nhất: {chosen_lyr.name}")
+            print(f"💡 [TỰ ĐỘNG GHÉP CẶP] Tự động bắt cặp với file lời duy nhất: {chosen_lyr.name}")
 
     return chosen_input, chosen_img, chosen_lyr
 

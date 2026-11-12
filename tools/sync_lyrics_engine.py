@@ -24,6 +24,11 @@ if hasattr(sys.stderr, "reconfigure"):
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Tự động nạp thư viện từ môi trường .venv nếu có
+venv_site = BASE_DIR / ".venv" / "Lib" / "site-packages"
+if venv_site.is_dir() and str(venv_site) not in sys.path:
+    sys.path.insert(0, str(venv_site))
+
 
 @dataclass
 class WordSegment:
@@ -75,6 +80,49 @@ def format_timestamp_srt(seconds: float) -> str:
     minutes, rem_ms = divmod(rem_ms, 60000)
     secs, ms = divmod(rem_ms, 1000)
     return f"{hours:02d}:{minutes:02d}:{secs:02d},{ms:03d}"
+
+
+def parse_lrc_content(lrc_text: str) -> List[LineSegment]:
+    """
+    Phân tích cú pháp tệp LRC có sẵn mốc thời gian [mm:ss.xx] thành danh sách LineSegment chuẩn.
+    Tự động tính toán mốc bắt đầu, mốc kết thúc và phân bổ từ để chạy hiệu ứng Karaoke \\k.
+    """
+    pattern = re.compile(r"\[(\d{1,2}):(\d{2})(?:\.(\d{2,3}))?\](.*)")
+    raw_lines = []
+    for line in lrc_text.splitlines():
+        line = line.strip()
+        m = pattern.match(line)
+        if m:
+            mins = int(m.group(1))
+            secs = int(m.group(2))
+            ms_str = m.group(3) or "0"
+            frac = float(f"0.{ms_str}")
+            total_sec = mins * 60 + secs + frac
+            content = normalize_vietnamese_text(m.group(4))
+            if content:
+                raw_lines.append((total_sec, content))
+
+    raw_lines.sort(key=lambda x: x[0])
+    segments: List[LineSegment] = []
+    for i, (start_sec, content) in enumerate(raw_lines):
+        if i + 1 < len(raw_lines):
+            end_sec = min(start_sec + 8.0, raw_lines[i + 1][0] - 0.2)
+        else:
+            end_sec = start_sec + 6.0
+
+        words_in_line = content.split()
+        num_w = len(words_in_line)
+        words_data = []
+        if num_w > 0:
+            w_dur = (end_sec - start_sec) / num_w
+            for idx_w, w in enumerate(words_in_line):
+                ws = start_sec + idx_w * w_dur
+                we = ws + w_dur * 0.95
+                words_data.append(WordSegment(word=w, start=ws, end=we))
+
+        segments.append(LineSegment(text=content, start=start_sec, end=end_sec, words=words_data))
+
+    return segments
 
 
 def export_standard_lrc(
@@ -338,17 +386,25 @@ def transcribe_and_align_lyrics(
     audio_wav_path: Path,
     reference_lyrics: Optional[str] = None,
     language: str = "vi",
-    model_name_or_path: str = "small"
+    model_name_or_path: str = "base"
 ) -> List[LineSegment]:
     """
     Trích xuất hoặc căn chỉnh mốc thời gian lời bài hát theo audio.
-    Sử dụng Faster-Whisper nếu có sẵn, hoặc fallback thuật toán căn chỉnh thông minh nếu đang test.
+    1. Nếu reference_lyrics có mốc [mm:ss.xx] -> Dùng mốc thời gian chuẩn xác từ file LRC.
+    2. Sử dụng Faster-Whisper nếu có sẵn để trích xuất giọng hát và mốc thời gian thực.
+    3. Fallback: Nếu không có Faster-Whisper, căn chỉnh thông minh dựa trên phát hiện giọng hát.
     """
     audio_wav_path = Path(audio_wav_path).resolve()
     if not audio_wav_path.exists():
         raise FileNotFoundError(f"Không tìm thấy file audio: {audio_wav_path}")
 
-    # 1. Thử gọi Faster-Whisper nếu đã cài đặt
+    # 1. Nếu có reference_lyrics chứa tag thời gian chuẩn LRC -> Trực tiếp phân tích cú pháp
+    if reference_lyrics and re.search(r"\[\d{1,2}:\d{2}", reference_lyrics):
+        parsed = parse_lrc_content(reference_lyrics)
+        if parsed:
+            return parsed
+
+    # 2. Thử gọi Faster-Whisper nếu đã cài đặt
     try:
         from faster_whisper import WhisperModel
         model = WhisperModel(model_name_or_path, device="cpu", compute_type="int8")
