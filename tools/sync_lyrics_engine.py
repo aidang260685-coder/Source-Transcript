@@ -85,46 +85,97 @@ def format_timestamp_srt(seconds: float) -> str:
 def parse_lrc_content(lrc_text: str) -> List[LineSegment]:
     """
     Phân tích cú pháp tệp LRC có sẵn mốc thời gian [mm:ss.xx] thành danh sách LineSegment chuẩn.
-    Tự động tính toán mốc bắt đầu, mốc kết thúc và phân bổ từ để chạy hiệu ứng Karaoke \\k.
+    Hỗ trợ 2 chế độ:
+    1. Enhanced LRC (Word-level Lip-Sync): Chứa mốc thời gian từng từ dạng <mm:ss.xx> word.
+       Khớp 100% khẩu hình môi và nhịp luyến láy ca sĩ.
+    2. Standard LRC (Line-level): Tự động phân tách vế câu theo dấu phẩy và nhịp thở của ca sĩ,
+       nhận diện đoạn ngắt nghỉ tự nhiên thay vì chia đều.
     """
-    pattern = re.compile(r"\[(\d{1,2}):(\d{2})(?:\.(\d{2,3}))?\](.*)")
+    line_pattern = re.compile(r"\[(\d{1,2}):(\d{2})(?:\.(\d{2,3}))?\](.*)")
     raw_lines = []
     for line in lrc_text.splitlines():
         line = line.strip()
-        m = pattern.match(line)
+        m = line_pattern.match(line)
         if m:
             mins = int(m.group(1))
             secs = int(m.group(2))
             ms_str = m.group(3) or "0"
             frac = float(f"0.{ms_str}")
             total_sec = mins * 60 + secs + frac
-            content = normalize_vietnamese_text(m.group(4))
+            content = m.group(4).strip()
             if content:
                 raw_lines.append((total_sec, content))
 
     raw_lines.sort(key=lambda x: x[0])
     segments: List[LineSegment] = []
-    for i, (start_sec, content) in enumerate(raw_lines):
+    for i, (start_sec, raw_content) in enumerate(raw_lines):
         if i + 1 < len(raw_lines):
             end_sec = min(start_sec + 8.0, raw_lines[i + 1][0] - 0.2)
         else:
             end_sec = start_sec + 6.0
 
-        words_in_line = content.split()
+        # 1. Kiểm tra xem dòng có chứa mốc thời gian từng từ dạng Enhanced LRC: <mm:ss.xx> word
+        word_matches = list(re.finditer(r"<(\d{1,2}):(\d{2})(?:\.(\d{2,3}))?>\s*([^<]+)", raw_content))
+        if word_matches:
+            words_data = []
+            clean_words = []
+            for w_idx, wm in enumerate(word_matches):
+                w_min = int(wm.group(1))
+                w_sec = int(wm.group(2))
+                w_ms = wm.group(3) or "0"
+                w_start = w_min * 60 + w_sec + float(f"0.{w_ms}")
+                w_word = normalize_vietnamese_text(wm.group(4))
+                clean_words.append(w_word)
+                if w_idx + 1 < len(word_matches):
+                    n_min = int(word_matches[w_idx + 1].group(1))
+                    n_sec = int(word_matches[w_idx + 1].group(2))
+                    n_ms = word_matches[w_idx + 1].group(3) or "0"
+                    w_end = n_min * 60 + n_sec + float(f"0.{n_ms}")
+                else:
+                    w_end = min(w_start + 1.2, end_sec)
+
+                words_data.append(WordSegment(word=w_word, start=w_start, end=w_end))
+
+            line_text = " ".join(clean_words)
+            segments.append(LineSegment(text=line_text, start=start_sec, end=end_sec, words=words_data))
+            continue
+
+        # 2. Xử lý Standard LRC thông minh theo dấu ngắt nghỉ và ngữ điệu câu (Lip-Sync Approximation)
+        clean_line = normalize_vietnamese_text(raw_content)
+        words_in_line = clean_line.split()
         num_w = len(words_in_line)
         words_data = []
-        if num_w > 0:
-            # Tốc độ hát tự nhiên trong nhạc trữ tình / ballad (trung bình 0.35s - 0.40s / từ)
-            # Giúp chữ chạy bắt kịp ca sĩ, không bị ì ạch hay kéo lê suốt đoạn nghỉ
-            target_sing_dur = num_w * 0.38
-            actual_sing_dur = min(max(end_sec - start_sec - 0.4, num_w * 0.25), target_sing_dur)
-            w_dur = actual_sing_dur / num_w
-            for idx_w, w in enumerate(words_in_line):
-                ws = start_sec + idx_w * w_dur
-                we = ws + w_dur * 0.96
-                words_data.append(WordSegment(word=w, start=ws, end=we))
 
-        segments.append(LineSegment(text=content, start=start_sec, end=end_sec, words=words_data))
+        if num_w > 0:
+            # Nếu câu có dấu phẩy ngắt vế (ví dụ: "Vệt nắng loang trên mặt đường, đổ bóng lên hai người thương")
+            if "," in clean_line:
+                clauses = [c.strip() for c in clean_line.split(",") if c.strip()]
+                total_dur = end_sec - start_sec
+                pause_dur = 0.8  # Khoảng lặng ca sĩ lấy hơi giữa 2 vế
+                dur_per_clause = (total_dur - pause_dur) / max(len(clauses), 1)
+
+                curr_time = start_sec
+                for c_idx, clause in enumerate(clauses):
+                    c_words = clause.split()
+                    if not c_words:
+                        continue
+                    w_dur = min(dur_per_clause / len(c_words), 0.40)
+                    for idx_w, w in enumerate(c_words):
+                        ws = curr_time + idx_w * w_dur
+                        # Từ cuối vế ca sĩ thường ngân dài hơn
+                        we = ws + (w_dur * 1.5 if idx_w == len(c_words) - 1 else w_dur * 0.95)
+                        words_data.append(WordSegment(word=w, start=ws, end=we))
+                    curr_time += dur_per_clause + (pause_dur if c_idx == 0 else 0)
+            else:
+                target_sing_dur = num_w * 0.38
+                actual_sing_dur = min(max(end_sec - start_sec - 0.4, num_w * 0.25), target_sing_dur)
+                w_dur = actual_sing_dur / num_w
+                for idx_w, w in enumerate(words_in_line):
+                    ws = start_sec + idx_w * w_dur
+                    we = ws + (w_dur * 1.4 if idx_w == num_w - 1 else w_dur * 0.95)
+                    words_data.append(WordSegment(word=w, start=ws, end=we))
+
+        segments.append(LineSegment(text=clean_line, start=start_sec, end=end_sec, words=words_data))
 
     return segments
 
