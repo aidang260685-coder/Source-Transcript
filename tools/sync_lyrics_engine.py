@@ -114,10 +114,14 @@ def parse_lrc_content(lrc_text: str) -> List[LineSegment]:
         num_w = len(words_in_line)
         words_data = []
         if num_w > 0:
-            w_dur = (end_sec - start_sec) / num_w
+            # Tốc độ hát tự nhiên trong nhạc trữ tình / ballad (trung bình 0.35s - 0.40s / từ)
+            # Giúp chữ chạy bắt kịp ca sĩ, không bị ì ạch hay kéo lê suốt đoạn nghỉ
+            target_sing_dur = num_w * 0.38
+            actual_sing_dur = min(max(end_sec - start_sec - 0.4, num_w * 0.25), target_sing_dur)
+            w_dur = actual_sing_dur / num_w
             for idx_w, w in enumerate(words_in_line):
                 ws = start_sec + idx_w * w_dur
-                we = ws + w_dur * 0.95
+                we = ws + w_dur * 0.96
                 words_data.append(WordSegment(word=w, start=ws, end=we))
 
         segments.append(LineSegment(text=content, start=start_sec, end=end_sec, words=words_data))
@@ -273,10 +277,10 @@ def export_karaoke_ass(
         "Style: Karaoke," + f"{f_name},{f_size},{c_primary},{c_secondary},{c_outline},&H64000000,{val_bold},{val_italic},0,0,100,100,{val_spacing},0,1,{val_outline},{val_shadow},{alignment},40,40,{val_margin_v},1"
     ]
 
-    # Style cho Chữ ký nghệ thuật (Top-Center, mờ nhẹ 75%, chữ nghiêng dãn cách thanh lịch)
+    # Style cho Chữ ký nghệ thuật (Top-Center, mờ nhẹ 75%, chữ THẲNG ĐỨNG KHÔNG NGHIÊNG dãn cách thanh lịch)
     if signature:
         styles_block.append(
-            f"Style: Signature,{f_name},30,&H40FFFFFF,&H40FFFFFF,&H00000000,&H64000000,0,-1,0,0,100,100,3.0,0,1,1.5,1.0,8,40,40,90,1"
+            f"Style: Signature,Arial,28,&H30FFFFFF,&H30FFFFFF,&H00000000,&H64000000,1,0,0,0,100,100,4.0,0,1,1.5,1.0,8,40,40,90,1"
         )
     # Style cho Hashtag (Top-Center ngay dưới chữ ký, màu vàng nhạt hoặc xám mờ)
     if hashtags:
@@ -337,9 +341,10 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
             if w.start > prev_end:
                 gap_cs = int(round((w.start - prev_end) * 100))
                 if gap_cs > 0:
-                    line_payload += f"{{\\k{gap_cs}}}"
+                    line_payload += f"{{\\kf{gap_cs}}}"
 
-            line_payload += f"{{\\k{duration_cs}}}{w_text} "
+            # Dùng \\kf (Karaoke Continuous Fill) thay vì \\k để màu quét trơn tru theo giọng hát
+            line_payload += f"{{\\kf{duration_cs}}}{w_text} "
             prev_end = w.end
 
         events.append(f"Dialogue: 0,{t_start},{t_end},Karaoke,,0,0,0,,{line_payload.strip()}")

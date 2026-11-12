@@ -67,11 +67,11 @@ def test_karaoke_ass_generation():
     # Phải dùng font nghệ thuật nghiêng mềm mại (Georgia, Italic=-1), KHÔNG dùng Montserrat biên bản
     assert "Style: Karaoke,Georgia" in ass_content
     assert ",0,-1," in ass_content  # Bold=0, Italic=-1 (chữ nghiêng mềm mại)
-    # Kiểm tra có thẻ \k đổi màu chữ
-    assert r"{\k50}Nơi" in ass_content
-    assert r"{\k70}này" in ass_content
-    assert r"{\k60}có" in ass_content
-    assert r"{\k120}anh" in ass_content
+    # Kiểm tra có thẻ \kf đổi màu chữ mượt mà
+    assert r"{\kf50}Nơi" in ass_content
+    assert r"{\kf70}này" in ass_content
+    assert r"{\kf60}có" in ass_content
+    assert r"{\kf120}anh" in ass_content
 
 
 def test_standard_and_enhanced_lrc():
