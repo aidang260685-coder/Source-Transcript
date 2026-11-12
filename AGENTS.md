@@ -44,8 +44,8 @@ Tài liệu này (`AGENTS.md`) thiết lập các quy tắc bắt buộc cho to�
    - **Khi đọc và cập nhật Skill**: Luôn đọc từ `doc/Skill/<tên-skill>/`, cập nhật trực tiếp vào thư mục đó, và đồng bộ đóng gói lại file nén `<tên-skill>.skill` (định dạng ZIP archive chứa thư mục `<tên-skill>/`) ngay trong `doc/Skill/`.
 2. **Các Skill chuẩn hiện có trong `doc/Skill/`**:
    - [`harness-engineering`](./doc/Skill/harness-engineering/SKILL.md): Vòng lặp tự hành 5 pha (GATHER, CURATE, ACT, VERIFY, RETRY) cùng các chốt chặn an toàn dữ liệu, trần chi phí và cổng xuất bản.
-   - [`ktt-transcript-normalizer`](./doc/Skill/ktt-transcript-normalizer/SKILL.md): Nghe trực tiếp file ghi âm (`.m4a`), định danh chính xác nhân sự theo từng bộ phận/buổi họp và chuẩn hoá transcript, thuật ngữ hệ thống (`MISA AMIS`), thương hiệu & mã hàng của Công ty TNHH Kiên Thành Tín.
-   - [`meeting-note`](./doc/Skill/meeting-note/SKILL.md): Tạo và cập nhật biên bản họp HTML chuẩn in PDF A4 lưu tại `output/` (gồm 3 khung `khung_kickoff.html`, `khung_weekly.html`, `khung_bsc_kpi.html` cho họp Báo cáo Quý / BSC & KPI từng bộ phận kèm đánh giá sau báo cáo của BOD, và `style.css` với letterhead & logo Công ty TNHH Kiên Thành Tín, font Montserrat).
+   - [`ktt-transcript-normalizer`](./doc/Skill/ktt-transcript-normalizer/SKILL.md): Nghe trực tiếp file ghi âm (`.m4a`), ưu tiên nguồn theo thứ tự (Prompt buổi họp > Lời tự giới thiệu trong băng > `doc/meeting_context.md` > Danh bạ tra cứu mặc định), không tự bịa transcript khi không nghe được âm thanh, định danh chính xác nhân sự theo từng buổi họp riêng biệt và chuẩn hoá transcript, thuật ngữ hệ thống (`MISA AMIS`), thương hiệu & mã hàng của Công ty TNHH Kiên Thành Tín.
+   - [`meeting-note`](./doc/Skill/meeting-note/SKILL.md): Tạo và cập nhật biên bản họp HTML chuẩn in PDF A4 lưu tại `output/` (gồm 3 khung `khung_kickoff.html`, `khung_weekly.html`, `khung_bsc_kpi.html` cho họp Báo cáo Quý / BSC & KPI từng bộ phận kèm đánh giá sau báo cáo của BOD, và `style.css` với letterhead & logo Công ty TNHH Kiên Thành Tín, font Montserrat). Mọi số liệu, % và quyết định của BOD phải gắn mã dẫn chứng `<span data-ref='file#HH:MM:SS'>`, vượt qua 8 cổng kiểm chứng tất định trước khi xuất bản và ghi log vào `runs/`.
    - [`vietnamese-spellcheck`](./doc/Skill/vietnamese-spellcheck/SKILL.md): Kiểm tra và sửa lỗi chính tả, dấu thanh, khoảng trắng, danh xưng giới tính (`Anh`/`Chị`) và kiểm tra Unicode code point (`check_unicode.py`).
    - [`mpp-project-reader`](./doc/Skill/mpp-project-reader/SKILL.md): Đọc, phân tích tiến độ, WBS, critical path và chi phí từ file Microsoft Project (`.mpp`).
 
@@ -64,7 +64,7 @@ Tài liệu này (`AGENTS.md`) thiết lập các quy tắc bắt buộc cho to�
    - Sửa các từ ghép Hán-Việt hay bị Whisper nhận sai trong ngữ cảnh công sở (ví dụ: *"phân tịch"* → *"phân tích"*, *"nghiệm thư"* → *"nghiệm thu"*, *"công lợ"* → *"công nợ"*, *"tiến đồ"* → *"tiến độ"*, *"đối xoát"* → *"đối soát"*).
 3. **Thuật ngữ chuyên ngành & Tên riêng**:
    - Giữ đúng nguyên dạng viết hoa/viết thường của thuật ngữ kỹ thuật và quản trị (ví dụ: `MISA AMIS`, `CRM`, `ERP`, `BOD`, `KPI`, `OKR`, `SLA`, `UAT`, `go-live`, `master data`, `SQL Server`, `Power BI`).
-   - Tự động đối chiếu và cập nhật vào [`doc/glossary.txt`](file:///d:/Source-Transcript/doc/glossary.txt).
+   - Tự động đối chiếu và cập nhật vào [`doc/glossary.txt`](./doc/glossary.txt).
 
 ---
 
@@ -76,7 +76,7 @@ Tài liệu này (`AGENTS.md`) thiết lập các quy tắc bắt buộc cho to�
 2. **Chống nhầm lẫn giới tính từ âm thanh (Anti-Misgendering)**:
    - Khi âm thanh `.m4a` nói nhanh hoặc nối âm, AI nhận dạng giọng nói rất dễ nghe nhầm *"anh"* thành *"em/chị"* hoặc ngược lại, hoặc dịch máy từ tiếng Anh (`he/she/they`, `Mr./Ms.`) sang từ thiếu tự nhiên (*"ông ấy/cô ấy/họ"*).
    - **Quy tắc bắt buộc**:
-     - Luôn đối chiếu tên nhân sự với **Danh sách thành phần tham dự** (hoặc [`doc/glossary.txt`](file:///d:/Source-Transcript/doc/glossary.txt)) để áp đúng danh xưng `Anh` hoặc `Chị` xuyên suốt 100% văn bản.
+     - Luôn đối chiếu tên nhân sự với **Danh sách thành phần tham dự** (hoặc [`doc/glossary.txt`](./doc/glossary.txt)) để áp đúng danh xưng `Anh` hoặc `Chị` xuyên suốt 100% văn bản.
      - Nếu một nhân sự được nhắc tên trong cuộc họp nhưng chưa rõ giới tính (`Anh` hay `Chị`), tuyệt đối **không tự đoán bừa giới tính** mà phải giữ nguyên tên kèm cờ `[cần xác nhận danh xưng: Anh/Chị <Tên>]` và liệt kê vào mục cần xác nhận cuối bài.
 3. **Định dạng Tên + Tag bộ phận**:
    - Trong Biên bản họp (Meeting Note), mọi cá nhân khi được nhắc đến phải tuân theo định dạng: **`<Danh xưng Anh/Chị> <Tên> (<Tag Bộ phận>)`** (ví dụ: `Anh Tân (Kho)`, `Chị Mai (KT)`, `Anh Khiêm (KT)`), nhất quán 100% từ mục Thành phần tham dự đến Bảng phân công và Kết luận.

@@ -14,19 +14,22 @@ Toàn bộ quy tắc cốt lõi của dự án được định nghĩa chi tiế
 - **CẤM hardcode số liệu không có căn cứ**: Toàn bộ số liệu báo cáo bắt buộc phải trích dẫn và truy vết từ transcript/glossary gốc.
 - **QUY ĐỊNH FILE DUNG LƯỢNG LỚN (LOCAL ONLY)**: Các file lớn (file ghi âm audio, video, models, dumps) chỉ lưu trữ ở local, TUYỆT ĐỐI KHÔNG commit/push lên Git. Tự động loại trừ qua `.gitignore` và chốt chặn `tools/check_large_files.py` (tối đa **45 MB**).
 
-## 3. NGUYÊN TẮC HARNESS ENGINEERING (ZERO HALLUCINATION)
+## 3. NGUYÊN TẮC HARNESS ENGINEERING (ZERO HALLUCINATION & EVIDENCE-BASED)
 - Tuân thủ chu trình 5 pha: `GATHER -> CURATE -> ACT -> VERIFY -> RETRY`.
-- Biên bản họp trước khi xuất bản phải vượt qua **6 Cổng kiểm chứng tất định (6 Deterministic Gates)**:
-  1. Khớp toán học & chú giải số liệu.
-  2. Đồng bộ Section I (Tổng quan) và Section II (Chi tiết).
-  3. Phủ đủ 100% chỉ đạo và giao việc của Ban Giám Đốc (`Chị Thanh (BOD)`).
-  4. Chuẩn hoá danh xưng theo giới tính: `<Danh xưng Anh/Chị> <Tên> (<Tag Bộ phận>)`.
-  5. Deadline hợp lệ (từ Thứ Hai đến Thứ Sáu, không rơi vào cuối tuần).
-  6. Chuẩn cấu trúc biên bản 7 phần, cân bằng thẻ HTML, lưu file tại cổng xuất bản `output/`.
+- Mọi số liệu, tỷ lệ %, tiền tệ, deadline và quyết định của BOD phải gắn mã dẫn chứng `<span data-ref='file#HH:MM:SS'>` trỏ về dòng transcript gốc có thật.
+- Biên bản họp trước khi xuất bản phải vượt qua **Cổng kiểm chứng tất định (Deterministic Gates)**:
+  1. Độ phủ transcript: Mọi file trong `00_DANH_MUC_TRANSCRIPT.md` được sử dụng đầy đủ; họp Quý tách rõ từng bộ phận kèm khối `.bod-eval`.
+  2. Dẫn chứng hợp lệ: 100% `data-ref` trỏ tới dòng có thật trong transcript.
+  3. Khớp số liệu toán học: Mọi số liệu, %, tiền trong biên bản khớp chính xác với dòng transcript được trích dẫn.
+  4. Phủ đủ chỉ đạo và giao việc của Ban Giám Đốc (`Chị Thanh (BOD)`).
+  5. Chuẩn hoá danh xưng theo giới tính: `<Danh xưng Anh/Chị> <Tên> (<Tag Bộ phận>)` khớp danh bạ.
+  6. Không chứa chuỗi cấm/sai lệch: `Bitrix`, `Natri`, `KIO`, `Kana`, `Rulico`, `Mr.`, `Ms.`, `Thư ký AI`.
+  7. Bảng phân công đủ 4 cột; deadline hợp lệ (ngày làm việc trong tuần) hoặc ghi `Chưa xác định`.
+  8. Chuẩn cấu trúc HTML/CSS (font Montserrat), cân bằng thẻ, lưu tại cổng xuất bản `output/` và ghi nhật ký chu trình vào `runs/<run_id>.jsonl`.
 
-## 3. CHUẨN NGÔN NGỮ TIẾNG VIỆT & UNICODE
+## 4. CHUẨN NGÔN NGỮ TIẾNG VIỆT & UNICODE
 - 100% file mã nguồn, cấu hình, tài liệu dùng bảng mã **UTF-8** và chuẩn **Unicode dựng sẵn (NFC)**.
 - Rà soát chính tả, kiểm soát lỗi đồng âm Whisper và chuẩn hoá danh xưng giới tính qua skill `vietnamese-spellcheck`.
 
-## 4. QUẢN LÝ SKILL
-- Mọi Skill bắt buộc lưu trữ, cập nhật tại `doc/Skill/<tên-skill>/` theo khai báo trong `.agents/skills.json`.
+## 5. QUẢN LÝ SKILL
+- Mọi Skill bắt buộc lưu trữ, cập nhật tại `doc/Skill/<tên-skill>/` theo khai báo trong `.agents/skills.json` và đồng bộ đóng gói file `.skill` tương ứng.

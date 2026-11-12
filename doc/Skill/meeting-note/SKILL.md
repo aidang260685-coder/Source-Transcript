@@ -1,22 +1,7 @@
 ---
 name: meeting-note
 description: >
-  Tạo biên bản cuộc họp (meeting note) chuyên nghiệp dạng file HTML hoàn
-  chỉnh, mở được trên trình duyệt và in ra PDF giữ nguyên màu sắc. Dùng
-  skill này bất cứ khi nào người dùng muốn tạo biên bản họp, viết meeting
-  note, tạo minutes of meeting, lập biên bản họp Báo cáo Quý / Đánh giá
-  BSC & KPI của các bộ phận (có phần đánh giá sau báo cáo của BOD), chuyển
-  nội dung cuộc họp (file ghi âm .m4a đã transcribe, note thô, thông báo
-  họp + nội dung họp) thành file HTML, hoặc sửa/cập nhật một file meeting
-  note HTML đã có (đổi tên người, đổi danh xưng giới tính Anh/Chị, đổi tên
-  bộ phận, bổ sung nội dung, sửa deadline). Kích hoạt cả khi người dùng chỉ
-  cung cấp nội dung thô của cuộc họp (danh sách người tham dự, báo cáo BSC/KPI
-  từng phòng ban, nhận xét của BOD, vấn đề, deadline, quyết định) và yêu cầu
-  tạo tài liệu, ngay cả khi không nói rõ từ "biên bản". Luôn dùng skill này
-  khi đầu ra là một file HTML biên bản họp — không tự viết HTML từ đầu mà
-  không đọc SKILL.md và các file trong assets/ trước, đồng thời phối hợp với
-  quy tắc chính tả trong skill `vietnamese-spellcheck` và chuẩn nhân sự trong
-  `ktt-transcript-normalizer`.
+  Tạo biên bản cuộc họp (meeting note) chuyên nghiệp dạng file HTML hoàn chỉnh, in PDF giữ màu. Dùng khi người dùng muốn tạo biên bản họp, minutes of meeting, lập biên bản họp Báo cáo Quý / đánh giá BSC & KPI (có phần đánh giá của BOD), chuyển transcript .m4a, note thô hoặc thông báo + nội dung họp thành HTML, hoặc sửa/cập nhật một meeting note HTML đã có (đổi tên người, danh xưng Anh/Chị, bộ phận, deadline). Kích hoạt cả khi người dùng chỉ đưa nội dung thô của cuộc họp và yêu cầu tạo tài liệu. Luôn dùng skill này khi đầu ra là HTML biên bản họp, phối hợp với `vietnamese-spellcheck` và `ktt-transcript-normalizer`.
 ---
 
 # Skill: Meeting Note (Biên Bản Họp)
@@ -57,6 +42,8 @@ không hỏi lại những gì đã có):
 | Kết luận | ✅ | Điểm chốt, next steps |
 | Tham chiếu | Nếu có | Cuộc họp trước, để liên kết mạch dự án / kỳ báo cáo trước |
 | Người duyệt | ✅ | Danh xưng (`Anh`/`Chị`) + Tên người duyệt biên bản (ví dụ: `Chị Thanh (BOD)`) |
+
+**Ngữ cảnh theo từng cuộc họp:** mỗi buổi họp có ngữ cảnh riêng. Thành phần tham dự, buổi họp, cách viết tên và nội dung lấy từ prompt của người dùng, lời giới thiệu trong băng và transcript của chính buổi đó (hoặc `doc/meeting_context.md` nếu có), không lấy từ danh bạ hay biên bản của buổi khác. Danh bạ trong `ktt-transcript-normalizer` chỉ dùng để tra danh xưng và tag bộ phận.
 
 ### Bước 2 — Chọn khung mẫu phù hợp
 
@@ -107,6 +94,11 @@ comment giải thích khi nào dùng class CSS nào (`.open-issue` vs
 **e) Bảo toàn sự thật (Zero Hallucination) & Quản lý đoạn `[??]`.**
 - Tuyệt đối không tự bịa hoặc suy đoán **số liệu, tiền tệ, tỷ lệ %, ngày tháng, deadline, tên người phụ trách**. Nếu chưa chốt trong cuộc họp, ghi rõ **`Chưa xác định`**.
 - Nếu đầu vào có các đoạn gắn cờ `[??]` hoặc `[cần kiểm tra]` chứa số liệu/tên riêng mà người dùng chưa xác nhận lại, giữ nhãn `[cần kiểm tra - HH:MM:SS]` và liệt kê nhắc người dùng khi bàn giao.
+
+**f) Dẫn chứng có mã (evidence ref) — nền tảng kiểm chứng tất định.**
+- Mỗi số liệu, tỷ lệ %, số tiền, deadline, người phụ trách và quyết định của BOD trong biên bản phải gắn tham chiếu về dòng transcript gốc bằng thuộc tính HTML, ví dụ `<span data-ref='IT#00:12:34'>...</span>` (định dạng `<tên file transcript không đuôi>#<HH:MM:SS>`).
+- Tham chiếu không hiển thị khi in. Nội dung không có tham chiếu hợp lệ thì phải ghi `Chưa xác định` hoặc `[cần kiểm tra - HH:MM:SS]`, không được để trơn.
+- Tên người chỉ xuất hiện nếu có phát biểu hoặc được giao việc trong transcript; không thêm tên từ suy đoán.
 
 ### Bước 4 — Văn phong & Chuẩn Chính Tả Tiếng Việt
 
@@ -219,10 +211,15 @@ Hoạt động tốt trên Chrome/Edge. Trên màn hình hiển thị ghi chú t
 Tuân thủ nghiêm ngặt cấu trúc phân tầng của **Harness Engineering**:
 1. **Cổng xuất bản chính thức (Publishable Gate):** Bắt buộc lưu file HTML biên bản họp hoàn chỉnh (đã vượt qua kiểm định) tại thư mục **output/** theo định dạng Bien_Ban_Hop_[TieuDe]_[DD-MM-YYYY]_Verified.html (hoặc Bien_Ban_Hop_[TieuDe]_[DD-MM-YYYY].html), đồng bộ hàm downloadHTML() trong thẻ <script> cho khớp tên file.
 2. **Dữ liệu chứng cứ & Quản lý transcript (Curated Evidence):** File bóc băng lời thoại .txt lưu tại **doc/transcripts/**, đồng thời cập nhật vào bảng kiểm **doc/transcripts/00_DANH_MUC_TRANSCRIPT.md**.
-3. **Nhật ký chu trình (Run Traceability):** Ghi nhận trạng thái hoàn thành vào thư mục **
-uns/** (.jsonl).
+3. **Nhật ký chu trình (Run Traceability):** Ghi nhận mỗi lần chạy (trạng thái, kết quả kiểm chứng, số lần retry, danh sách `[??]`) thành một dòng JSONL vào thư mục **`runs/`** (ví dụ `runs/<run_id>.jsonl`).
 4. **Quy tắc Bảng phân công (Action Plan & Zero Hallucination):** Tuyệt đối KHÔNG tự suy đoán, gán ghép deadline hoặc công việc cụ thể nếu trong cuộc họp chưa thống nhất. Mọi đầu mục chưa chốt ngày phải ghi rõ Chưa xác định và nêu rõ điều kiện/thời điểm sẽ chốt.
-5. **Báo cáo kết quả:** Kèm tóm tắt ngắn các mục chính và danh sách các điểm [??] / Chưa xác định cần người duyệt xác nhận — không re-summarize toàn bộ file.
+5. **Kiểm chứng độc lập & Retry (bắt buộc trước khi vào `output/`):**
+   - Nếu có `harness/verify_minutes.py` thì chạy nó (chạy cục bộ, không gửi dữ liệu đi đâu). Nếu chưa có, tự kiểm tra thủ công theo đúng danh sách dưới đây và ghi rõ trong `runs/` đó là kiểm tra thủ công.
+   - Danh sách: (1) độ phủ: mọi file trong `00_DANH_MUC_TRANSCRIPT.md` đã được dùng, họp Quý có đủ mục cho từng bộ phận và khối `.bod-eval`; (2) mọi `data-ref` trỏ tới dòng có thật; (3) mọi số liệu, %, tiền trong biên bản có trong dòng transcript được trích; (4) mọi tên người theo dạng `Anh/Chị Tên (Tag)` khớp danh bạ; (5) không có chuỗi cấm: `Bitrix`, `Natri`, `KIO`, `Kana`, `Rulico`, `Mr.`, `Ms.`, `Thư ký AI`; (6) bảng phân công đủ 4 cột, deadline có trong nguồn hoặc là `Chưa xác định`; (7) Unicode NFC; (8) các mục định dạng trong phần KIỂM TRA TRƯỚC KHI XUẤT FILE.
+   - Retry có chẩn đoán: trượt vì thiếu bằng chứng thì quay lại transcript tìm thêm; trượt vì diễn đạt hoặc định dạng thì sửa theo gợi ý. Tối đa 2 vòng. Lỗi lặp lại thì dừng và chuyển cho người dùng kèm danh sách `[??]`.
+   - Chỉ file đạt toàn bộ mới được lưu vào `output/` với hậu tố `_Verified`. File chưa đạt lưu vào `output/_draft/` và không mang chữ `Verified`.
+   - Không tự chuyển transcript hoặc bản nháp cho agent/giám khảo LLM khác nếu chưa được người dùng xác nhận (CONFIRM).
+6. **Báo cáo kết quả:** Kèm tóm tắt ngắn các mục chính và danh sách các điểm [??] / Chưa xác định cần người duyệt xác nhận — không re-summarize toàn bộ file.
 
 ---
 
@@ -242,6 +239,8 @@ uns/** (.jsonl).
 ## XỬ LÝ CÁC TRƯỜNG HỢP ĐẶC BIỆT
 
 ### Họp Báo cáo Quý (BSC & KPI) kéo dài nhiều buổi hoặc tách nhiều file ghi âm theo bộ phận
+
+**Xây theo từng bộ phận để không tràn ngữ cảnh:** mỗi bộ phận xử lý và kiểm chứng riêng thành một mảnh (`output/_parts/<BoPhan>.html`), đọc từ dòng đầu đến dòng cuối transcript của bộ phận đó. Sau khi tất cả mảnh đạt kiểm chứng mới ghép thành biên bản tổng hợp và viết Section III (đánh giá tổng thể của BOD). Không đọc dồn toàn bộ transcript của cả kỳ họp trong một lượt.
 Khi người dùng cung cấp nhiều file ghi âm/transcript của một kỳ họp Báo cáo Quý (ví dụ: mỗi bộ phận `Kế toán`, `PP`, `Kho`, `QC`, `HR`, `IT`, `Marketing`, `DA`, `Sale - Đại lý / Nhà máy / Online / Michelin` là 1–2 file riêng, kèm các file nhận xét/tổng kết của `Chị Thanh (BOD)`):
 1. Nếu người dùng yêu cầu lập **Biên bản tổng hợp toàn kỳ họp Quý**: Gộp tất cả các bộ phận vào một file HTML duy nhất theo `assets/khung_bsc_kpi.html`, sắp xếp các bộ phận theo trình tự hợp lý (hoặc theo thứ tự phiên họp Buổi 1 / Buổi 2), gắn đúng các đoạn nhận xét rời của BOD (như nhận xét kênh Nhà máy, nhận xét sau trình bày team Sales, chia sẻ cùng Marketing, tổng kết cuối buổi) vào đúng khối `.bod-eval` của bộ phận đó và Section III (Đánh giá tổng thể của BOD).
 2. Nếu người dùng yêu cầu lập **Biên bản báo cáo BSC & KPI cho riêng 1 bộ phận/khối**: Vẫn dùng `assets/khung_bsc_kpi.html` nhưng tập trung chi tiết vào các chỉ số BSC/KPI, thảo luận liên phòng ban và đánh giá của BOD dành riêng cho bộ phận/khối đó.
@@ -301,5 +300,5 @@ bản còn thô, nhưng không bịa thêm số liệu/deadline không có trong
 - [ ] `@media print` có `!important` cho tất cả background (kể cả `.bod-eval` và `.badge-*`)
 - [ ] Nút tải file có hàm `downloadHTML()` với tên file đã sửa đúng (không còn placeholder)
 - [ ] Footer có ngày lập và thông tin nhân sự chuẩn: `Thư ký / Người ghi chép & tổng hợp: [Anh/Chị Tên (Tag)] — Chủ trì & Phê duyệt: [Anh/Chị Tên (BOD)]`. Tuyệt đối KHÔNG ghi "Thư ký AI" hay "AI Meeting note", không ghi tên thiếu danh xưng giới tính.
-- [ ] Font size và Line-height chuẩn văn bản hành chính công sở (body 10.5pt, line-height 1.7; bảng biểu 9.5pt, line-height 1.65)
+- [ ] Font size và Line-height chuẩn văn bản hành chính công sở (theo bảng quy đổi Montserrat ở Bước 4b: body 10pt, line-height 1.5; bảng biểu nhỏ hơn body khoảng 0.5pt)
 - [ ] H1 in hoa font-weight 700 (không dùng font-weight 800/900 vì Montserrat đã rất đậm ở 700)

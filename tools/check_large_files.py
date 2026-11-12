@@ -6,8 +6,9 @@ Kiểm tra kích thước của toàn bộ các file được chuẩn bị commi
 Quy định: File có dung lượng lớn (> 45 MB) TUYỆT ĐỐI KHÔNG đẩy lên Git, chỉ lưu tại local.
 """
 import os
-import sys
+import shutil
 import subprocess
+import sys
 from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
@@ -19,15 +20,27 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 MAX_SIZE_BYTES = 45 * 1024 * 1024  # 45 MB (Ngưỡng an toàn trước giới hạn 50MB warning / 100MB block của GitHub)
 
 
+def get_git_binary() -> str:
+    system_git = shutil.which("git")
+    if system_git:
+        return system_git
+    prog_files = os.environ.get("ProgramFiles")
+    if prog_files and (Path(prog_files) / "Git" / "cmd" / "git.exe").is_file():
+        return str(Path(prog_files) / "Git" / "cmd" / "git.exe")
+    return "git"
+
+
 def check_staged_or_tracked_files() -> bool:
     print("=" * 70)
     print("🛡️ KTT LARGE FILE GUARD — KIỂM TRA DUNG LƯỢNG FILE GIT")
     print("=" * 70)
 
+    git_bin = get_git_binary()
+
     # 1. Lấy danh sách các file đang được staged (nếu có)
     try:
         res = subprocess.run(
-            ["git", "-C", str(ROOT_DIR), "diff", "--cached", "--name-only"],
+            [git_bin, "-C", str(ROOT_DIR), "diff", "--cached", "--name-only"],
             capture_output=True, text=True, check=True
         )
         staged_files = [line.strip() for line in res.stdout.splitlines() if line.strip()]
@@ -38,7 +51,7 @@ def check_staged_or_tracked_files() -> bool:
     if not staged_files:
         try:
             res = subprocess.run(
-                ["git", "-C", str(ROOT_DIR), "ls-files"],
+                [git_bin, "-C", str(ROOT_DIR), "ls-files"],
                 capture_output=True, text=True, check=True
             )
             files_to_check = [line.strip() for line in res.stdout.splitlines() if line.strip()]

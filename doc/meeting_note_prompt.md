@@ -68,6 +68,8 @@ YÊU CẦU BẮT BUỘC
 1. Chọn đúng khung cấu trúc (`kickoff/triển khai`, `weekly/đánh giá vận hành`, hoặc `bsc_kpi/báo cáo quý BSC & KPI`) theo mục tiêu cuộc họp. Với họp Báo cáo Quý (`khung_bsc_kpi.html`), tách riêng báo cáo BSC & KPI của từng bộ phận, kèm thảo luận liên phòng ban và khối đánh giá/chỉ đạo của BOD (`.bod-eval`) ngay sau mỗi bộ phận.
 2. Nếu có Agenda đánh số: Phần II (Nội dung chi tiết) phải đủ và đúng thứ tự từng mục, không tự ý gộp hoặc đảo thứ tự.
 3. Chuẩn danh xưng & Tag bộ phận: Mọi tên nhân sự xuất hiện trong biên bản đều phải có danh xưng đúng giới tính (`Anh`/`Chị`) + Tên + Tag bộ phận, ví dụ: `Anh Hùng (IT)`, `Chị Mai (ACC)`, nhất quán từ đầu đến cuối.
+4. Dẫn chứng có mã (`data-ref`): Mọi số liệu, tỷ lệ %, tiền tệ, deadline và quyết định của BOD phải gắn mã tham chiếu trỏ về dòng transcript gốc bằng thuộc tính `<span data-ref='file#HH:MM:SS'>...</span>` (không hiển thị khi in PDF). Nội dung không có tham chiếu hợp lệ phải ghi `Chưa xác định` hoặc `[cần kiểm tra - HH:MM:SS]`.
+5. Thứ tự ưu tiên nguồn thông tin: Prompt buổi họp > Băng ghi âm / transcript buổi đó > `doc/meeting_context.md` > Danh bạ mặc định (chỉ dùng để tra cứu danh xưng/tag, không mang người hoặc số liệu từ buổi họp khác sang).
 4. Phân loại trạng thái rõ ràng bằng hộp màu / nhãn trạng thái:
    - 🔴 Vấn đề còn mở / Rủi ro / Vướng mắc (Đỏ)
    - 🟡 Đã thảo luận / Phương án tạm thời (Vàng)
