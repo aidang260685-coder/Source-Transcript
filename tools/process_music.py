@@ -55,9 +55,28 @@ def run_pipeline(
     export_capcut: bool = False
 ):
     """Quy trình tự động khép kín."""
-    input_file = Path(input_file).resolve()
+    input_file = Path(input_file)
     if not input_file.is_file():
-        sys.exit(f"❌ Lỗi: Không tìm thấy file đầu vào: {input_file}")
+        fallback_input = BASE_DIR / "input" / "music" / input_file.name
+        if fallback_input.is_file():
+            input_file = fallback_input
+        else:
+            sys.exit(f"❌ Lỗi: Không tìm thấy file đầu vào: {input_file} (đã kiểm tra cả input/music/)")
+    input_file = input_file.resolve()
+
+    if image_bg:
+        image_bg = Path(image_bg)
+        if not image_bg.is_file():
+            fallback_img = BASE_DIR / "input" / "images" / image_bg.name
+            if fallback_img.is_file():
+                image_bg = fallback_img
+
+    if lyrics_file:
+        lyrics_file = Path(lyrics_file)
+        if not lyrics_file.is_file():
+            fallback_lyr = BASE_DIR / "input" / "lyrics" / lyrics_file.name
+            if fallback_lyr.is_file():
+                lyrics_file = fallback_lyr
 
     if output_dir is None:
         song_dir = BASE_DIR / "output" / "music" / input_file.stem
