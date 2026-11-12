@@ -40,7 +40,7 @@ def check_staged_or_tracked_files() -> bool:
     # 1. Lấy danh sách các file đang được staged (nếu có)
     try:
         res = subprocess.run(
-            [git_bin, "-C", str(ROOT_DIR), "diff", "--cached", "--name-only"],
+            [git_bin, "-c", "safe.directory=*", "-C", str(ROOT_DIR), "diff", "--cached", "--name-only"],
             capture_output=True, text=True, check=True
         )
         staged_files = [line.strip() for line in res.stdout.splitlines() if line.strip()]
@@ -51,7 +51,7 @@ def check_staged_or_tracked_files() -> bool:
     if not staged_files:
         try:
             res = subprocess.run(
-                [git_bin, "-C", str(ROOT_DIR), "ls-files"],
+                [git_bin, "-c", "safe.directory=*", "-C", str(ROOT_DIR), "ls-files"],
                 capture_output=True, text=True, check=True
             )
             files_to_check = [line.strip() for line in res.stdout.splitlines() if line.strip()]

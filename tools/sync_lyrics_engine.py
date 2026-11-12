@@ -188,13 +188,15 @@ def export_karaoke_ass(
     primary_color: Optional[str] = None,
     secondary_color: Optional[str] = None,
     outline_color: Optional[str] = None,
-    alignment: int = 2                       # Căn giữa ở 1/3 dưới màn hình (Bottom-Center)
+    alignment: int = 2,                      # Căn giữa ở 1/3 dưới màn hình (Bottom-Center)
+    margin_v: Optional[int] = None           # Lề đáy (tự động tính an toàn cho 9:16 TikTok/Zalo)
 ) -> str:
     """
     Xuất định dạng Karaoke ASS (Advanced SubStation Alpha) với hiệu ứng đổi màu \\k.
     Mặc định: Phông chữ nghiêng mềm mại nghệ thuật (khác biệt với font Montserrat hành chính của biên bản họp).
     """
     res_w, res_h = resolution.lower().split("x")
+    int_w, int_h = int(res_w), int(res_h)
 
     # Nạp cấu hình từ preset
     preset = LYRIC_STYLE_PRESETS.get(style_preset, LYRIC_STYLE_PRESETS["soft_italic"]).copy()
@@ -210,6 +212,12 @@ def export_karaoke_ass(
     val_outline = preset.get("outline", 2.2)
     val_shadow = preset.get("shadow", 1.5)
 
+    # Tự động tính lề đáy an toàn (Safe Zone): TikTok/Zalo/Reels cần lề đáy ~320-340px để tránh bị nút bấm & thanh nhạc che
+    if margin_v is None:
+        val_margin_v = 340 if int_h > int_w else 60
+    else:
+        val_margin_v = margin_v
+
     header = f"""[Script Info]
 Title: {normalize_vietnamese_text(title)}
 ScriptType: v4.00+
@@ -221,7 +229,7 @@ PlayResY: {res_h}
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Karaoke,{f_name},{f_size},{c_primary},{c_secondary},{c_outline},&H64000000,{val_bold},{val_italic},0,0,100,100,{val_spacing},0,1,{val_outline},{val_shadow},{alignment},30,30,60,1
+Style: Karaoke,{f_name},{f_size},{c_primary},{c_secondary},{c_outline},&H64000000,{val_bold},{val_italic},0,0,100,100,{val_spacing},0,1,{val_outline},{val_shadow},{alignment},40,40,{val_margin_v},1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text

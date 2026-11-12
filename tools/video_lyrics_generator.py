@@ -30,11 +30,15 @@ def render_image_lyrics_video(
     ass_subtitle_path: Path,
     output_video_path: Path,
     aspect_ratio: str = "16:9",
+    bg_mode: str = "blur_padding",
     add_visualizer: bool = False
 ) -> Path:
     """
     Tạo video từ [Ảnh tĩnh + Nhạc + Phụ đề Karaoke chạy chữ].
-    - aspect_ratio: '16:9' (1920x1080) hoặc '9:16' (1080x1920 TikTok/Shorts)
+    - aspect_ratio: '16:9' (1920x1080) hoặc '9:16' (1080x1920 TikTok/Shorts/Zalo)
+    - bg_mode:
+        + 'blur_padding': Hiệu ứng CapCut/TikTok nền mờ (ảnh gốc ở giữa sắc nét, nền sau mờ mịn, không bị crop mất đầu/thân ảnh)
+        + 'crop': Phóng to ảnh cắt vừa khít toàn màn hình
     """
     image_path = Path(image_path).resolve()
     audio_path = Path(audio_path).resolve()
@@ -59,29 +63,55 @@ def render_image_lyrics_video(
     # Thoát ký tự đặc biệt cho FFmpeg filter path (đặc biệt trên Windows có ổ đĩa C: -> C\\:)
     ass_escaped = str(ass_subtitle_path).replace("\\", "/").replace(":", "\\:")
 
-    # Chuỗi filter video
-    video_filters = (
-        f"scale={width}:{height}:force_original_aspect_ratio=increase,"
-        f"crop={width}:{height},"
-        f"ass='{ass_escaped}'"
-    )
-
-    cmd = [
-        ffmpeg_bin,
-        "-y",
-        "-loop", "1",
-        "-i", str(image_path),
-        "-i", str(audio_path),
-        "-vf", video_filters,
-        "-c:v", "libx264",
-        "-preset", "medium",
-        "-crf", "18",
-        "-c:a", "aac",
-        "-b:a", "320k",
-        "-pix_fmt", "yuv420p",
-        "-shortest",
-        str(output_video_path)
-    ]
+    if bg_mode == "blur_padding":
+        # Hiệu ứng nền mờ nghệ thuật chuẩn TikTok / Reels / Shorts:
+        # [bg]: Scale ảnh phóng to lấp đầy, crop đúng kích thước, boxblur mờ mịn
+        # [fg]: Scale ảnh chính giữ nguyên tỷ lệ (không méo, không mất góc)
+        # Ghép overlay căn chính giữa, sau đó add hiệu ứng chữ Karaoke ASS
+        filter_str = (
+            f"[0:v]scale={width}:{height}:force_original_aspect_ratio=increase,"
+            f"crop={width}:{height},boxblur=25:5[bg];"
+            f"[0:v]scale={width}:{height}:force_original_aspect_ratio=decrease[fg];"
+            f"[bg][fg]overlay=(W-w)/2:(H-h)/2,ass='{ass_escaped}'"
+        )
+        cmd = [
+            ffmpeg_bin,
+            "-y",
+            "-loop", "1",
+            "-i", str(image_path),
+            "-i", str(audio_path),
+            "-filter_complex", filter_str,
+            "-c:v", "libx264",
+            "-preset", "medium",
+            "-crf", "18",
+            "-c:a", "aac",
+            "-b:a", "320k",
+            "-pix_fmt", "yuv420p",
+            "-shortest",
+            str(output_video_path)
+        ]
+    else:
+        video_filters = (
+            f"scale={width}:{height}:force_original_aspect_ratio=increase,"
+            f"crop={width}:{height},"
+            f"ass='{ass_escaped}'"
+        )
+        cmd = [
+            ffmpeg_bin,
+            "-y",
+            "-loop", "1",
+            "-i", str(image_path),
+            "-i", str(audio_path),
+            "-vf", video_filters,
+            "-c:v", "libx264",
+            "-preset", "medium",
+            "-crf", "18",
+            "-c:a", "aac",
+            "-b:a", "320k",
+            "-pix_fmt", "yuv420p",
+            "-shortest",
+            str(output_video_path)
+        ]
 
     proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False)
     if proc.returncode != 0:

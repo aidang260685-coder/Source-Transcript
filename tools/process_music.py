@@ -40,43 +40,106 @@ from video_lyrics_generator import (
 )
 
 
+def auto_detect_inputs(
+    input_file: Path = None,
+    image_bg: Path = None,
+    lyrics_file: Path = None
+):
+    """
+    Tự động ghép cặp thông minh giữa file nhạc (input/music/) và hình ảnh (input/images/):
+    1. Cơ chế 1 (Auto Single-Pair): Nếu mỗi thư mục chỉ có 1 file duy nhất -> Tự động ghép thành 1 cặp.
+    2. Cơ chế 2 (Matching Name): Nếu có file cùng tên (ví dụ: song.mp3 và song.jpg) -> Ghép đôi chuẩn xác.
+    3. Cơ chế 3: Nạp theo tham số được người dùng chỉ định cụ thể.
+    """
+    valid_audio_exts = {".mp3", ".wav", ".m4a", ".webm", ".flac", ".ogg", ".mp4", ".mkv", ".aac"}
+    valid_image_exts = {".jpg", ".jpeg", ".png", ".webp", ".bmp"}
+    valid_lyrics_exts = {".txt", ".lrc"}
+
+    music_dir = BASE_DIR / "input" / "music"
+    images_dir = BASE_DIR / "input" / "images"
+    lyrics_dir = BASE_DIR / "input" / "lyrics"
+
+    music_files = [f for f in music_dir.glob("*") if f.is_file() and f.suffix.lower() in valid_audio_exts]
+    image_files = [f for f in images_dir.glob("*") if f.is_file() and f.suffix.lower() in valid_image_exts]
+    text_files = [f for f in lyrics_dir.glob("*") if f.is_file() and f.suffix.lower() in valid_lyrics_exts]
+
+    # 1. Xác định file nhạc
+    chosen_input = None
+    if input_file:
+        p_in = Path(input_file)
+        if p_in.is_file():
+            chosen_input = p_in.resolve()
+        elif (music_dir / p_in.name).is_file():
+            chosen_input = (music_dir / p_in.name).resolve()
+        else:
+            sys.exit(f"❌ Lỗi: Không tìm thấy file nhạc: {input_file} (kiểm tra cả input/music/)")
+    else:
+        if len(music_files) == 1:
+            chosen_input = music_files[0].resolve()
+            print(f"💡 [TỰ ĐỘNG GHÉP CẶP] Phát hiện 1 bài nhạc duy nhất trong input/music/: {chosen_input.name}")
+        elif len(music_files) > 1:
+            print("⚠️ Phát hiện nhiều file nhạc trong input/music/:")
+            for idx, mf in enumerate(music_files, 1):
+                print(f"   [{idx}] {mf.name}")
+            sys.exit("👉 Vui lòng thêm tham số -i \"<tên_file>\" để chọn bài hát cần xử lý.")
+        else:
+            sys.exit("❌ Thư mục input/music/ chưa có file nhạc nào. Vui lòng copy file nhạc vào input/music/.")
+
+    # 2. Tự động nhận diện ảnh ghép cặp
+    chosen_img = None
+    if image_bg:
+        p_img = Path(image_bg)
+        if p_img.is_file():
+            chosen_img = p_img.resolve()
+        elif (images_dir / p_img.name).is_file():
+            chosen_img = (images_dir / p_img.name).resolve()
+    else:
+        # Tìm ảnh trùng tên trước
+        matching_imgs = [img for img in image_files if img.stem.lower() == chosen_input.stem.lower()]
+        if matching_imgs:
+            chosen_img = matching_imgs[0].resolve()
+            print(f"💡 [TỰ ĐỘNG GHÉP CẶP] Tìm thấy ảnh trùng tên trong input/images/: {chosen_img.name}")
+        elif len(image_files) == 1:
+            chosen_img = image_files[0].resolve()
+            print(f"💡 [TỰ ĐỘNG GHÉP CẶP] Tự động bắt cặp với bức ảnh duy nhất trong input/images/: {chosen_img.name}")
+
+    # 3. Tự động nhận diện file lời (lyrics) nếu có
+    chosen_lyr = None
+    if lyrics_file:
+        p_lyr = Path(lyrics_file)
+        if p_lyr.is_file():
+            chosen_lyr = p_lyr.resolve()
+        elif (lyrics_dir / p_lyr.name).is_file():
+            chosen_lyr = (lyrics_dir / p_lyr.name).resolve()
+    else:
+        matching_lyrs = [txt for txt in text_files if txt.stem.lower() == chosen_input.stem.lower()]
+        if matching_lyrs:
+            chosen_lyr = matching_lyrs[0].resolve()
+            print(f"💡 [TỰ ĐỘNG GHÉP CẶP] Tìm thấy file lời trùng tên trong input/lyrics/: {chosen_lyr.name}")
+        elif len(text_files) == 1:
+            chosen_lyr = text_files[0].resolve()
+            print(f"💡 [TỰ ĐỘNG GHÉP CẶP] Tự động bắt cặp với file lời text duy nhất: {chosen_lyr.name}")
+
+    return chosen_input, chosen_img, chosen_lyr
+
+
 def run_pipeline(
-    input_file: Path,
+    input_file: Path = None,
     image_bg: Path = None,
     video_bg: Path = None,
     lyrics_file: Path = None,
     title: str = "Tên Bài Hát",
     artist: str = "Ca Sĩ",
-    aspect_ratio: str = "16:9",
+    aspect_ratio: str = "9:16",
+    bg_mode: str = "blur_padding",
     style_preset: str = "soft_italic",
     font_name: str = "Georgia",
     italic: bool = True,
     output_dir: Path = None,
     export_capcut: bool = False
 ):
-    """Quy trình tự động khép kín."""
-    input_file = Path(input_file)
-    if not input_file.is_file():
-        fallback_input = BASE_DIR / "input" / "music" / input_file.name
-        if fallback_input.is_file():
-            input_file = fallback_input
-        else:
-            sys.exit(f"❌ Lỗi: Không tìm thấy file đầu vào: {input_file} (đã kiểm tra cả input/music/)")
-    input_file = input_file.resolve()
-
-    if image_bg:
-        image_bg = Path(image_bg)
-        if not image_bg.is_file():
-            fallback_img = BASE_DIR / "input" / "images" / image_bg.name
-            if fallback_img.is_file():
-                image_bg = fallback_img
-
-    if lyrics_file:
-        lyrics_file = Path(lyrics_file)
-        if not lyrics_file.is_file():
-            fallback_lyr = BASE_DIR / "input" / "lyrics" / lyrics_file.name
-            if fallback_lyr.is_file():
-                lyrics_file = fallback_lyr
+    """Quy trình tự động khép kín với cơ chế ghép cặp thông minh."""
+    input_file, image_bg, lyrics_file = auto_detect_inputs(input_file, image_bg, lyrics_file)
 
     if output_dir is None:
         song_dir = BASE_DIR / "output" / "music" / input_file.stem
@@ -173,13 +236,14 @@ def run_pipeline(
         return
 
     if image_bg and Path(image_bg).is_file():
-        print(f"   🎬 Đang render video từ ảnh nền [{Path(image_bg).name}] ({aspect_ratio})...")
+        print(f"   🎬 Đang render video từ ảnh nền [{Path(image_bg).name}] ({aspect_ratio}, chế độ: {bg_mode})...")
         render_image_lyrics_video(
             image_path=Path(image_bg),
             audio_path=mp3_path,
             ass_subtitle_path=out_ass,
             output_video_path=out_video,
-            aspect_ratio=aspect_ratio
+            aspect_ratio=aspect_ratio,
+            bg_mode=bg_mode
         )
         print(f"   🎉 THÀNH CÔNG! [videos/] Video Karaoke: {out_video.name}")
 
@@ -205,13 +269,14 @@ def main():
     parser = argparse.ArgumentParser(
         description="Bộ công cụ Convert Media & Tự động tạo Video Karaoke chạy chữ theo nhạc."
     )
-    parser.add_argument("--input", "-i", required=True, help="Đường dẫn file video hoặc audio đầu vào")
-    parser.add_argument("--image", "-img", default=None, help="Đường dẫn file ảnh nền (JPG/PNG)")
+    parser.add_argument("--input", "-i", default=None, help="Đường dẫn file video/audio đầu vào (bỏ trống để tự động ghép cặp trong input/music/)")
+    parser.add_argument("--image", "-img", default=None, help="Đường dẫn file ảnh nền JPG/PNG (bỏ trống để tự động ghép cặp trong input/images/)")
     parser.add_argument("--video-bg", "-vbg", default=None, help="Đường dẫn file video clip nền (MP4)")
     parser.add_argument("--lyrics", "-l", default=None, help="Đường dẫn file text chứa lời bài hát gốc (nếu có)")
     parser.add_argument("--title", "-t", default="Tên Bài Hát", help="Tiêu đề bài hát")
     parser.add_argument("--artist", "-a", default="Ca Sĩ", help="Tên ca sĩ / nghệ sĩ")
-    parser.add_argument("--ratio", "-r", default="16:9", choices=["16:9", "9:16"], help="Tỷ lệ khung hình video")
+    parser.add_argument("--ratio", "-r", default="9:16", choices=["9:16", "16:9"], help="Tỷ lệ khung hình video: 9:16 (TikTok, Zalo, Reels, Shorts) hoặc 16:9 (YouTube)")
+    parser.add_argument("--bg-mode", default="blur_padding", choices=["blur_padding", "crop"], help="Chế độ xử lý ảnh nền: blur_padding (nền mờ CapCut/TikTok giữ trọn vẹn ảnh) hoặc crop (cắt vừa khít)")
     parser.add_argument("--style", default="soft_italic", choices=["soft_italic", "poetic", "handwritten", "modern_italic"], help="Phong cách phụ đề lyric (mặc định: soft_italic)")
     parser.add_argument("--font", default="Georgia", help="Tên phông chữ nghệ thuật cho lyric (mặc định: Georgia)")
     parser.add_argument("--no-italic", action="store_true", help="Tắt chữ nghiêng (mặc định luôn bật chữ nghiêng mềm mại)")
@@ -221,13 +286,14 @@ def main():
     args = parser.parse_args()
 
     run_pipeline(
-        input_file=Path(args.input),
+        input_file=Path(args.input) if args.input else None,
         image_bg=Path(args.image) if args.image else None,
         video_bg=Path(args.video_bg) if args.video_bg else None,
         lyrics_file=Path(args.lyrics) if args.lyrics else None,
         title=args.title,
         artist=args.artist,
         aspect_ratio=args.ratio,
+        bg_mode=args.bg_mode,
         style_preset=args.style,
         font_name=args.font,
         italic=not args.no_italic,

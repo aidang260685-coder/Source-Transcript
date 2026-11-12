@@ -79,6 +79,17 @@ temp/
 *.dump
 *.bak
 
+# Thư mục tư liệu đầu vào (Local Only - giữ lại file hướng dẫn)
+input/music/*
+!input/music/.gitkeep
+!input/music/README.md
+input/images/*
+!input/images/.gitkeep
+!input/images/README.md
+input/lyrics/*
+!input/lyrics/.gitkeep
+!input/lyrics/README.md
+
 # Thư mục xuất bản nhạc & test sample cục bộ (Local Only - giữ lại output/README.md)
 output/music/
 output/test_sample/

@@ -110,3 +110,20 @@ def test_json_timeline():
     assert parsed[0]["text"] == "Dòng sông xanh biếc"
     assert len(parsed[0]["words"]) == 2
     assert parsed[0]["words"][0]["word"] == "Dòng"
+
+
+def test_tiktok_9_16_safe_zone():
+    line = LineSegment(text="Một bài hát TikTok", start=1.0, end=3.0)
+    ass_9_16 = export_karaoke_ass([line], resolution="1080x1920")
+    # MarginV cho 9:16 phải an toàn (~340px)
+    assert ",40,40,340,1" in ass_9_16
+
+
+if __name__ == "__main__":
+    test_timestamp_formatting()
+    test_vietnamese_unicode_normalization()
+    test_karaoke_ass_generation()
+    test_standard_and_enhanced_lrc()
+    test_json_timeline()
+    test_tiktok_9_16_safe_zone()
+    print("✅ 6/6 bài test media lyrics & TikTok 9:16 vượt qua thành công!")
