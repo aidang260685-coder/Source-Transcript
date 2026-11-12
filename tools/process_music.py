@@ -88,11 +88,16 @@ def auto_detect_inputs(
     # 2. Tự động nhận diện ảnh ghép cặp
     chosen_img = None
     if image_bg:
-        p_img = Path(image_bg)
-        if p_img.is_file():
-            chosen_img = p_img.resolve()
-        elif (images_dir / p_img.name).is_file():
-            chosen_img = (images_dir / p_img.name).resolve()
+        if str(image_bg).lower() == "all":
+            if image_files:
+                chosen_img = [img.resolve() for img in image_files]
+                print(f"💡 [TỰ ĐỘNG GHÉP CẶP] Đã chọn toàn bộ {len(chosen_img)} ảnh trong input/images/ cho Trình chiếu Slideshow.")
+        else:
+            p_img = Path(image_bg)
+            if p_img.is_file():
+                chosen_img = p_img.resolve()
+            elif (images_dir / p_img.name).is_file():
+                chosen_img = (images_dir / p_img.name).resolve()
     else:
         # Tìm ảnh trùng tên trước
         matching_imgs = [img for img in image_files if img.stem.lower() == chosen_input.stem.lower()]
@@ -103,9 +108,12 @@ def auto_detect_inputs(
             chosen_img = image_files[0].resolve()
             print(f"💡 [TỰ ĐỘNG GHÉP CẶP] Tự động bắt cặp với bức ảnh duy nhất trong input/images/: {chosen_img.name}")
         elif len(image_files) > 1:
-            chosen_img = image_files[0].resolve()
-            print(f"💡 [TỰ ĐỘNG GHÉP CẶP] Phát hiện {len(image_files)} ảnh trong input/images/. Mặc định ghép với ảnh đầu tiên: {chosen_img.name}")
-            print(f"   (👉 Anh có thể dùng tham số -img \"{image_files[1].name}\" nếu muốn đổi ảnh khác)")
+            # Tự động nạp toàn bộ ảnh để tạo Slideshow chuyển cảnh mềm mại
+            chosen_img = [img.resolve() for img in image_files]
+            print(f"💡 [TỰ ĐỘNG GHÉP CẶP] Phát hiện {len(image_files)} ảnh trong input/images/. Tự động kích hoạt chế độ Trình chiếu chuyển cảnh (Crossfade Slideshow) qua các ảnh:")
+            for idx, im in enumerate(chosen_img, 1):
+                print(f"      [{idx}] {im.name}")
+            print("   (👉 Anh có thể dùng tham số -img \"tên_ảnh.jpg\" nếu chỉ muốn dùng duy nhất 1 ảnh)")
 
     # 3. Tự động nhận diện file lời (lyrics) nếu có
     chosen_lyr = None
@@ -263,17 +271,29 @@ def run_pipeline(
         print("   👉 Bạn có thể tải ffmpeg.exe thả vào thư mục 'tools/' hoặc import file .ass vào CapCut/Premiere.")
         return
 
-    if image_bg and Path(image_bg).is_file():
-        print(f"   🎬 Đang render video từ ảnh nền [{Path(image_bg).name}] ({aspect_ratio}, chế độ: {bg_mode})...")
-        render_image_lyrics_video(
-            image_path=Path(image_bg),
-            audio_path=mp3_path,
-            ass_subtitle_path=out_ass,
-            output_video_path=out_video,
-            aspect_ratio=aspect_ratio,
-            bg_mode=bg_mode
-        )
-        print(f"   🎉 THÀNH CÔNG! [videos/] Video Karaoke: {out_video.name}")
+    if image_bg:
+        if isinstance(image_bg, list):
+            print(f"   🎬 Đang render video Trình chiếu Slideshow ({len(image_bg)} ảnh) ({aspect_ratio}, chế độ: {bg_mode})...")
+            render_image_lyrics_video(
+                image_path=image_bg,
+                audio_path=mp3_path,
+                ass_subtitle_path=out_ass,
+                output_video_path=out_video,
+                aspect_ratio=aspect_ratio,
+                bg_mode=bg_mode
+            )
+            print(f"   🎉 THÀNH CÔNG! [videos/] Video Karaoke Slideshow: {out_video.name}")
+        elif Path(image_bg).is_file():
+            print(f"   🎬 Đang render video từ ảnh nền [{Path(image_bg).name}] ({aspect_ratio}, chế độ: {bg_mode})...")
+            render_image_lyrics_video(
+                image_path=Path(image_bg),
+                audio_path=mp3_path,
+                ass_subtitle_path=out_ass,
+                output_video_path=out_video,
+                aspect_ratio=aspect_ratio,
+                bg_mode=bg_mode
+            )
+            print(f"   🎉 THÀNH CÔNG! [videos/] Video Karaoke: {out_video.name}")
 
     elif video_bg and Path(video_bg).is_file():
         print(f"   🎬 Đang render video từ video nền [{Path(video_bg).name}] ({aspect_ratio})...")
@@ -307,8 +327,8 @@ def main():
     parser.add_argument("--hashtags", "--tag", default=None, help="Dải hashtag trên video và caption (ví dụ: '#saicuasai #cover #nhachay')")
     parser.add_argument("--ratio", "-r", default="9:16", choices=["9:16", "16:9"], help="Tỷ lệ khung hình video: 9:16 (TikTok, Zalo, Reels, Shorts) hoặc 16:9 (YouTube)")
     parser.add_argument("--bg-mode", default="blur_padding", choices=["blur_padding", "crop"], help="Chế độ xử lý ảnh nền: blur_padding (nền mờ CapCut/TikTok giữ trọn vẹn ảnh) hoặc crop (cắt vừa khít)")
-    parser.add_argument("--style", default="soft_italic", choices=["soft_italic", "poetic", "handwritten", "modern_italic"], help="Phong cách phụ đề lyric (mặc định: soft_italic)")
-    parser.add_argument("--font", default="Georgia", help="Tên phông chữ nghệ thuật cho lyric (mặc định: Georgia)")
+    parser.add_argument("--style", default="dancing_script", choices=["dancing_script", "soft_italic", "poetic", "handwritten", "modern_italic"], help="Phong cách phụ đề lyric (mặc định: dancing_script)")
+    parser.add_argument("--font", default="Dancing Script", help="Tên phông chữ nghệ thuật cho lyric (mặc định: Dancing Script)")
     parser.add_argument("--no-italic", action="store_true", help="Tắt chữ nghiêng (mặc định luôn bật chữ nghiêng mềm mại)")
     parser.add_argument("--outdir", "-o", default=None, help="Thư mục xuất kết quả")
     parser.add_argument("--capcut", action="store_true", help="Xuất thêm file project CapCut PC draft")

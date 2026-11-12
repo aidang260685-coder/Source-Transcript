@@ -228,6 +228,18 @@ def export_enhanced_lrc(
 
 
 LYRIC_STYLE_PRESETS: Dict[str, Dict[str, Any]] = {
+    "dancing_script": {
+        "font_name": "Dancing Script",
+        "font_size": 54,
+        "bold": 1,          # Đậm nét để rõ ràng trên điện thoại
+        "italic": 0,        # Dancing Script bản chất đã là kiểu chữ thảo nghệ thuật
+        "spacing": 1.2,
+        "outline": 2.2,
+        "shadow": 1.5,
+        "primary_color": "&H00FFFFFF",
+        "secondary_color": "&H0000D7FF",
+        "outline_color": "&H00000000",
+    },
     "soft_italic": {
         "font_name": "Georgia",
         "font_size": 46,

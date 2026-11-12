@@ -6,12 +6,13 @@ Hỗ trợ xuất luôn CapCut PC Draft nếu người dùng muốn mở trực 
 """
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
 import uuid
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Optional, Union
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -24,8 +25,19 @@ sys.path.insert(0, str(BASE_DIR / "tools"))
 from media_converter import get_ffmpeg_binary
 
 
+def get_audio_duration(audio_path: Path, ffmpeg_bin: Path) -> float:
+    """Lấy thời lượng âm thanh bằng FFmpeg."""
+    cmd = [str(ffmpeg_bin), "-i", str(audio_path)]
+    res = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False)
+    m = re.search(r"Duration:\s*(\d+):(\d+):(\d+\.\d+)", res.stderr)
+    if m:
+        hours, mins, secs = int(m.group(1)), int(m.group(2)), float(m.group(3))
+        return hours * 3600 + mins * 60 + secs
+    return 300.0
+
+
 def render_image_lyrics_video(
-    image_path: Path,
+    image_path: Union[Path, str, List[Union[Path, str]]],
     audio_path: Path,
     ass_subtitle_path: Path,
     output_video_path: Path,
@@ -34,19 +46,25 @@ def render_image_lyrics_video(
     add_visualizer: bool = False
 ) -> Path:
     """
-    Tạo video từ [Ảnh tĩnh + Nhạc + Phụ đề Karaoke chạy chữ].
+    Tạo video từ [Ảnh tĩnh (1 hoặc nhiều ảnh) + Nhạc + Phụ đề Karaoke chạy chữ].
+    - image_path: 1 ảnh hoặc danh sách nhiều ảnh. Nếu nhiều ảnh, tự động chuyển cảnh hòa tan (Crossfade).
     - aspect_ratio: '16:9' (1920x1080) hoặc '9:16' (1080x1920 TikTok/Shorts/Zalo)
     - bg_mode:
-        + 'blur_padding': Hiệu ứng CapCut/TikTok nền mờ (ảnh gốc ở giữa sắc nét, nền sau mờ mịn, không bị crop mất đầu/thân ảnh)
+        + 'blur_padding': Hiệu ứng CapCut/TikTok nền mờ (ảnh gốc ở giữa sắc nét, nền sau mờ mịn)
         + 'crop': Phóng to ảnh cắt vừa khít toàn màn hình
     """
-    image_path = Path(image_path).resolve()
+    if isinstance(image_path, (list, tuple)):
+        images = [Path(p).resolve() for p in image_path if Path(p).is_file()]
+    else:
+        images = [Path(image_path).resolve()] if Path(image_path).is_file() else []
+
+    if not images:
+        raise FileNotFoundError(f"Không tìm thấy file ảnh nền hợp lệ: {image_path}")
+
     audio_path = Path(audio_path).resolve()
     ass_subtitle_path = Path(ass_subtitle_path).resolve()
     output_video_path = Path(output_video_path).resolve()
 
-    if not image_path.is_file():
-        raise FileNotFoundError(f"Không tìm thấy file ảnh nền: {image_path}")
     if not audio_path.is_file():
         raise FileNotFoundError(f"Không tìm thấy file âm thanh: {audio_path}")
     if not ass_subtitle_path.is_file():
@@ -63,78 +81,135 @@ def render_image_lyrics_video(
     # Thoát ký tự đặc biệt cho FFmpeg filter path (đặc biệt trên Windows có ổ đĩa C: -> C\\:)
     ass_escaped = str(ass_subtitle_path).replace("\\", "/").replace(":", "\\:")
 
-    if bg_mode == "blur_padding":
-        # Bước 1: Tạo ảnh nền mờ nghệ thuật chuẩn TikTok 1 LẦN DUY NHẤT (~0.2s)
-        # Giúp tốc độ render video nhanh gấp 8-10 lần (không phải tính lại boxblur 10.000 frames)
-        temp_comp_bg = output_video_path.parent / f"_temp_bg_{width}x{height}.jpg"
-        filter_once = (
-            f"[0:v]scale={width}:{height}:force_original_aspect_ratio=increase,"
-            f"crop={width}:{height},boxblur=25:5[bg];"
-            f"[0:v]scale={width}:{height}:force_original_aspect_ratio=decrease[fg];"
-            f"[bg][fg]overlay=(W-w)/2:(H-h)/2"
-        )
-        cmd_prep = [
-            ffmpeg_bin, "-y", "-loglevel", "error",
-            "-i", str(image_path),
+    # TRƯỜNG HỢP 1: DUY NHẤT 1 ẢNH (Tối ưu siêu tốc với pre-composited frame)
+    if len(images) == 1:
+        img_single = images[0]
+        if bg_mode == "blur_padding":
+            temp_comp_bg = output_video_path.parent / f"_temp_bg_{width}x{height}.jpg"
+            filter_once = (
+                f"[0:v]scale={width}:{height}:force_original_aspect_ratio=increase,"
+                f"crop={width}:{height},boxblur=25:5[bg];"
+                f"[0:v]scale={width}:{height}:force_original_aspect_ratio=decrease[fg];"
+                f"[bg][fg]overlay=(W-w)/2:(H-h)/2"
+            )
+            cmd_prep = [
+                str(ffmpeg_bin), "-y", "-loglevel", "error",
+                "-i", str(img_single),
+                "-filter_complex", filter_once,
+                "-vframes", "1",
+                str(temp_comp_bg)
+            ]
+            proc_prep = subprocess.run(cmd_prep, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False)
+            if proc_prep.returncode != 0:
+                raise RuntimeError(f"Tạo ảnh nền composited thất bại: {proc_prep.stderr}")
+
+            cmd = [
+                str(ffmpeg_bin), "-y", "-loglevel", "error",
+                "-loop", "1", "-i", str(temp_comp_bg),
+                "-i", str(audio_path),
+                "-vf", f"ass='{ass_escaped}'",
+                "-c:v", "libx264", "-preset", "veryfast", "-tune", "stillimage", "-crf", "18",
+                "-c:a", "aac", "-b:a", "320k", "-pix_fmt", "yuv420p", "-shortest",
+                str(output_video_path)
+            ]
+            proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False)
+            if temp_comp_bg.is_file():
+                temp_comp_bg.unlink(missing_ok=True)
+            if proc.returncode != 0:
+                raise RuntimeError(f"FFmpeg render video ảnh thất bại: {proc.stderr}")
+        else:
+            video_filters = (
+                f"scale={width}:{height}:force_original_aspect_ratio=increase,"
+                f"crop={width}:{height},"
+                f"ass='{ass_escaped}'"
+            )
+            cmd = [
+                str(ffmpeg_bin), "-y", "-loglevel", "error",
+                "-loop", "1", "-i", str(img_single),
+                "-i", str(audio_path),
+                "-vf", video_filters,
+                "-c:v", "libx264", "-preset", "veryfast", "-tune", "stillimage", "-crf", "18",
+                "-c:a", "aac", "-b:a", "320k", "-pix_fmt", "yuv420p", "-shortest",
+                str(output_video_path)
+            ]
+            proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False)
+            if proc.returncode != 0:
+                raise RuntimeError(f"FFmpeg render video ảnh thất bại: {proc.stderr}")
+
+        return output_video_path
+
+    # TRƯỜNG HỢP 2: NHIỀU ẢNH (Tự động chuyển cảnh Crossfade Slideshow hòa tan mờ)
+    num_imgs = len(images)
+    total_dur = get_audio_duration(audio_path, ffmpeg_bin)
+    interval = total_dur / num_imgs
+    xfade_dur = min(1.5, interval / 2)
+
+    # 1. Tạo các slide tĩnh đã xử lý blur_padding hoặc crop
+    temp_slides: List[Path] = []
+    for idx, img in enumerate(images):
+        slide_p = output_video_path.parent / f"_temp_slide_{idx}_{width}x{height}.jpg"
+        temp_slides.append(slide_p)
+        if bg_mode == "blur_padding":
+            filter_once = (
+                f"[0:v]scale={width}:{height}:force_original_aspect_ratio=increase,"
+                f"crop={width}:{height},boxblur=25:5[bg];"
+                f"[0:v]scale={width}:{height}:force_original_aspect_ratio=decrease[fg];"
+                f"[bg][fg]overlay=(W-w)/2:(H-h)/2"
+            )
+        else:
+            filter_once = f"scale={width}:{height}:force_original_aspect_ratio=increase,crop={width}:{height}"
+
+        cmd_slide = [
+            str(ffmpeg_bin), "-y", "-loglevel", "error",
+            "-i", str(img),
             "-filter_complex", filter_once,
             "-vframes", "1",
-            str(temp_comp_bg)
+            str(slide_p)
         ]
-        proc_prep = subprocess.run(cmd_prep, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False)
-        if proc_prep.returncode != 0:
-            raise RuntimeError(f"Tạo ảnh nền composited thất bại: {proc_prep.stderr}")
+        proc_s = subprocess.run(cmd_slide, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False)
+        if proc_s.returncode != 0:
+            raise RuntimeError(f"Tạo slide composited {idx} thất bại: {proc_s.stderr}")
 
-        # Bước 2: Loop ảnh nền và gắn phụ đề Karaoke (siêu tốc với libx264 veryfast + tune stillimage)
-        cmd = [
-            ffmpeg_bin,
-            "-y",
-            "-loglevel", "error",
-            "-loop", "1",
-            "-i", str(temp_comp_bg),
-            "-i", str(audio_path),
-            "-vf", f"ass='{ass_escaped}'",
-            "-c:v", "libx264",
-            "-preset", "veryfast",
-            "-tune", "stillimage",
-            "-crf", "18",
-            "-c:a", "aac",
-            "-b:a", "320k",
-            "-pix_fmt", "yuv420p",
-            "-shortest",
-            str(output_video_path)
-        ]
-        proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False)
-        if temp_comp_bg.is_file():
-            temp_comp_bg.unlink(missing_ok=True)
-        if proc.returncode != 0:
-            raise RuntimeError(f"FFmpeg render video ảnh thất bại: {proc.stderr}")
-    else:
-        video_filters = (
-            f"scale={width}:{height}:force_original_aspect_ratio=increase,"
-            f"crop={width}:{height},"
-            f"ass='{ass_escaped}'"
-        )
-        cmd = [
-            ffmpeg_bin,
-            "-y",
-            "-loglevel", "error",
-            "-loop", "1",
-            "-i", str(image_path),
-            "-i", str(audio_path),
-            "-vf", video_filters,
-            "-c:v", "libx264",
-            "-preset", "veryfast",
-            "-tune", "stillimage",
-            "-crf", "18",
-            "-c:a", "aac",
-            "-b:a", "320k",
-            "-pix_fmt", "yuv420p",
-            "-shortest",
-            str(output_video_path)
-        ]
-        proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False)
-        if proc.returncode != 0:
-            raise RuntimeError(f"FFmpeg render video ảnh thất bại: {proc.stderr}")
+    # 2. Xây dựng filter_complex lồng ghép các lớp ảnh chuyển cảnh mờ dần
+    fc_parts = []
+    curr_base = "0:v"
+    for idx in range(1, num_imgs):
+        start_time = idx * interval
+        fc_parts.append(f"[{idx}:v]format=yuva420p,fade=t=in:st={start_time:.2f}:d={xfade_dur:.2f}:alpha=1[v_fade_{idx}]")
+        fc_parts.append(f"[{curr_base}][v_fade_{idx}]overlay=0:0[v_base_{idx}]")
+        curr_base = f"v_base_{idx}"
+
+    fc_parts.append(f"[{curr_base}]ass='{ass_escaped}'[vout]")
+    full_fc = "; ".join(fc_parts)
+
+    cmd_multi = [str(ffmpeg_bin), "-y", "-loglevel", "error"]
+    for slide in temp_slides:
+        cmd_multi.extend(["-loop", "1", "-t", f"{total_dur + 5:.2f}", "-i", str(slide)])
+
+    cmd_multi.extend([
+        "-i", str(audio_path),
+        "-filter_complex", full_fc,
+        "-map", "[vout]",
+        "-map", f"{num_imgs}:a",
+        "-c:v", "libx264",
+        "-preset", "veryfast",
+        "-crf", "18",
+        "-c:a", "aac",
+        "-b:a", "320k",
+        "-pix_fmt", "yuv420p",
+        "-shortest",
+        str(output_video_path)
+    ])
+
+    proc_multi = subprocess.run(cmd_multi, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False)
+
+    # Dọn dẹp slide tạm
+    for slide in temp_slides:
+        if slide.is_file():
+            slide.unlink(missing_ok=True)
+
+    if proc_multi.returncode != 0:
+        raise RuntimeError(f"FFmpeg render multi-image slideshow thất bại: {proc_multi.stderr}")
 
     return output_video_path
 
