@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Trang mẫu chuẩn UI/UX Design System Kiên Thành Tín">
+  <title>KTT UI/UX Design System - Standard Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="design_tokens.css">
+  <style>
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--ktt-space-6);
+      margin-top: var(--ktt-space-6);
+    }
+    .badge {
+      display: inline-block;
+      padding: var(--ktt-space-1) var(--ktt-space-3);
+      font-size: var(--ktt-text-xs);
+      font-weight: var(--ktt-font-semibold);
+      border-radius: var(--ktt-radius-full);
+    }
+    .badge-success { background: var(--ktt-color-success-bg); color: var(--ktt-color-success); }
+    .badge-warning { background: var(--ktt-color-warning-bg); color: var(--ktt-color-warning); }
+    .nav-links {
+      display: flex;
+      gap: var(--ktt-space-4);
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--ktt-color-neutral-700);
+      text-decoration: none;
+      font-weight: var(--ktt-font-medium);
+      font-size: var(--ktt-text-sm);
+    }
+    .nav-links a:hover {
+      color: var(--ktt-color-primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. Header & Navigation -->
+  <header class="ktt-header" role="banner">
+    <div class="ktt-container ktt-header-inner">
+      <div class="logo">
+        <a href="#home" style="text-decoration: none; display: flex; align-items: center; gap: 8px;">
+          <strong style="color: var(--ktt-color-primary); font-size: 1.25rem;">KIÊN THÀNH TÍN</strong>
+          <span class="badge badge-success">UI 2.0</span>
+        </a>
+      </div>
+      <nav role="navigation" aria-label="Menu chính">
+        <ul class="nav-links">
+          <li><a href="#overview">Tổng quan</a></li>
+          <li><a href="#components">Linh kiện</a></li>
+          <li><a href="#reports">Báo cáo</a></li>
+        </ul>
+      </nav>
+      <div class="actions">
+        <button class="ktt-btn ktt-btn-primary" type="button" aria-label="Tạo tài liệu mới">Tạo Mới</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. Main Content -->
+  <main id="main-content" class="ktt-container" style="padding-top: var(--ktt-space-8); padding-bottom: var(--ktt-space-12);" role="main">
+    
+    <!-- Hero / Title Section -->
+    <section class="hero-section">
+      <nav aria-label="Breadcrumb" style="margin-bottom: var(--ktt-space-3);">
+        <ol style="display: flex; gap: 8px; list-style: none; font-size: var(--ktt-text-xs); color: var(--ktt-color-neutral-500);">
+          <li><a href="#home" style="color: var(--ktt-color-neutral-500); text-decoration: none;">Trang chủ</a></li>
+          <li>/</li>
+          <li style="color: var(--ktt-color-neutral-900); font-weight: 600;">Design System</li>
+        </ol>
+      </nav>
+      <h1>Chuẩn Thiết Kế Giao Diện UI/UX Kiên Thành Tín</h1>
+      <p style="font-size: var(--ktt-text-lg); max-width: 800px;">
+        Bộ nguyên tắc thiết kế toàn diện theo Figma Design Tokens, hệ lưới 8pt, hỗ trợ tối đa Accessibility (WCAG 2.1 AA) và in ấn xuất bản PDF A4.
+      </p>
+    </section>
+
+    <!-- Component Cards Grid -->
+    <section class="grid-2" aria-labelledby="cards-heading">
+      <h2 id="cards-heading" style="grid-column: 1 / -1; margin-bottom: 0;">Linh Kiện Cốt Lõi</h2>
+      
+      <article class="ktt-card">
+        <h3>1. Typography & Hierarchy</h3>
+        <p>Áp dụng font Montserrat cho toàn bộ tiêu đề và nội dung. Thang tỷ lệ rõ ràng từ Display (48px) tới Caption (12px).</p>
+        <span class="badge badge-success">100% Montserrat</span>
+      </article>
+
+      <article class="ktt-card">
+        <h3>2. Color & Contrast Ratio</h3>
+        <p>Hệ màu Brand (#1A56DB) kết hợp thang xám Slate (50-900). Đạt tỉ lệ tương phản tối thiểu 4.5:1 theo chuẩn WCAG.</p>
+        <span class="badge badge-success">WCAG 2.1 AA</span>
+      </article>
+
+      <article class="ktt-card">
+        <h3>3. 8pt Spacing Grid</h3>
+        <p>Mọi khoảng cách padding, margin, row-gap đều là bội số của 4px và 8px, đồng bộ hoàn toàn với Figma Auto-Layout.</p>
+        <span class="badge badge-success">8pt Grid</span>
+      </article>
+
+      <article class="ktt-card">
+        <h3>4. Frontend ↔ Backend Contract</h3>
+        <p>Dữ liệu JSON đồng bộ, mã lỗi chuẩn RFC 7807, trạng thái Loading, Empty, và Error state được xử lý trọn vẹn.</p>
+        <span class="badge badge-warning">API Ready</span>
+      </article>
+    </section>
+
+  </main>
+
+  <!-- 3. Footer -->
+  <footer class="ktt-footer" role="contentinfo">
+    <div class="ktt-container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+      <div>
+        <p style="margin-bottom: 4px; font-weight: 600; color: #fff;">Công Ty TNHH Kiên Thành Tín</p>
+        <p style="margin-bottom: 0; font-size: var(--ktt-text-sm); color: var(--ktt-color-neutral-400);">Hệ thống Chuyển đổi Biên bản Họp & Nền tảng Giao diện Chuẩn Doanh nghiệp.</p>
+      </div>
+      <div>
+        <p style="margin-bottom: 0; font-size: var(--ktt-text-xs); color: var(--ktt-color-neutral-500);">© 2026 KTT Corp. Bảo lưu mọi quyền.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
