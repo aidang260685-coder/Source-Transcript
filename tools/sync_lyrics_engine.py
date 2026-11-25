@@ -53,6 +53,63 @@ def normalize_vietnamese_text(text: str) -> str:
     return text
 
 
+def slugify_vietnamese_tag(text: str) -> str:
+    """Chuyển chuỗi tiếng Việt thành tag không dấu viết liền (ví dụ: 'Mông Lung' -> 'monglung')."""
+    # 1. Bỏ nội dung trong ngoặc đơn, ngoặc vuông (như: (Ballad Cinematic), [Official Music Video])
+    text = re.sub(r"[\(\[\{].*?[\)\]\}]", "", text)
+    # 2. Chuẩn hoá NFD để tách dấu
+    text = unicodedata.normalize("NFD", text)
+    # 3. Lọc bỏ các ký tự dấu thanh kết hợp
+    text = "".join(c for c in text if unicodedata.category(c) != "Mn")
+    # 4. Thay ký tự đ/Đ thành d
+    text = text.replace("đ", "d").replace("Đ", "d")
+    # 5. Chỉ giữ lại chữ và số, viết thường
+    text = re.sub(r"[^a-zA-Z0-9]", "", text).lower().strip()
+    return text
+
+
+def generate_dynamic_hashtags(title: str = "", artist: str = "", custom_tags: Optional[str] = None) -> str:
+    """Tự động sinh dải hashtag động từ tên bài hát và nghệ sĩ."""
+    tags = []
+    is_ai = bool(re.search(r"\bAI\b|AI Cover", f"{title} {artist}", re.IGNORECASE))
+
+    if title:
+        t_slug = slugify_vietnamese_tag(title)
+        if t_slug and len(t_slug) > 1 and t_slug not in ["tenbaihat", "unknown"]:
+            tags.append(f"#{t_slug}")
+
+    # Nếu là nhạc AI hát: tự động thay bằng hashtag #aicover
+    if is_ai:
+        tags.append("#aicover")
+    elif artist:
+        a_slug = slugify_vietnamese_tag(artist)
+        if a_slug and len(a_slug) > 1 and a_slug not in ["casi", "unknown", "artist"]:
+            tags.append(f"#{a_slug}")
+
+    # Các hashtag âm nhạc mặc định tinh tế
+    tags.extend(["#nhachay", "#cover"])
+
+    # Nếu người dùng có bổ sung thêm hashtag tùy chọn
+    if custom_tags and custom_tags.strip() and custom_tags.strip().lower() != "auto":
+        for ct in custom_tags.strip().split():
+            clean_ct = ct.strip()
+            if not clean_ct.startswith("#"):
+                clean_ct = f"#{clean_ct}"
+            if clean_ct.lower() not in [t.lower() for t in tags]:
+                tags.append(clean_ct)
+
+    # Loại bỏ trùng lặp giữ nguyên thứ tự
+    seen = set()
+    unique_tags = []
+    for t in tags:
+        tl = t.lower()
+        if tl not in seen:
+            seen.add(tl)
+            unique_tags.append(t)
+
+    return " ".join(unique_tags)
+
+
 def format_timestamp_lrc(seconds: float) -> str:
     """Format thời gian theo chuẩn LRC: [mm:ss.xx] (phút:giây.phần trăm)."""
     seconds = max(0.0, seconds)
@@ -236,20 +293,20 @@ LYRIC_STYLE_PRESETS: Dict[str, Dict[str, Any]] = {
         "spacing": 1.0,
         "outline": 1.8,
         "shadow": 1.2,
-        "primary_color": "&H00FFFFFF",
-        "secondary_color": "&H0000D7FF",
+        "primary_color": "&H0000D7FF",     # Màu khi hát qua (Karaoke Fill): Vàng Neon
+        "secondary_color": "&H00FFFFFF",   # Màu ban đầu khi chưa hát: Trắng sáng
         "outline_color": "&H00000000",
     },
     "dancing_script": {
         "font_name": "Dancing Script",
-        "font_size": 38,
+        "font_size": 44,
         "bold": 0,          # Dancing Script là font script nghệ thuật, nét chữ mềm mại
         "italic": 0,        # Bản chất font Dancing Script đã là chữ thảo
         "spacing": 1.0,
         "outline": 1.8,
         "shadow": 1.2,
-        "primary_color": "&H00FFFFFF",
-        "secondary_color": "&H0000D7FF",
+        "primary_color": "&H0000D7FF",     # Màu khi hát qua (Karaoke Fill): Vàng Neon hổ phách
+        "secondary_color": "&H00FFFFFF",   # Màu ban đầu khi chưa hát: Trắng sáng
         "outline_color": "&H00000000",
     },
     "soft_italic": {
@@ -260,8 +317,8 @@ LYRIC_STYLE_PRESETS: Dict[str, Dict[str, Any]] = {
         "spacing": 1.2,
         "outline": 2.2,
         "shadow": 1.5,
-        "primary_color": "&H00FFFFFF",
-        "secondary_color": "&H0000D7FF",
+        "primary_color": "&H0000D7FF",     # Vàng Neon khi hát qua
+        "secondary_color": "&H00FFFFFF",   # Trắng sáng ban đầu
         "outline_color": "&H00000000",
     },
     "poetic": {
@@ -272,8 +329,8 @@ LYRIC_STYLE_PRESETS: Dict[str, Dict[str, Any]] = {
         "spacing": 1.5,
         "outline": 2.0,
         "shadow": 1.5,
-        "primary_color": "&H00F5F5F5",
-        "secondary_color": "&H0050D0FF",
+        "primary_color": "&H0050D0FF",
+        "secondary_color": "&H00F5F5F5",
         "outline_color": "&H00111111",
     },
     "handwritten": {
@@ -284,8 +341,8 @@ LYRIC_STYLE_PRESETS: Dict[str, Dict[str, Any]] = {
         "spacing": 1.0,
         "outline": 2.5,
         "shadow": 2.0,
-        "primary_color": "&H00FFFFFF",
-        "secondary_color": "&H0022E6FF",
+        "primary_color": "&H0022E6FF",
+        "secondary_color": "&H00FFFFFF",
         "outline_color": "&H00000000",
     },
     "modern_italic": {
@@ -296,8 +353,8 @@ LYRIC_STYLE_PRESETS: Dict[str, Dict[str, Any]] = {
         "spacing": 1.0,
         "outline": 2.2,
         "shadow": 1.5,
-        "primary_color": "&H00FFFFFF",
-        "secondary_color": "&H0000D7FF",
+        "primary_color": "&H0000D7FF",
+        "secondary_color": "&H00FFFFFF",
         "outline_color": "&H00000000",
     }
 }
@@ -327,6 +384,10 @@ def export_karaoke_ass(
     """
     res_w, res_h = resolution.lower().split("x")
     int_w, int_h = int(res_w), int(res_h)
+
+    # Tự động sinh dải hashtag động từ tên bài hát và ca sĩ nếu chưa được chỉ định
+    if hashtags is None or str(hashtags).strip().lower() == "auto":
+        hashtags = generate_dynamic_hashtags(title=title, artist=artist)
 
     # Nạp cấu hình từ preset
     preset = LYRIC_STYLE_PRESETS.get(style_preset, LYRIC_STYLE_PRESETS["soft_italic"]).copy()

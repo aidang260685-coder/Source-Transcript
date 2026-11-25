@@ -43,15 +43,19 @@ def render_image_lyrics_video(
     output_video_path: Path,
     aspect_ratio: str = "16:9",
     bg_mode: str = "blur_padding",
-    add_visualizer: bool = False
+    add_visualizer: bool = False,
+    motion: str = "none"
 ) -> Path:
     """
     Tạo video từ [Ảnh tĩnh (1 hoặc nhiều ảnh) + Nhạc + Phụ đề Karaoke chạy chữ].
     - image_path: 1 ảnh hoặc danh sách nhiều ảnh. Nếu nhiều ảnh, tự động chuyển cảnh hòa tan (Crossfade).
-    - aspect_ratio: '16:9' (1920x1080) hoặc '9:16' (1080x1920 TikTok/Shorts/Zalo)
+    - aspect_ratio: '16:9' (1920x1080) hoặc '9:16' (1080x1920 TikTok/Shorts/Zalo) hoặc '3:4' (1080x1440)
     - bg_mode:
         + 'blur_padding': Hiệu ứng CapCut/TikTok nền mờ (ảnh gốc ở giữa sắc nét, nền sau mờ mịn)
         + 'crop': Phóng to ảnh cắt vừa khít toàn màn hình
+    - motion:
+        + 'ken_burns' / 'zoom_in': Hiệu ứng điện ảnh phóng to chậm (Cinematic Slow Zoom) hướng vào tâm
+        + 'none': Ảnh tĩnh (render siêu tốc)
     """
     if isinstance(image_path, (list, tuple)):
         images = [Path(p).resolve() for p in image_path if Path(p).is_file()]
@@ -89,9 +93,34 @@ def render_image_lyrics_video(
     else:
         ass_filter_str = f"ass='{ass_escaped}'"
 
-    # TRƯỜNG HỢP 1: DUY NHẤT 1 ẢNH (Tối ưu siêu tốc với pre-composited frame)
+    # TRƯỜNG HỢP 1: DUY NHẤT 1 ẢNH
     if len(images) == 1:
         img_single = images[0]
+
+        # 1.1. Chế độ Ken Burns / Cinematic Slow Zoom
+        if motion in ["ken_burns", "zoom_in"]:
+            total_dur = get_audio_duration(audio_path, ffmpeg_bin)
+            total_frames = max(1, int(total_dur * 25))
+            step = 0.08 / total_frames
+            zoom_vf = (
+                f"zoompan=z='min(zoom+{step:.7f},1.08)':x='iw/2-(iw/zoom/2)':y='ih*0.38-(ih/zoom*0.38)':d=1:s={width}x{height}:fps=25,"
+                f"{ass_filter_str}"
+            )
+            cmd = [
+                str(ffmpeg_bin), "-y", "-loglevel", "error",
+                "-loop", "1", "-i", str(img_single),
+                "-i", str(audio_path),
+                "-vf", zoom_vf,
+                "-c:v", "libx264", "-preset", "veryfast", "-crf", "18",
+                "-c:a", "aac", "-b:a", "320k", "-pix_fmt", "yuv420p", "-shortest",
+                str(output_video_path)
+            ]
+            proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False)
+            if proc.returncode != 0:
+                raise RuntimeError(f"FFmpeg render video Ken Burns thất bại: {proc.stderr}")
+            return output_video_path
+
+        # 1.2. Chế độ ảnh tĩnh siêu tốc
         if bg_mode == "blur_padding":
             temp_comp_bg = output_video_path.parent / f"_temp_bg_{width}x{height}.jpg"
             filter_once = (

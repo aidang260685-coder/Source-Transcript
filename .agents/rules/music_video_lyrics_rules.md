@@ -27,7 +27,8 @@ Bộ quy tắc này được thiết lập để đảm bảo mọi quy trình t
 1. **Luôn giữ lại dải Hashtags**:
    - Dải hashtags mạng xã hội (`#...`) hoàn toàn độc lập với chữ ký. Khi không chèn chữ ký (hoặc bỏ chữ ký), **dải hashtags VẪN BẮT BUỘC PHẢI CÓ** trên video.
 2. **Vị trí & Định dạng Bố cục**:
-   - **Bố cục & Phông chữ đồng bộ (Top-Left, ASS Alignment 7)**: Mỗi hashtag nằm trên một dòng riêng biệt, canh lề trái thẳng hàng (`MarginL` ~50px, `MarginV` ~55-75px). Sử dụng **cùng phông chữ thuộc nhóm Script (như `Dancing Script`) với lời bài hát, in nghiêng (Italic) và CỠ CHỮ BẰNG NHAU với lời bài hát (mặc định chuẩn 38px)**, màu xám mờ tinh tế (`&H25F0E0D0`) để tạo sự đồng bộ thẩm mỹ, thoáng đãng và bay bổng cho video.
+   - **Tự động sinh Hashtags động (Dynamic Hashtag Generation)**: Nếu không truyền tham số hashtags cụ thể, hệ thống **bắt buộc tự động sinh động** từ tên bài hát và nghệ sĩ (`#{slug_tieu_de} #{slug_ca_si} #nhachay #cover`), loại bỏ dấu tiếng Việt và phần trong ngoặc đơn (ví dụ: `Mông Lung (Ballad Cinematic)` + `Dee Trần` -> `#monglung #deetran #nhachay #cover`).
+   - **Bố cục & Phông chữ đồng bộ (Top-Left, ASS Alignment 7)**: Mỗi hashtag nằm trên một dòng riêng biệt, canh lề trái thẳng hàng (`MarginL` ~50px, `MarginV` ~55-75px). Sử dụng **cùng phông chữ thuộc nhóm Script (như `Dancing Script`) với lời bài hát, in nghiêng (Italic) và CỠ CHỮ BẰNG NHAU với lời bài hát (mặc định chuẩn 44px)**, màu xám mờ tinh tế (`&H25F0E0D0`) để tạo sự đồng bộ thẩm mỹ, thoáng đãng và bay bổng cho video.
 
 ---
 
@@ -38,9 +39,14 @@ Bộ quy tắc này được thiết lập để đảm bảo mọi quy trình t
    - Font chữ được chọn phải hỗ trợ đầy đủ bộ ký tự tiếng Việt có dấu chuẩn Unicode dựng sẵn (NFC). Tuyệt đối không dùng các font script tiếng Anh chưa Việt hoá (như Segoe Script) gây lỗi rớt dấu hoặc hiển thị ô vuông.
    - Thư mục lưu trữ font chuẩn: `tools/fonts/` (ví dụ: `tools/fonts/DancingScript-Regular.ttf`).
 3. **Cỡ chữ & Hiệu ứng Karaoke**:
-   - Kích thước: Cỡ chữ dạng caption social thanh lịch chuẩn **38px** (tối ưu độ rõ ràng cho font Script nét thảo, không bị quá nhỏ và không choán khung hình).
+   - Kích thước: Cỡ chữ dạng caption social thanh lịch chuẩn **44px** (tối ưu độ rõ ràng cho font Script nét thảo, không bị quá nhỏ và không choán khung hình).
    - Viền & Đổ bóng: Viền mỏng 1.8-2.0px, shadow mềm 1.2-1.5px để nổi bật trên nền tối.
-   - Đổi màu karaoke: Chuyển màu vàng neon / hổ phách (`&H0000D7FF`) mượt mà theo từng từ ca sĩ hát.
+   - **Cơ chế màu Karaoke**:
+     + **Màu ban đầu khi chưa hát**: Màu **TRẮNG SÁNG** (`&H00FFFFFF`) rõ nét để người xem dễ đọc.
+     + **Màu khi hát qua (Karaoke Fill)**: Chuyển sang **MÀU VÀNG NEON / HỔ PHÁCH** (`&H0000D7FF`) rực rỡ chạy mượt mà theo từng từ ca sĩ cất giọng.
+4. **Hiệu ứng Điện ảnh Ken Burns (Cinematic Slow Zoom-In)**:
+   - Với video 1 ảnh nền, hỗ trợ tùy chọn `--motion ken_burns`: Máy quay phóng to chậm rãi (zoom-in nhẹ nhàng ~8% hướng vào tâm vầng trăng) trong suốt bài hát, tạo cảm giác điện ảnh trôi êm thay vì ảnh bất động.
+   - Toàn bộ dải Hashtag và Lời bài hát giữ vị trí cố định, không bị rung lắc.
 
 ---
 

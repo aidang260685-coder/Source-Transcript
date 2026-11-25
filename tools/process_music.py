@@ -31,6 +31,7 @@ from sync_lyrics_engine import (
     export_karaoke_ass,
     export_srt,
     export_standard_lrc,
+    generate_dynamic_hashtags,
     transcribe_and_align_lyrics
 )
 from video_lyrics_generator import (
@@ -162,7 +163,8 @@ def run_pipeline(
     signature: str = None,
     hashtags: str = None,
     output_dir: Path = None,
-    export_capcut: bool = False
+    export_capcut: bool = False,
+    motion: str = "none"
 ):
     """Quy trình tự động khép kín với cơ chế ghép cặp thông minh."""
     input_file, image_bg, lyrics_file = auto_detect_inputs(input_file, image_bg, lyrics_file)
@@ -187,7 +189,10 @@ def run_pipeline(
     print(f"📁 Tệp đầu vào: {input_file.name}")
     if signature:
         print(f"✍️  Chữ ký bản quyền: {signature}")
-    if hashtags:
+    if hashtags is None or str(hashtags).strip().lower() == "auto":
+        hashtags = generate_dynamic_hashtags(title=title, artist=artist)
+        print(f"🏷️  Hashtags (Tự động sinh động): {hashtags}")
+    else:
         print(f"🏷️  Hashtags: {hashtags}")
     print(f"🎯 Thư mục xuất chuẩn: {song_dir}")
     print("=" * 70)
@@ -299,18 +304,21 @@ def run_pipeline(
                 ass_subtitle_path=out_ass,
                 output_video_path=out_video,
                 aspect_ratio=aspect_ratio,
-                bg_mode=bg_mode
+                bg_mode=bg_mode,
+                motion=motion
             )
             print(f"   🎉 THÀNH CÔNG! [videos/] Video Karaoke Slideshow: {out_video.name}")
         elif Path(image_bg).is_file():
-            print(f"   🎬 Đang render video từ ảnh nền [{Path(image_bg).name}] ({aspect_ratio}, chế độ: {bg_mode})...")
+            motion_desc = " (Hiệu ứng: Cinematic Ken Burns)" if motion in ["ken_burns", "zoom_in"] else ""
+            print(f"   🎬 Đang render video từ ảnh nền [{Path(image_bg).name}] ({aspect_ratio}, chế độ: {bg_mode}){motion_desc}...")
             render_image_lyrics_video(
                 image_path=Path(image_bg),
                 audio_path=mp3_path,
                 ass_subtitle_path=out_ass,
                 output_video_path=out_video,
                 aspect_ratio=aspect_ratio,
-                bg_mode=bg_mode
+                bg_mode=bg_mode,
+                motion=motion
             )
             print(f"   🎉 THÀNH CÔNG! [videos/] Video Karaoke: {out_video.name}")
 
@@ -352,6 +360,7 @@ def main():
     parser.add_argument("--no-italic", action="store_true", help="Tắt chữ nghiêng (mặc định luôn bật chữ nghiêng mềm mại)")
     parser.add_argument("--outdir", "-o", default=None, help="Thư mục xuất kết quả")
     parser.add_argument("--capcut", action="store_true", help="Xuất thêm file project CapCut PC draft")
+    parser.add_argument("--motion", default="none", choices=["none", "ken_burns", "zoom_in"], help="Hiệu ứng chuyển động ảnh: ken_burns (Cinematic Slow Zoom-In) hoặc none")
 
     args = parser.parse_args()
 
@@ -371,7 +380,8 @@ def main():
         signature=args.signature,
         hashtags=args.hashtags,
         output_dir=Path(args.outdir) if args.outdir else None,
-        export_capcut=args.capcut
+        export_capcut=args.capcut,
+        motion=args.motion
     )
 
 
