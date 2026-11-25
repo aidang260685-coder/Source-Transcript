@@ -262,3 +262,20 @@ Nếu dùng định dạng MP4/M4A thông thường mà ứng dụng bị tắt 
    - Nhân viên chỉ được xem biên bản cuộc họp của bộ phận mình.
    - Các cuộc họp giao ban Ban Giám Đốc (BOD) hoặc số liệu tài chính nhạy cảm được gắn nhãn `CONFIDENTIAL` và mã hoá thêm một lớp khoá riêng biệt.
 
+---
+
+# PHẦN III: QUY TẮC BẮT BUỘC KHI RENDER VIDEO KARAOKE & LYRICS
+
+1. **Khớp nhịp ca sĩ (Timing & Lip-Sync)**:
+   - Tuyệt đối không cho lời bài hát xuất hiện trước khi ca sĩ bắt đầu hát câu đầu tiên. Suốt đoạn intro nhạc cụ, màn hình chỉ giữ ảnh nền và hashtags ở đỉnh.
+   - Bắt buộc dùng AI Whisper hoặc Audio Onset để xác định chính xác thời điểm cất giọng thực tế.
+2. **Quy tắc Chữ ký & Hashtags**:
+   - **Chữ ký**: Kiểm tra ảnh nền trước khi render. Nếu ảnh đã có chữ ký mộc của tác giả ở góc phải dưới (như `HOANG AN`), **tuyệt đối không chèn thêm chữ ký**. Nếu ảnh chưa có chữ ký, mới chèn ở góc dưới bên phải (**Right-Bottom**, Alignment 3, phông Arial thanh mảnh, mờ 75-80%).
+   - **Hashtags**: Dải hashtags (`#...`) luôn được giữ lại ở đỉnh màn hình (**Top-Center**, Alignment 8), lề an toàn 60-80px, màu xám mờ trang nhã, hoàn toàn độc lập với chữ ký.
+3. **Phông chữ Script nghệ thuật & Kích thước**:
+   - Dùng phông chữ thuộc nhóm **Script** (như `Dancing Script`) hỗ trợ trọn vẹn 100% tiếng Việt có dấu.
+   - Cỡ chữ vừa phải dạng caption social (~36-38px), hiệu ứng karaoke chuyển màu vàng neon (`&H0000D7FF`) theo từng từ.
+4. **Nạp font FFmpeg qua `fontsdir`**:
+   - Filter `ass` trong lệnh FFmpeg bắt buộc phải có `:fontsdir='.../tools/fonts'` để libass luôn nhận diện font Script nội bộ trên Windows.
+
+

@@ -157,6 +157,7 @@ def run_pipeline(
     bg_mode: str = "blur_padding",
     style_preset: str = "soft_italic",
     font_name: str = "Georgia",
+    font_size: int = None,
     italic: bool = True,
     signature: str = None,
     hashtags: str = None,
@@ -197,10 +198,14 @@ def run_pipeline(
     wav_ai_path = dir_mp3 / f"{input_file.stem}_16k.wav"
 
     if is_ffmpeg_available():
-        convert_to_mp3(input_file, mp3_path, bitrate="320k")
-        print(f"   ✓ [mp3/] Đã tạo file MP3 320kbps: {mp3_path.name}")
-        extract_clean_wav_for_ai(input_file, wav_ai_path)
-        print(f"   ✓ [mp3/] Đã tạo WAV mono lọc sạch cho AI: {wav_ai_path.name}")
+        if input_file.resolve() != mp3_path.resolve():
+            convert_to_mp3(input_file, mp3_path, bitrate="320k")
+            print(f"   ✓ [mp3/] Đã tạo file MP3 320kbps: {mp3_path.name}")
+        else:
+            print(f"   ✓ [mp3/] Sử dụng file MP3 chất lượng cao: {mp3_path.name}")
+        if not wav_ai_path.is_file() or wav_ai_path.resolve() != input_file.resolve():
+            extract_clean_wav_for_ai(input_file, wav_ai_path)
+            print(f"   ✓ [mp3/] Đã tạo WAV mono lọc sạch cho AI: {wav_ai_path.name}")
     else:
         print("   ⚠️ Lưu ý: Chưa phát hiện binary ffmpeg.exe trong hệ thống.")
         if input_file.suffix.lower() == ".mp3":
@@ -243,6 +248,7 @@ def run_pipeline(
             resolution=res_str,
             style_preset=style_preset,
             font_name=font_name,
+            font_size=font_size,
             italic=italic,
             signature=signature,
             hashtags=hashtags
@@ -340,8 +346,9 @@ def main():
     parser.add_argument("--hashtags", "--tag", default=None, help="Dải hashtag trên video và caption (ví dụ: '#saicuasai #cover #nhachay')")
     parser.add_argument("--ratio", "-r", default="3:4", choices=["3:4", "9:16", "16:9"], help="Tỷ lệ khung hình video: 3:4 (chuẩn ảnh dọc chân dung 3:4 Facebook/Zalo/TikTok, vừa khít 100% không dư viền), 9:16 (TikTok full) hoặc 16:9 (YouTube)")
     parser.add_argument("--bg-mode", default="blur_padding", choices=["blur_padding", "crop"], help="Chế độ xử lý ảnh nền: blur_padding (nền mờ CapCut/TikTok giữ trọn vẹn ảnh) hoặc crop (cắt vừa khít)")
-    parser.add_argument("--style", default="dancing_script", choices=["dancing_script", "soft_italic", "poetic", "handwritten", "modern_italic"], help="Phong cách phụ đề lyric (mặc định: dancing_script)")
+    parser.add_argument("--style", default="social_caption", choices=["social_caption", "dancing_script", "soft_italic", "poetic", "handwritten", "modern_italic"], help="Phong cách phụ đề lyric (mặc định: social_caption)")
     parser.add_argument("--font", default="Dancing Script", help="Tên phông chữ nghệ thuật cho lyric (mặc định: Dancing Script)")
+    parser.add_argument("--font-size", type=int, default=None, help="Cỡ chữ (font size) cho lyric (ví dụ: 32 cho caption social)")
     parser.add_argument("--no-italic", action="store_true", help="Tắt chữ nghiêng (mặc định luôn bật chữ nghiêng mềm mại)")
     parser.add_argument("--outdir", "-o", default=None, help="Thư mục xuất kết quả")
     parser.add_argument("--capcut", action="store_true", help="Xuất thêm file project CapCut PC draft")
@@ -359,6 +366,7 @@ def main():
         bg_mode=args.bg_mode,
         style_preset=args.style,
         font_name=args.font,
+        font_size=args.font_size,
         italic=not args.no_italic,
         signature=args.signature,
         hashtags=args.hashtags,

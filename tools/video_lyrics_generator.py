@@ -82,6 +82,12 @@ def render_image_lyrics_video(
 
     # Thoát ký tự đặc biệt cho FFmpeg filter path (đặc biệt trên Windows có ổ đĩa C: -> C\\:)
     ass_escaped = str(ass_subtitle_path).replace("\\", "/").replace(":", "\\:")
+    fonts_dir = (Path(__file__).resolve().parent / "fonts").resolve()
+    if fonts_dir.is_dir():
+        fonts_dir_esc = str(fonts_dir).replace("\\", "/").replace(":", "\\:")
+        ass_filter_str = f"ass='{ass_escaped}':fontsdir='{fonts_dir_esc}'"
+    else:
+        ass_filter_str = f"ass='{ass_escaped}'"
 
     # TRƯỜNG HỢP 1: DUY NHẤT 1 ẢNH (Tối ưu siêu tốc với pre-composited frame)
     if len(images) == 1:
@@ -109,7 +115,7 @@ def render_image_lyrics_video(
                 str(ffmpeg_bin), "-y", "-loglevel", "error",
                 "-loop", "1", "-i", str(temp_comp_bg),
                 "-i", str(audio_path),
-                "-vf", f"ass='{ass_escaped}'",
+                "-vf", ass_filter_str,
                 "-c:v", "libx264", "-preset", "veryfast", "-tune", "stillimage", "-crf", "18",
                 "-c:a", "aac", "-b:a", "320k", "-pix_fmt", "yuv420p", "-shortest",
                 str(output_video_path)
@@ -123,7 +129,7 @@ def render_image_lyrics_video(
             video_filters = (
                 f"scale={width}:{height}:force_original_aspect_ratio=increase,"
                 f"crop={width}:{height},"
-                f"ass='{ass_escaped}'"
+                f"{ass_filter_str}"
             )
             cmd = [
                 str(ffmpeg_bin), "-y", "-loglevel", "error",
@@ -181,7 +187,14 @@ def render_image_lyrics_video(
         fc_parts.append(f"[{curr_base}][v_fade_{idx}]overlay=0:0[v_base_{idx}]")
         curr_base = f"v_base_{idx}"
 
-    fc_parts.append(f"[{curr_base}]ass='{ass_escaped}'[vout]")
+    fonts_dir = (Path(__file__).resolve().parent / "fonts").resolve()
+    if fonts_dir.is_dir():
+        fonts_dir_esc = str(fonts_dir).replace("\\", "/").replace(":", "\\:")
+        ass_filter_str = f"ass='{ass_escaped}':fontsdir='{fonts_dir_esc}'"
+    else:
+        ass_filter_str = f"ass='{ass_escaped}'"
+
+    fc_parts.append(f"[{curr_base}]{ass_filter_str}[vout]")
     full_fc = "; ".join(fc_parts)
 
     cmd_multi = [str(ffmpeg_bin), "-y", "-loglevel", "error"]
@@ -247,10 +260,17 @@ def render_video_lyrics_video(
         width, height = 1920, 1080
 
     ass_escaped = str(ass_subtitle_path).replace("\\", "/").replace(":", "\\:")
+    fonts_dir = (Path(__file__).resolve().parent / "fonts").resolve()
+    if fonts_dir.is_dir():
+        fonts_dir_esc = str(fonts_dir).replace("\\", "/").replace(":", "\\:")
+        ass_filter_str = f"ass='{ass_escaped}':fontsdir='{fonts_dir_esc}'"
+    else:
+        ass_filter_str = f"ass='{ass_escaped}'"
+
     video_filters = (
         f"scale={width}:{height}:force_original_aspect_ratio=increase,"
         f"crop={width}:{height},"
-        f"ass='{ass_escaped}'"
+        f"{ass_filter_str}"
     )
 
     cmd = [

@@ -228,14 +228,26 @@ def export_enhanced_lrc(
 
 
 LYRIC_STYLE_PRESETS: Dict[str, Dict[str, Any]] = {
+    "social_caption": {
+        "font_name": "Georgia",
+        "font_size": 32,
+        "bold": 0,
+        "italic": -1,       # -1 trong ASS là bật chữ nghiêng (Italic)
+        "spacing": 1.0,
+        "outline": 1.8,
+        "shadow": 1.2,
+        "primary_color": "&H00FFFFFF",
+        "secondary_color": "&H0000D7FF",
+        "outline_color": "&H00000000",
+    },
     "dancing_script": {
         "font_name": "Dancing Script",
-        "font_size": 54,
-        "bold": 1,          # Đậm nét để rõ ràng trên điện thoại
-        "italic": 0,        # Dancing Script bản chất đã là kiểu chữ thảo nghệ thuật
-        "spacing": 1.2,
-        "outline": 2.2,
-        "shadow": 1.5,
+        "font_size": 38,
+        "bold": 0,          # Dancing Script là font script nghệ thuật, nét chữ mềm mại
+        "italic": 0,        # Bản chất font Dancing Script đã là chữ thảo
+        "spacing": 1.0,
+        "outline": 1.8,
+        "shadow": 1.2,
         "primary_color": "&H00FFFFFF",
         "secondary_color": "&H0000D7FF",
         "outline_color": "&H00000000",
@@ -351,16 +363,19 @@ def export_karaoke_ass(
         "Style: Karaoke," + f"{f_name},{f_size},{c_primary},{c_secondary},{c_outline},&H64000000,{val_bold},{val_italic},0,0,100,100,{val_spacing},0,1,{val_outline},{val_shadow},{alignment},40,40,{val_margin_v},1"
     ]
 
-    # Style cho Chữ ký nghệ thuật (Top-Center, mờ nhẹ 75%, chữ THẲNG ĐỨNG KHÔNG NGHIÊNG dãn cách thanh lịch)
+    # Style cho Chữ ký nghệ thuật (Căn góc dưới bên phải Right-Bottom, Alignment 3, mờ nhẹ 75%, chữ THẲNG ĐỨNG dãn cách thanh lịch)
     if signature:
+        sig_margin_r = 50
+        sig_margin_v_bottom = 50 if int_h == 1440 else (60 if int_h > int_w else 40)
         styles_block.append(
-            f"Style: Signature,Arial,28,&H30FFFFFF,&H30FFFFFF,&H00000000,&H64000000,1,0,0,0,100,100,4.0,0,1,1.5,1.0,8,40,40,{sig_margin_v},1"
+            f"Style: Signature,Arial,24,&H30FFFFFF,&H30FFFFFF,&H00000000,&H64000000,1,0,0,0,100,100,3.5,0,1,1.2,0.8,3,40,{sig_margin_r},{sig_margin_v_bottom},1"
         )
-    # Style cho Hashtag (Top-Center ngay dưới chữ ký, màu vàng nhạt hoặc xám mờ)
+    # Style cho Hashtag (Căn Top-Left, Alignment 7, mỗi hashtag xuống dòng, cùng font và cùng cỡ chữ f_size với lyric, in nghiêng)
     if hashtags:
-        top_offset = sig_margin_v + 55 if signature else sig_margin_v
+        tag_margin_l = 50
+        tag_margin_v_top = 55 if int_h == 1440 else (75 if int_h > int_w else 40)
         styles_block.append(
-            f"Style: Hashtag,{f_name},24,&H30F0E0D0,&H30F0E0D0,&H00000000,&H64000000,0,-1,0,0,100,100,1.2,0,1,1.2,0.8,8,40,40,{top_offset},1"
+            f"Style: Hashtag,{f_name},{f_size},&H25F0E0D0,&H25F0E0D0,&H00000000,&H64000000,0,-1,0,0,100,100,1.2,0,1,1.0,0.8,7,{tag_margin_l},40,{tag_margin_v_top},1"
         )
 
     all_styles = "\n".join(styles_block)
@@ -392,7 +407,9 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         events.append(f"Dialogue: 1,0:00:00.00,{end_stamp_full},Signature,,0,0,0,,{clean_sig}")
 
     if hashtags:
-        clean_tags = normalize_vietnamese_text(hashtags.strip())
+        # Tách từng hashtag và nối bằng thẻ xuống dòng \N của chuẩn ASS, canh trái
+        raw_tags = [t.strip() for t in hashtags.strip().split() if t.strip()]
+        clean_tags = r"\N".join(raw_tags)
         events.append(f"Dialogue: 1,0:00:00.00,{end_stamp_full},Hashtag,,0,0,0,,{clean_tags}")
     for line in lines:
         if not line.words:

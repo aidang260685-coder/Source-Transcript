@@ -110,3 +110,22 @@ Tài liệu này (`AGENTS.md`) thiết lập các quy tắc bắt buộc cho to�
 4. **Tương thích hệ điều hành Windows**:
    - Luôn cấu hình `sys.stdout.reconfigure(encoding="utf-8")` và ghi/đọc mọi file với `encoding="utf-8"`.
    - Đường dẫn mặc định của `glossary.txt` phải tự động tìm theo thư mục chứa script (`Path(__file__).resolve().parent / "glossary.txt"`) để chạy từ bất kỳ thư mục làm việc nào cũng không bị trượt glossary.
+
+---
+
+## 5. Quy tắc Kỹ thuật Xử lý Nhạc & Tạo Video Karaoke / Lyrics (`tools/process_music.py`)
+
+1. **Khớp thời gian (Timing & Lip-Sync)**:
+   - Ca sĩ chưa hát thì tuyệt đối không được cho lời bài hát xuất hiện sớm; đoạn dạo đầu (intro) chỉ hiển thị ảnh nền và dải hashtag ở đỉnh.
+   - Luôn dùng AI Faster-Whisper / audio onset để chốt chuẩn xác giây bắt đầu của câu đầu tiên (`[00:xx.xx]`).
+2. **Quy tắc Chữ ký & Hashtags**:
+   - **Chữ ký**: Nếu hình ảnh nền đã có sẵn chữ ký mộc ở góc phải dưới (ví dụ `HOANG AN`), tuyệt đối **KHÔNG chèn thêm chữ ký** đè lên. Nếu hình chưa có chữ ký, mới chèn ở góc dưới bên phải (**Right-Bottom**, Alignment 3, phông Arial thanh mảnh, mờ 75%).
+   - **Hashtags**: Dải hashtags mạng xã hội (`#...`) **luôn được giữ lại**, mỗi hashtag được **xuống dòng riêng biệt, canh lề trái** ở góc trên bên trái (**Top-Left**, Alignment 7, lề an toàn 50-75px), dùng **cùng phông chữ Script với lời bài hát và in nghiêng (Italic)**, cỡ chữ ~38px (bằng với cỡ chữ lời bài hát), màu xám mờ trang nhã, độc lập với việc có hay không có chữ ký.
+3. **Phông chữ Script & Kích cỡ**:
+   - Bắt buộc dùng phông chữ thuộc **nhóm Script** (thư pháp / chữ thảo nghệ thuật như `Dancing Script` trong `tools/fonts/DancingScript-Regular.ttf`) cho các video nhạc tâm trạng, ballad, acoustic.
+   - Phông chữ phải hỗ trợ 100% tiếng Việt có dấu (Unicode NFC). Cỡ chữ chuẩn caption mạng xã hội tinh tế (**38px**), hiệu ứng karaoke chuyển màu vàng neon từng từ.
+4. **Nạp font FFmpeg qua `fontsdir`**:
+   - Khi lọc phụ đề qua filter `ass`, luôn thêm `:fontsdir='.../tools/fonts'` để FFmpeg libass nhận diện chính xác font Script nội bộ mà không bị lỗi hiển thị.
+5. **Chính sách file nhẹ**:
+   - Luôn nén MP3 320kbps cho nhẹ trước khi xử lý, toàn bộ file media lớn chỉ lưu trữ ở local và kiểm soát qua `tools/check_large_files.py`.
+
