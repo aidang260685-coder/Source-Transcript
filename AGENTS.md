@@ -85,12 +85,18 @@ Tài liệu này (`AGENTS.md`) thiết lập các quy tắc bắt buộc cho to�
 
 ---
 
-## 3. Quy tắc Bảo Toàn Sự Thật (Zero Hallucination)
+## 3. Quy tắc Bảo Toàn Sự Thật & Chuẩn Lập Biên Bản Họp (Strict Evidence-Based & Zero Hallucination)
 
-1. **Tuyệt đối không bịa đặt hoặc suy diễn**:
-   - **KHÔNG** tự ý thêm ý kiến, **KHÔNG** tự suy đoán nguyên nhân, **KHÔNG** tự bịa ra **Số liệu, Tiền tệ, Tỷ lệ %, Ngày tháng, Deadline, hoặc Tên người phụ trách**.
+1. **Tuyệt đối không bịa đặt hoặc suy diễn thông tin**:
+   - Mọi thông tin, nội dung, số liệu trong biên bản họp **bắt buộc phải lấy chính xác từ file ghi âm cuộc họp (transcript) hoặc do người dùng trực tiếp bổ sung/xác nhận**.
+   - **Tuyệt đối KHÔNG** tự ý thêm ý kiến ngoài lề, không tự đưa các điều khoản hợp đồng/thanh toán không được thảo luận vào biên bản, **KHÔNG** tự suy đoán nguyên nhân, **KHÔNG** tự bịa ra **Số liệu, Tiền tệ, Tỷ lệ %, Ngày tháng, Deadline, hoặc Tên người phụ trách**.
    - Nếu thông tin về người thực hiện hoặc hạn hoàn thành (Deadline) không được chốt rõ trong cuộc họp, bắt buộc ghi **`Chưa xác định`** và tổng hợp vào danh sách cần bổ sung ở cuối biên bản.
-2. **Quản lý đoạn âm thanh độ tin cậy thấp (`[??]`)**:
+2. **Quy tắc Gom & Trình bày Súc tích, Đủ ý (Concise & Comprehensive Synthesis)**:
+   - Biên bản họp phải được tổng hợp ngắn gọn, mạch lạc, tránh dài dòng lặp lại:
+     - Các ý kiến chỉ đạo của Ban Giám đốc (BOD), các lưu ý phát sinh ngoài hợp đồng (như luồng bổ sung, chính sách bảo hành, trạng thái biểu mẫu) **phải được gom trực tiếp vào phần Kết luận hoặc Bảng phân công nhiệm vụ**, không tách thành nhiều mục phụ rườm rà.
+     - Lược bỏ các phần không bàn bạc trong cuộc họp (như điều khoản thanh toán, hợp đồng gốc) trừ khi người dùng yêu cầu trích dẫn.
+     - Luôn giữ đầy đủ thông tin kỹ thuật cốt lõi, người chịu trách nhiệm và quy trình phối hợp tiếp theo.
+3. **Quản lý đoạn âm thanh độ tin cậy thấp (`[??]`)**:
    - Mọi đoạn transcript có gắn thẻ `[??]` (do `avg_logprob` thấp hoặc `compression_ratio` cao) phải được trích xuất riêng kèm mốc thời gian `[HH:MM:SS -> HH:MM:SS]` để người duyệt kiểm tra lại.
    - Nếu đoạn `[??]` chứa con số, ngày tháng hoặc quyết định quan trọng, phải gắn nhãn `[cần kiểm tra - HH:MM:SS]` ngay tại vị trí đó trong biên bản.
 

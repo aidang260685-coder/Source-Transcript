@@ -1,0 +1,490 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biên Bản Họp — Review Nghiệm Thu Hợp Đồng Triển Khai AMIS T-FLEX (HĐ số 210926.02/HDDV ND-TF)</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    max-width: 210mm;
+    margin: 20px auto;
+    padding: 22mm 18mm;
+    background: white;
+    font-size: 10pt;
+    line-height: 1.6;
+    color: #2c3e50;
+}
+p { margin: 6px 0; line-height: 1.6; }
+ul { margin: 4px 0 8px 20px; padding: 0; }
+li { margin: 3px 0; line-height: 1.6; }
+
+.company-header {
+    text-align: center;
+    padding: 0 0 8px 0;
+    margin-bottom: 14px;
+    border-bottom: 1.5px solid #bdc3c7;
+}
+.company-name {
+    display: block;
+    font-size: 11.5pt;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    color: #C0392B;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+.company-address {
+    display: block;
+    font-size: 8pt;
+    color: #7f8c8d;
+    margin-top: 2px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.header {
+    text-align: center;
+    border-bottom: 2.5px solid #2c3e50;
+    padding-bottom: 14px;
+    margin-bottom: 16px;
+}
+.header-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.header-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.header-logo-container img {
+    height: 48px;
+    width: auto;
+    max-width: 260px;
+    object-fit: contain;
+    display: block;
+}
+.header-titles {
+    text-align: center;
+}
+h1 {
+    font-size: 17pt;
+    margin: 4px 0 0 0;
+    color: #1a252f;
+    font-weight: 800;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+h2 {
+    font-size: 11pt;
+    color: #2980b9;
+    font-weight: 700;
+    margin-top: 6px;
+    margin-bottom: 0;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+}
+
+.meta-info {
+    background: #fdfefe;
+    border: 1px solid #d5dbdb;
+    border-left: 4px solid #2980b9;
+    padding: 12px 16px;
+    margin: 14px 0;
+    border-radius: 4px;
+    line-height: 1.65;
+    font-size: 9pt;
+}
+.meta-table {
+    width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+}
+.meta-table td {
+    padding: 3px 4px;
+    border: none;
+    vertical-align: top;
+    font-size: 9pt;
+}
+.meta-label {
+    width: 130px;
+    font-weight: 700;
+    color: #2c3e50;
+    white-space: nowrap;
+}
+.party-row {
+    margin-top: 4px;
+    padding: 3px 0;
+}
+
+.section-title {
+    background: #2980b9;
+    color: white;
+    padding: 6px 12px;
+    font-weight: 700;
+    margin: 18px 0 8px 0;
+    border-radius: 4px;
+    font-size: 10.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.subsection-title {
+    font-weight: 700;
+    color: #1a5276;
+    margin: 12px 0 4px 0;
+    font-size: 10pt;
+    border-bottom: 1px solid #d4e6f1;
+    padding-bottom: 2px;
+}
+
+/* Callout boxes */
+.highlight {
+    background: #fff9e6;
+    border-left: 4px solid #f39c12;
+    padding: 8px 12px; margin: 8px 0; border-radius: 4px;
+}
+.action-box {
+    background: #eafaf1;
+    border-left: 4px solid #27ae60;
+    padding: 8px 12px; margin: 8px 0; border-radius: 4px;
+}
+.open-issue {
+    background: #fdf2e9;
+    border-left: 4px solid #e74c3c;
+    padding: 8px 12px; margin: 8px 0; border-radius: 4px;
+}
+.tips-box {
+    background: #ebf5fb;
+    border-left: 4px solid #3498db;
+    padding: 8px 12px; margin: 8px 0; border-radius: 4px;
+}
+.bod-eval {
+    background: #fef5e7;
+    border-left: 4px solid #d35400;
+    padding: 8px 12px; margin: 8px 0; border-radius: 4px;
+}
+
+table { width: 100%; border-collapse: collapse; margin: 10px 0; line-height: 1.5; font-size: 9pt; }
+table th {
+    background: #2980b9; color: white;
+    padding: 7px 9px; text-align: left; font-weight: 700;
+}
+table td { padding: 7px 9px; border-bottom: 1px solid #e5e7e9; vertical-align: top; }
+table tr:nth-child(even) { background: #fdfefe; }
+table tr:hover { background: #f2f4f4; }
+
+.footer {
+    text-align: center; font-style: italic;
+    margin-top: 24px; padding-top: 12px;
+    border-top: 1.5px solid #ecf0f1; color: #7f8c8d;
+    font-size: 8.5pt;
+}
+
+.signature-section {
+    margin-top: 20px;
+    page-break-inside: avoid;
+}
+.signature-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: none;
+    margin-top: 10px;
+    page-break-inside: avoid;
+}
+.signature-table td {
+    border: none !important;
+    background: transparent !important;
+    padding: 6px 4px !important;
+    vertical-align: top;
+    text-align: center;
+}
+.signature-table tr:hover {
+    background: transparent !important;
+}
+
+.download-btn {
+    position: fixed; bottom: 20px; right: 20px;
+    background: linear-gradient(135deg, #1f618d 0%, #117a65 100%);
+    color: white; border: none;
+    padding: 10px 18px; font-size: 13px; font-weight: 700;
+    border-radius: 30px; cursor: pointer;
+    box-shadow: 0 4px 12px rgba(31,97,141,0.3);
+    transition: all 0.3s; z-index: 1000;
+}
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(31,97,141,0.45);
+}
+
+* { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+@media print {
+    body { padding: 0; margin: 0; max-width: 100%; }
+    @page { size: A4; margin: 12mm 15mm 15mm 15mm; }
+    .download-btn { display: none; }
+    .section-title  { background: #2980b9 !important; color: white !important; }
+    table th        { background: #2980b9 !important; color: white !important; }
+    .highlight      { background: #fff9e6 !important; border-left: 4px solid #f39c12 !important; }
+    .action-box     { background: #eafaf1 !important; border-left: 4px solid #27ae60 !important; }
+    .open-issue     { background: #fdf2e9 !important; border-left: 4px solid #e74c3c !important; }
+    .tips-box       { background: #ebf5fb !important; border-left: 4px solid #3498db !important; }
+    .bod-eval       { background: #fef5e7 !important; border-left: 4px solid #d35400 !important; }
+    .meta-info      { background: #f8f9fa !important; }
+    .screen-page-label { display: none; }
+}
+
+@page {
+    @bottom-center {
+        content: "Trang " counter(page) " / " counter(pages);
+        font-family: 'Montserrat', sans-serif;
+        font-size: 8pt;
+        color: #7f8c8d;
+    }
+}
+.screen-page-label {
+    display: block;
+    text-align: center;
+    font-size: 8pt;
+    color: #aaa;
+    margin-top: 5px;
+    font-style: italic;
+}
+</style>
+</head>
+<body>
+
+<div class="company-header">
+  <span class="company-name">Công ty TNHH T-Flex Engineering (Tflexvn)</span>
+  <span class="company-address">66 An Dương Vương, P. An Lạc, Q. Bình Tân, TP. Hồ Chí Minh · MST: 0318860310</span>
+</div>
+
+<div class="header">
+  <div class="header-top">
+    <div class="header-logo-container">
+      <img src="data:image/png;base64,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"
+           alt="T-FLEX CNC Logo"
+           onerror="this.style.display='none'">
+    </div>
+    <div class="header-titles">
+      <h1 style="margin:0">BIÊN BẢN CUỘC HỌP</h1>
+    </div>
+  </div>
+  <h2>Đánh Giá &amp; Rà Soát Nghiệm Thu Hợp Đồng Triển Khai Phần Mềm MISA AMIS</h2>
+</div>
+
+<div class="meta-info">
+  <table class="meta-table">
+    <tr>
+      <td class="meta-label">Thời gian họp:</td>
+      <td class="meta-val">28/11/2026 — 09:30 đến 11:50 (Thời lượng: ~122 phút đối soát thực tế theo tệp ghi âm cuộc họp <em>"Record Review NghiemThu-Nido-Tflex.m4a"</em>)</td>
+    </tr>
+    <tr>
+      <td class="meta-label">Căn cứ thực hiện:</td>
+      <td class="meta-val">Hợp đồng số 210926.02/HDDV ND-TF (ký ngày 21/09/2026); Phụ lục 01 — Bàn giao &amp; Xác nhận theo Phân hệ (UAT v6.0 ngày 25/11/2026 kèm bút tích phê duyệt &amp; ghi chú của các phòng ban vận hành và ý kiến của Ban Giám đốc Tflexvn); Sơ đồ quy trình bán máy hoàn thiện ngày 18/11/2026; Tệp ghi âm cuộc họp <em>Record Review NghiemThu-Nido-Tflex.m4a</em>.</td>
+    </tr>
+    <tr>
+      <td class="meta-label">Mục đích cuộc họp:</td>
+      <td class="meta-val">Đánh giá hoàn tất các hạng mục UAT theo Phụ lục 01, giải quyết các điểm ghi chú của các phòng ban vận hành và ý kiến của Ban Giám đốc để hoàn thiện thủ tục <strong>Nghiệm thu bàn giao Giai đoạn 1</strong> của hệ thống.</td>
+    </tr>
+    <tr>
+      <td class="meta-label" style="padding-top:6px;">Thành phần tham dự:</td>
+      <td class="meta-val" style="padding-top:6px;">
+        <div class="party-row">
+          <strong style="color:#1a5276;">• Bên A (Công ty TNHH T-Flex Engineering):</strong> Bà Ngụy Kim Thanh (CEO), Anh Tâm (COO), Anh Đặng Hoàng Ân (IT / Quản lý dự án Bên A), Chị Trần Thị Kim Anh (Mua hàng), Chị Trần Thị Xuân Hiền (Kế toán), Anh Duy (MKT), Chị Thơ (Sale Admin), Chị Vân (Sale Admin), Anh Trung (Kỹ thuật), Anh Thịnh (Kỹ thuật).
+        </div>
+        <div class="party-row">
+          <strong style="color:#1a5276;">• Bên B (Đơn vị triển khai Nido):</strong> Anh Thành (Quản lý dự án Bên B), Anh Khoa (Thuyết minh kỹ thuật demo UAT).
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="section-title">I. MỤC TIÊU CUỘC HỌP</div>
+<ul>
+  <li><strong>Rà soát kết quả UAT theo Phụ lục 01:</strong> <span data-ref="Review NghiemThu-Nido-Tflex#00:00:30">Đánh giá 6 phân hệ đã cấu hình và chạy thử trong UAT v6.0 đối chiếu với phạm vi công việc tại Điều 2 của Hợp đồng số 210926.02/HDDV ND-TF.</span></li>
+  <li><strong>Chốt hướng xử lý các điểm ghi chú của các phòng ban vận hành và ý kiến của Ban Giám đốc:</strong> <span data-ref="Review NghiemThu-Nido-Tflex#00:00:49">Xử lý dứt điểm trường Cộng tác viên (CTV), giải pháp nhập tay lại mã số thuế trên Cơ hội do AMIS chưa tự động đẩy từ Tiềm năng sang, Phiếu tính giá chuẩn do Giám đốc Vận hành (COO) duyệt, phê duyệt hợp đồng trên AMIS Quy trình, và quy trình xử lý Biên bản nghiệm thu kỹ thuật.</span></li>
+  <li><strong>Thống nhất triển khai luồng Hợp đồng thuê máy (phiên bản cơ bản):</strong> <span data-ref="Review NghiemThu-Nido-Tflex#00:01:02">Chốt phương án bổ sung triển khai phiên bản cơ bản ngay sau khi ký nghiệm thu hợp đồng hiện tại.</span></li>
+  <li><strong>Chuẩn bị ký Biên bản nghiệm thu chính thức:</strong> Hoàn thiện các tồn đọng kỹ thuật để tiến hành ký Biên bản nghiệm thu bàn giao hệ thống.</li>
+</ul>
+
+<div class="section-title">II. TỔNG HỢP KẾT QUẢ RÀ SOÁT THEO 6 PHÂN HỆ VÀ PHÂN CÔNG THỰC HIỆN</div>
+<table>
+  <thead>
+    <tr>
+      <th style="width:14%">Phân hệ</th>
+      <th style="width:42%">Nội dung thống nhất kỹ thuật &amp; Nghiệp vụ</th>
+      <th style="width:18%">Người phụ trách</th>
+      <th style="width:12%">Hạn hoàn thành dự kiến</th>
+      <th style="width:14%">Căn cứ &amp; Ghi chú</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. CRM</strong><br><small>(Bán hàng)</small></td>
+      <td>
+        • <strong>Trường CTV:</strong> Thêm trường <em>"Cộng tác viên / Người giới thiệu"</em> độc lập với nhân viên kinh doanh nội bộ để tính hoa hồng môi giới <span data-ref="Review NghiemThu-Nido-Tflex#00:05:00">[Record#00:05:00]</span>.<br>
+        • <strong>Mã số thuế (MST):</strong> Do hệ sinh thái MISA AMIS chưa tự động đẩy MST từ Tiềm năng sang Cơ hội, <strong>Nhân viên kinh doanh thống nhất nhập tay lại MST tại Cơ hội</strong> để vận hành thông suốt ngay. Hạng mục yêu cầu MISA phát triển tính năng đẩy tự động ước tính mất từ <strong>4 – 5 tháng</strong> (dự kiến Quý 2/2027), <strong>được tách riêng theo dõi độc lập và không dùng làm điều kiện ràng buộc nghiệm thu Giai đoạn 1 với đơn vị triển khai Nido</strong> <span data-ref="Review NghiemThu-Nido-Tflex#00:02:24">[Record#00:02:24]</span>.<br>
+        • <strong>Phiếu bảo hành (G31.1):</strong> Bộ phận Điều phối kinh doanh (BC) là đầu mối kích hoạt khi Kỹ thuật bàn giao máy đạt chuẩn <span data-ref="Review NghiemThu-Nido-Tflex#01:27:41">[Record#01:27:41]</span>.<br>
+        • <strong>In thông số kỹ thuật máy:</strong> Tạm thời chưa in thông số kỹ thuật tự động từ CRM; hai bên sẽ họp thống nhất nội dung sau.
+      </td>
+      <td>
+        <strong>Anh Khoa</strong> (Nido)<br>
+        <strong>Anh Ân</strong> (IT)<br>
+        <strong>Sale Admin</strong>
+      </td>
+      <td style="text-align: center; font-weight: 700; color: #c0392b;">
+        02/12/2026
+      </td>
+      <td>
+        <small style="color:#555;">Đơn vị triển khai (Nido) hoàn tất cấu hình trường CTV trước nghiệm thu; Lộ trình MISA phát triển (4–5 tháng) theo dõi riêng</small>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>2. Quy trình</strong><br><small>(Luồng phê duyệt)</small></td>
+      <td>
+        • <strong>Phiếu tính giá (Bước 7):</strong> <strong>Anh Tâm (COO)</strong> duyệt giá bán &amp; biên lợi nhuận; CRM lập theo phiếu đã duyệt, <strong>không duyệt lại trên CRM</strong> (chỉ cập nhật giá khi có thương thảo) <span data-ref="Review NghiemThu-Nido-Tflex#00:32:08">[Record#00:32:08]</span>.<br>
+        • <strong>Duyệt HĐ bán (Bước 11):</strong> Chuyển 100% lên AMIS Quy trình; <strong>Chị Thanh (CEO)</strong> duyệt bước cuối (Ban Giám đốc đang hoàn tất điều chỉnh biểu mẫu hợp đồng).<br>
+        • <strong>Lệnh giao máy (Bước 25):</strong> <strong>Anh Tâm (COO)</strong> duyệt xuất kho giao máy sau khi Kỹ thuật &amp; Kế toán xác nhận <span data-ref="Review NghiemThu-Nido-Tflex#00:55:24">[Record#00:55:24]</span>.<br>
+        • <strong>Đề xuất Chữ ký số (Giai đoạn tiếp theo):</strong> Tích hợp Chữ ký số điện tử trực tiếp trên AMIS Quy trình là đề xuất định hướng quan trọng của Ban Giám đốc để chuyển đổi số toàn diện và sẽ được đưa vào triển khai ở Giai đoạn tiếp theo <span data-ref="Review NghiemThu-Nido-Tflex#00:10:25">[Record#00:10:25]</span>.
+      </td>
+      <td>
+        <strong>Anh Tâm</strong> (COO)<br>
+        <strong>Chị Thanh</strong> (CEO)<br>
+        <strong>Anh Khoa</strong> (Nido)
+      </td>
+      <td style="text-align: center; font-weight: 700; color: #c0392b;">
+        04/12/2026
+      </td>
+      <td>
+        <small style="color:#555;">Ban Giám đốc hoàn tất biểu mẫu HĐ; Đơn vị triển khai chốt luồng duyệt. (Chữ ký số: Quý 1/2027)</small>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>3. Liên kết dữ liệu</strong><br><small>(Đồng bộ luồng)</small></td>
+      <td>
+        • <strong>Xuất hóa đơn:</strong> Duy nhất tại <strong>AMIS Kế toán</strong> (liên kết Đơn đặt hàng / Hợp đồng trên CRM), đồng bộ trạng thái về CRM; không xuất hóa đơn rời trên CRM <span data-ref="Review NghiemThu-Nido-Tflex#01:15:00">[Record#01:15:00]</span>.<br>
+        • <strong>Liên kết tệp đính kèm:</strong> Anh Khoa (Nido) sửa dứt điểm lỗi hiển thị tệp quét Biên bản nghiệm thu và ảnh giao máy qua các bước trên nền web <span data-ref="Review NghiemThu-Nido-Tflex#02:00:01">[Record#02:00:01]</span>.
+      </td>
+      <td>
+        <strong>Anh Khoa</strong> (Nido)<br>
+        <strong>Chị Xuân Hiền</strong> (KT)
+      </td>
+      <td style="text-align: center; font-weight: 700; color: #c0392b;">
+        03/12/2026
+      </td>
+      <td>
+        <small style="color:#555;">Đơn vị triển khai (Nido) sửa dứt điểm lỗi hiển thị tệp quét BB nghiệm thu</small>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>4. Công việc</strong><br><small>(Điều phối kỹ thuật)</small></td>
+      <td>
+        • <strong>Gỡ bỏ nhóm thẻ Hợp đồng bán:</strong> Trên AMIS Công việc, <strong>gỡ bỏ nhóm thẻ Hợp đồng bán đồng bộ từ CRM xuống</strong>; Sale Admin sẽ theo dõi và xem trực tiếp trên CRM để tránh phân tán thông tin.<br>
+        • <strong>Đổi tên bước E23.1:</strong> Thành <strong>"Nhận máy (Kho, Điều phối kinh doanh - BC)"</strong> để phân biệt rõ khâu nhận máy từ nhà cung cấp về kho với giao khách hàng <span data-ref="Review NghiemThu-Nido-Tflex#00:55:24">[Record#00:55:24]</span>.<br>
+        • <strong>Hồ sơ bàn giao &amp; nghiệm thu kỹ thuật:</strong> Bộ phận Kỹ thuật (Anh Trung, Anh Thịnh) khi hoàn thành lắp đặt, chuyển giao máy sẽ <strong>tải lên các biểu mẫu: Biên bản nghiệm thu kỹ thuật, Biên bản thử nghiệm máy... đính kèm trực tiếp vào nhiệm vụ tương ứng trên AMIS Công việc</strong> để lưu trữ hồ sơ máy đầy đủ trên hệ thống <span data-ref="Review NghiemThu-Nido-Tflex#01:34:49">[Record#01:34:49]</span>.
+      </td>
+      <td>
+        <strong>Sale Admin</strong> (Thơ, Vân)<br>
+        <strong>Kỹ thuật</strong> (Trung, Thịnh)<br>
+        <strong>Anh Khoa</strong> (Nido)
+      </td>
+      <td style="text-align: center; font-weight: 700; color: #c0392b;">
+        02/12/2026
+      </td>
+      <td>
+        <small style="color:#555;">Đơn vị triển khai gỡ nhóm thẻ HĐ &amp; đổi tên bước E23.1; Kỹ thuật tải lên biên bản từ 01/12/2026</small>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>5. Mua hàng</strong><br><small>(Đơn mua &amp; NCC)</small></td>
+      <td>
+        • <strong>Đơn mua hàng (E18.1):</strong> Mua hàng &amp; Kế toán kiểm tra giá vốn; <strong>Chị Thanh (CEO) ký duyệt chính thức</strong> <span data-ref="Review NghiemThu-Nido-Tflex#00:45:00">[Record#00:45:00]</span>.<br>
+        • <strong>Hồ sơ chất lượng nhà cung cấp:</strong> Bắt buộc đủ Sách hướng dẫn sử dụng, Phiếu kiểm nghiệm kỹ thuật và Video chạy thử máy <span data-ref="Review NghiemThu-Nido-Tflex#00:57:09">[Record#00:57:09]</span>.
+      </td>
+      <td>
+        <strong>Chị Kim Anh</strong> (Mua hàng)<br>
+        <strong>Chị Thanh</strong> (CEO)
+      </td>
+      <td style="text-align: center; font-weight: 700; color: #27ae60;">
+        01/12/2026
+      </td>
+      <td>
+        <small style="color:#555;">Áp dụng chuẩn hóa kiểm soát đầu vào máy CNC và duyệt đơn mua hàng</small>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>6. Kế toán</strong><br><small>(Danh mục gốc &amp; Chi)</small></td>
+      <td>
+        • <strong>Cấp mã mới (Bước 7b):</strong> <strong>Chị Xuân Hiền (Kế toán)</strong> là đầu mối duy nhất cấp mã nhà cung cấp &amp; hàng hóa gốc trên AMIS Kế toán rồi đồng bộ sang CRM <span data-ref="Review NghiemThu-Nido-Tflex#00:30:04">[Record#00:30:04]</span>.<br>
+        • <strong>Đề nghị chi tiền (Bước 19a):</strong> Hệ thống tự động sinh chứng từ chi tiền khi đề nghị thanh toán được duyệt trên Quy trình <span data-ref="Review NghiemThu-Nido-Tflex#00:46:31">[Record#00:46:31]</span>.<br>
+        • <strong>Phân loại bảo hành theo mã định danh (Serial):</strong> Máy chính bảo hành 12 tháng, phụ tùng 06 tháng; Chị Kim Anh gửi danh mục (hạn 02/12), Anh Thành (Nido) nạp danh mục vào hệ thống (hạn 04/12).
+      </td>
+      <td>
+        <strong>Chị Xuân Hiền</strong> (KT)<br>
+        <strong>Anh Thành</strong> (QLDA Nido)<br>
+        <strong>Chị Kim Anh</strong> (Mua hàng)
+      </td>
+      <td style="text-align: center; font-weight: 700; color: #c0392b;">
+        04/12/2026
+      </td>
+      <td>
+        <small style="color:#555;">Hoàn tất cập nhật danh mục bảo hành &amp; khóa luồng dữ liệu danh mục gốc</small>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="section-title">III. KẾT LUẬN &amp; CÁC BƯỚC THỰC HIỆN TIẾP THEO</div>
+<div class="action-box">
+  <strong>✅ Các điểm chốt chính &amp; Kế hoạch bước tiếp theo:</strong><br><br>
+  1. <strong>Thông qua UAT theo Phụ lục 01:</strong> Xác nhận 6 phân hệ cơ bản đã cấu hình đúng nghiệp vụ. Phía đơn vị triển khai Nido (Anh Khoa, Anh Thành) tập trung xử lý các điểm tồn đọng kỹ thuật đã thảo luận.<br>
+  2. <strong>Luồng Hợp đồng thuê máy (phiên bản cơ bản):</strong> Hạng mục ngoài phạm vi Giai đoạn 1 nhưng là nhu cầu thực tế cấp thiết theo chỉ đạo của Tổng Giám đốc. Hai bên thống nhất: <strong>tiến hành nghiệm thu hoàn tất Giai đoạn 1 trước, sau đó Nido và T-Flex phối hợp triển khai bổ sung luồng thuê máy phiên bản cơ bản ngay sau nghiệm thu</strong> (Anh Khoa gửi câu hỏi khảo sát; Chị Kim Anh, Chị Hiền và Anh Ân tổng hợp yêu cầu).<br>
+  3. <strong>Chính sách thời hạn bảo hành theo mã định danh (Serial):</strong> Máy chính bảo hành <strong>12 tháng</strong>; linh kiện phụ tùng bảo hành <strong>06 tháng</strong>. Chị Kim Anh (Mua hàng) phân loại danh mục, <strong>Anh Thành (Quản lý dự án Bên B - Nido)</strong> cập nhật vào danh mục hệ thống.<br>
+  4. <strong>Định hướng giai đoạn tiếp theo do Ban Giám đốc đề xuất — Tích hợp Chữ ký số:</strong> Ban Giám đốc đề xuất và định hướng đưa tính năng <strong>ký số điện tử trực tiếp trên AMIS Quy trình</strong> vào triển khai ở <strong>Giai đoạn tiếp theo</strong> nhằm khép kín luồng duyệt và ký kết hợp đồng số không cần in giấy.<br>
+  5. <strong>Quy trình &amp; Kế hoạch nghiệm thu tiếp theo:</strong> Sau khi Nido hoàn thành toàn bộ chỉnh sửa kỹ thuật (hạn chót ngày <strong>05/12/2026</strong>), đơn vị triển khai báo lại cho bộ phận IT T-Flex. Anh Đặng Hoàng Ân (IT) sẽ trực tiếp kiểm tra, đối soát độc lập trong các ngày <strong>07 - 08/12/2026</strong>, báo cáo Ban Giám đốc để chốt nghiệm thu và hai bên tiến hành ký Biên bản nghiệm thu Giai đoạn 1 dự kiến vào ngày <strong>10/12/2026</strong>.
+</div>
+
+<div class="signature-simple" style="margin-top: 25px; page-break-inside: avoid;">
+  <div style="text-align: right; font-style: italic; font-size: 9.5pt; color: #2c3e50; margin-bottom: 12px;">
+    Ngày 28 tháng 11 năm 2026
+  </div>
+  <table style="width: 100%; border-collapse: collapse; border: none; background: transparent;">
+    <tbody>
+      <tr>
+        <td style="width: 50%; text-align: center; vertical-align: top; border: none; padding: 4px 10px;">
+          <div style="font-weight: 700; font-size: 9.5pt; color: #1a5276; text-transform: uppercase;">Thư Ký / Người Ghi Chép</div>
+          <div style="height: 45px;"></div>
+          <div style="font-weight: 700; font-size: 9.5pt; color: #2c3e50;">AI Meeting Note</div>
+        </td>
+        <td style="width: 50%; text-align: center; vertical-align: top; border: none; padding: 4px 10px;">
+          <div style="font-weight: 700; font-size: 9.5pt; color: #1a5276; text-transform: uppercase;">Người Kiểm Duyệt</div>
+          <div style="height: 45px;"></div>
+          <div style="font-weight: 700; font-size: 9.5pt; color: #2c3e50;">Đặng Hoàng Ân</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<button class="download-btn" onclick="downloadHTML()">⬇️ TẢI BIÊN BẢN HỌP (HTML)</button>
+
+<script>
+function downloadHTML() {
+  const blob = new Blob([document.documentElement.outerHTML], {type: 'text/html;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'Bien_Ban_Hop_Review_Nghiem_Thu_AMIS_TFLEX_Nido_Rut_Gon.html';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+</script>
+
+</body>
+</html>

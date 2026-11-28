@@ -16,6 +16,8 @@ Toàn bộ quy tắc cốt lõi của dự án được định nghĩa chi tiế
 
 ## 3. NGUYÊN TẮC HARNESS ENGINEERING (ZERO HALLUCINATION & EVIDENCE-BASED)
 - Tuân thủ chu trình 5 pha: `GATHER -> CURATE -> ACT -> VERIFY -> RETRY`.
+- **Bảo toàn sự thật & Nguồn gốc thông tin (Zero Hallucination)**: Mọi thông tin trong biên bản họp **bắt buộc phải lấy chính xác từ file ghi âm cuộc họp (transcript) hoặc người dùng trực tiếp bổ sung/xác nhận**, tuyệt đối không tự bịa thông tin, không tự đưa các điều khoản hợp đồng/thanh toán không được thảo luận vào bài.
+- **Nguyên tắc gom súc tích, đủ thông tin**: Gom các ý kiến chỉ đạo của BOD và nội dung phát sinh vào Kết luận hoặc Bảng phân công nhiệm vụ, không tách nhiều mục phụ dài dòng; giữ biên bản ngắn gọn, đủ ý và đi thẳng vào hành động.
 - Mọi số liệu, tỷ lệ %, tiền tệ, deadline và quyết định của BOD phải gắn mã dẫn chứng `<span data-ref='file#HH:MM:SS'>` trỏ về dòng transcript gốc có thật.
 - Biên bản họp trước khi xuất bản phải vượt qua **Cổng kiểm chứng tất định (Deterministic Gates)**:
   1. Độ phủ transcript: Mọi file trong `00_DANH_MUC_TRANSCRIPT.md` được sử dụng đầy đủ; họp Quý tách rõ từng bộ phận kèm khối `.bod-eval`.

@@ -352,7 +352,7 @@ def main():
     parser.add_argument("--artist", "-a", default="Ca Sĩ", help="Tên ca sĩ / nghệ sĩ")
     parser.add_argument("--signature", "--sig", default=None, help="Chữ ký / Watermark bản quyền (ví dụ: 'H O A N G A N')")
     parser.add_argument("--hashtags", "--tag", default=None, help="Dải hashtag trên video và caption (ví dụ: '#saicuasai #cover #nhachay')")
-    parser.add_argument("--ratio", "-r", default="3:4", choices=["3:4", "9:16", "16:9"], help="Tỷ lệ khung hình video: 3:4 (chuẩn ảnh dọc chân dung 3:4 Facebook/Zalo/TikTok, vừa khít 100% không dư viền), 9:16 (TikTok full) hoặc 16:9 (YouTube)")
+    parser.add_argument("--ratio", "-r", default="3:4", choices=["3:4", "9:16", "16:9"], help="Tỷ lệ khung hình video: 3:4 (chuẩn ảnh dọc chân dung 3:4 Facebook/Zalo/TikTok, vừa khít 100%% không dư viền), 9:16 (TikTok full) hoặc 16:9 (YouTube)")
     parser.add_argument("--bg-mode", default="blur_padding", choices=["blur_padding", "crop"], help="Chế độ xử lý ảnh nền: blur_padding (nền mờ CapCut/TikTok giữ trọn vẹn ảnh) hoặc crop (cắt vừa khít)")
     parser.add_argument("--style", default="social_caption", choices=["social_caption", "dancing_script", "soft_italic", "poetic", "handwritten", "modern_italic"], help="Phong cách phụ đề lyric (mặc định: social_caption)")
     parser.add_argument("--font", default="Dancing Script", help="Tên phông chữ nghệ thuật cho lyric (mặc định: Dancing Script)")

@@ -182,3 +182,9 @@ chị vi => Chị Bích Vi
 anh hùng => Anh Hùng
 anh quốc => Anh Quốc
 anh sơn => Anh Sơn
+
+# ---- Phòng ban & Chức danh KTT / Tflexvn ----
+Ban Công nghệ => Bộ phận Điều phối kinh doanh (BC)
+Business coordinator => Điều phối kinh doanh
+BC => Điều phối kinh doanh
+

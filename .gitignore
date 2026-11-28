@@ -93,3 +93,6 @@ input/lyrics/*
 # Thư mục xuất bản nhạc & test sample cục bộ (Local Only - giữ lại output/README.md)
 output/music/
 output/test_sample/
+output/preview_*
+output/whisper_*
+
